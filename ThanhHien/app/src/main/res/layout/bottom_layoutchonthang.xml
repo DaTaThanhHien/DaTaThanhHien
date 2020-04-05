@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView
+        android:layout_marginTop="18dp"
+        android:background="@drawable/item_dialogthemnhacungcap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:id="@+id/popup_window"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_marginBottom="10dp"
+                    android:text="Theo tháng"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <LinearLayout
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:background="@drawable/item_button"
+                        android:id="@+id/btnNgayHomNay"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:text="Thàng này"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </Button>
+                </LinearLayout>
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:background="@drawable/item_button"
+                                android:id="@+id/btnThangTruoc"
+                                android:textAllCaps="false"
+                                android:textColor="#FFFFFF"
+                                android:text="Tháng trước"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            </Button>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:background="@drawable/item_button"
+                                android:id="@+id/btnThangKhac"
+                                android:textAllCaps="false"
+                                android:textColor="#FFFFFF"
+                                android:text="Tháng khác"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            </Button>
+                        </LinearLayout>
+                        <TextView
+                            android:layout_marginBottom="10dp"
+                            android:text="Theo năm"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </TextView>
+                        <LinearLayout
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:background="@drawable/item_button"
+                                android:id="@+id/btnBaMuoiNgayQua"
+                                android:textAllCaps="false"
+                                android:textColor="#FFFFFF"
+                                android:text="Năm này"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            </Button>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:background="@drawable/item_button"
+                                android:id="@+id/btnNgayKhac"
+                                android:textAllCaps="false"
+                                android:textColor="#FFFFFF"
+                                android:text="Năm trước"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            </Button>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:background="@drawable/item_button"
+                                android:textAllCaps="false"
+                                android:textColor="#FFFFFF"
+                                android:text="Năm khác"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                            </Button>
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:paddingRight="20dp"
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/btnclosedialog"
+            android:src="@drawable/imgclose"
+            android:layout_width="35dp"
+            android:layout_height="35dp">
+        </ImageView>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

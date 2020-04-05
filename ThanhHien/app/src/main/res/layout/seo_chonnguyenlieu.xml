@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#000000" />
+
+    <EditText
+        android:inputType="text"
+        android:layout_marginTop="5dp"
+        android:id="@+id/edit_TimKiem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/item_boder"
+        android:drawableLeft="@drawable/imgsearch"
+        android:drawablePadding="5dp"
+        android:hint="Tìm sản phẩm"
+        android:padding="7dp">
+    </EditText>
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        android:weightSum="10"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <GridView
+            android:layout_weight="9"
+            android:id="@+id/gridViewListNhaCungCap"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:numColumns="2"
+            android:scrollbars="none">
+
+        </GridView>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <Button
+                android:id="@+id/btnNhapHangNhoLe"
+                android:textStyle="bold"
+                android:textColor="#03A9F4"
+                android:textAllCaps="false"
+                android:text="Nhập hàng nhỏ lẻ"
+                android:background="@drawable/item_borderbuttonblue"
+                android:layout_weight="5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

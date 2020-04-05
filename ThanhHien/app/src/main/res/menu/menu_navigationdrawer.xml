@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Đổi mật khẩu"></item>
+
+    <item android:title="Thiết lập máy in"></item>
+
+    <item android:title="Hỗ trợ"></item>
+
+    <item android:title="Đăng xuất"></item>
+</menu>

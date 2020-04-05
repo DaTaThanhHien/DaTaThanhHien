@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onClickItem"
+    android:gravity="center"
+    android:layout_marginBottom="7dp"
+    android:padding="5dp"
+    android:background="@drawable/item_borderquanly"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txtTenSanPham"
+                android:textSize="17sp"
+                android:layout_marginBottom="5dp"
+                android:textStyle="bold"
+                android:text="Sắt U 20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:id="@+id/txtTinhTrangSanPham"
+                android:textSize="12sp"
+                android:textColor="#4CAF50"
+                android:gravity="right"
+                android:text="Còn hàng"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giá: "
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/txtGiaSanPham"
+                android:textColor="#F44336"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:text="60,000 VNĐ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số lượng: "
+                android:textStyle="bold">
+
+            </TextView>
+            <TextView
+                android:id="@+id/txtSoLuongSanPham"
+                android:layout_marginLeft="5dp"
+                android:text="60"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+            <TextView
+                android:id="@+id/txtDonViTinh"
+                android:layout_marginLeft="5dp"
+                android:text="Cây"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TT: "
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:textSize="13sp"
+                android:id="@+id/txtThuocTinh"
+                android:layout_marginLeft="5dp"
+                android:text="Độ dài: 10 , kich thước: 6*3, do dày: 0.3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhà cung cấp: "
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/txtNhaCungCap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:lines="1"
+                android:text="Tôn hoa sen">
+            </TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

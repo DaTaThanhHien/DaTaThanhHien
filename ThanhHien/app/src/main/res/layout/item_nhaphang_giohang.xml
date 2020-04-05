@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_weight="10"
+                android:id="@+id/txtTenSanPham"
+                android:textSize="15sp"
+                android:layout_marginBottom="5dp"
+                android:textStyle="bold"
+                android:text="Sắt U 20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <LinearLayout
+                android:layout_weight="1"
+                android:gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/imgdeletesanpham"
+                    android:id="@+id/txtXoa"
+                    android:gravity="center"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp">
+
+                </ImageView>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TT: "
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:textSize="13sp"
+                android:id="@+id/txtThuocTinh"
+                android:layout_marginLeft="5dp"
+                android:text="Độ dài: 10 , kich thước: 6*3, do dày: 0.3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giá: "
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/txtGiaSanPham"
+                android:textColor="#F44336"
+                android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:text="60,000 VNĐ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center|left"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số lượng: "
+                android:textStyle="bold">
+
+            </TextView>
+            <LinearLayout
+                android:gravity="right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/ivGiam"
+                  android:layout_marginRight="10dp"
+                    android:src="@drawable/imgminus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:background="#03A9F4"
+                    android:layout_width="90dp"
+                    android:layout_height="30dp">
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:textSize="13sp"
+                        android:id="@+id/txtSoLuongSanPham"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="2"
+                        android:textColor="#FFFFFF">
+                    </TextView>
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:textSize="13sp"
+                        android:id="@+id/txtDonViTinh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FFFFFF"
+                        android:tooltipText="">
+                    </TextView>
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/ivTang"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/imgplus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhà cung cấp: "
+                android:textStyle="bold"
+                android:visibility="gone">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/txtNhaCungCap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:lines="1"
+                android:text="Tôn hoa sen"
+                tools:visibility="gone">
+
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

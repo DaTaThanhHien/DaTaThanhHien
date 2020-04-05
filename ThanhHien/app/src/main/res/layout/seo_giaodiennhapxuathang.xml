@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+    android:background="#FFFFFF"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".BanHang.Seo_SanPhamDaChon.Seo_BanHang">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#000000" />
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:id="@+id/edit_TimKiem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/item_boder"
+        android:drawableLeft="@drawable/imgsearch"
+        android:drawablePadding="5dp"
+        android:hint="Tìm sản phẩm"
+        android:padding="7dp">
+    </EditText>
+    <LinearLayout
+        android:weightSum="10"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <GridView
+            android:layout_weight="9"
+
+            android:scrollbars="none"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/gridViewListSanPham"
+            android:gravity="center"
+            android:numColumns="3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+        </GridView>
+    </LinearLayout>
+
+</LinearLayout>

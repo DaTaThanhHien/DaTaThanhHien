@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.example.thanhhien"
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+        mavenCentral()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+
+
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'com.android.support:appcompat-v7:29.1.0'
+    implementation 'com.android.support:design:29.1.0'
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.github.f0ris.sweetalert:library:1.5.6'
+    implementation 'com.chaos.view:pinview:1.3.2'
+    implementation 'com.github.clans:fab:1.6.4'
+    implementation 'com.orhanobut:dialogplus:1.11@aar'
+    implementation 'com.robertlevonyan.view:MaterialExpansionPanel:2.0.7'
+    implementation 'com.roger.catloadinglibrary:catloadinglibrary:1.0.4'
+    // thu viện biểu đồ
+    implementation 'com.github.blackfizz:eazegraph:1.2.2@aar'
+    implementation 'com.nineoldandroids:library:2.4.0'
+    // thư viện Toast
+    implementation 'com.sdsmdg.tastytoast:tastytoast:0.1.1'
+    // loading list danh sách sản phẩm
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+
+}

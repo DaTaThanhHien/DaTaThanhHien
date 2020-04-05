@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.thanhhien">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".QuanLyKho.ThemSuaXoaSanPham.Seo_ThemSanPhamMoi"></activity>
+        <activity android:name=".Seo_TrangThongBao" />
+        <activity android:name=".LichSuNhapXuat.Seo_ChiTietNhapHang" />
+        <activity android:name=".NhapXuatHang.Seo_NhapHangNhoLe" />
+        <activity android:name=".NhapXuatHang.Seo_ThanhToanNhapHang" />
+        <activity android:name=".NhapXuatHang.Seo_ListSanPhamNhapKho" />
+        <activity android:name=".BanHang.Seo_BanHangLe.ListSanPhamBanLe.Seo_ListSanPhamBanLe" />
+        <activity
+            android:name=".BanHang.Seo_BanHangLe.Seo_BanHangLe"
+            android:parentActivityName=".Seo_GiaoDienChinh" />
+        <activity android:name=".NhaCungcap.Seo_DonCuaNhaCungCap" />
+        <activity android:name=".HoaDon.Seo_ChiTietHoaDon" />
+        <activity android:name=".HoaDon.Seo_QuanLyHoaDon" />
+        <activity android:name=".ThongKe.Seo_ThongKeChiTietDonLeSi" />
+        <activity android:name=".ThongKe.Seo_ChiTietBaoCaoLaiLo" />
+        <activity android:name=".BanHang.Seo_SanPhamDaChon.Seo_BanHang" />
+        <activity android:name=".ThongKe.Seo_QuanLyThongKe" />
+        <activity android:name=".NhaCungcap.Seo_ThemSuaXoaNhaCungCap" />
+        <activity android:name=".NhaCungcap.Seo_QuanLyNhaCungCap" />
+        <activity android:name=".LichSuNhapXuat.Seo_LichSuNhapXuat" />
+        <activity android:name=".QuanLyKho.SanPhamKho.Seo_ChiTietSanPham" />
+        <activity android:name=".QuanLyKho.SanPhamKho.Seo_QuanLySanPhamKho" />
+        <activity android:name=".QuanLyKho.ThemSuaXoaSanPham.Seo_SuaXoaSanPham" />
+        <activity android:name=".NhapXuatHang.Seo_ChonNhaCungCap" />
+        <activity android:name=".NhapXuatHang.Seo_GiaoDienDanhMuc" />
+        <activity android:name=".Seo_GiaoDienChinh" />
+        <activity android:name=".NhapXuatHang.Seo_BanHang_GioHang" />
+        <activity android:name=".Seo_GiaoDienLogin" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".MyService" />
+    </application>
+
+</manifest>

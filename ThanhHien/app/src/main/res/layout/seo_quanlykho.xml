@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QuanLyKho.SanPhamKho.Seo_QuanLySanPhamKho">
+    <androidx.appcompat.widget.Toolbar
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#000000" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <EditText
+                android:inputType="text"
+                android:layout_marginTop="5dp"
+                android:id="@+id/edit_TimKiem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/item_boder"
+                android:drawableLeft="@drawable/imgsearch"
+                android:drawablePadding="10dp"
+                android:hint="Tìm sản phẩm"
+                android:padding="5dp">
+            </EditText>
+            <LinearLayout
+                android:layout_marginRight="5dp"
+              android:layout_marginLeft="5dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:weightSum="9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Tôn Hoa Sen"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textColor="#03A9F4"
+                            android:textSize="13sp"
+                            android:background="@drawable/item_borderbuttonblue"
+                            android:textAllCaps="false"
+                            android:id="@+id/btnNhaCungCap"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp">
+
+                        </TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Sắt U"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textColor="#03A9F4"
+                            android:textSize="13sp"
+                            android:background="@drawable/item_borderbuttonblue"
+                            android:textAllCaps="false"
+                            android:id="@+id/btnDanhMucSanPham"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp">
+
+                        </TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="20x20"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textColor="#03A9F4"
+                            android:textSize="13sp"
+                            android:background="@drawable/item_borderbuttonblue"
+                            android:textAllCaps="false"
+                            android:id="@+id/btnQuyCachSanPham"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp">
+
+                        </TextView>
+                    </LinearLayout>
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_view_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <include layout="@layout/item_layoutloadinglist"></include>
+                            <include layout="@layout/item_layoutloadinglist"></include>
+                            <include layout="@layout/item_layoutloadinglist"></include>
+                            <include layout="@layout/item_layoutloadinglist"></include>
+                            <include layout="@layout/item_layoutloadinglist"></include>
+                            <include layout="@layout/item_layoutloadinglist"></include>
+                        </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:background="#FFFFFF"
+                        android:visibility="gone"
+                        android:id="@+id/recyclerViewListSanPham"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </androidx.recyclerview.widget.RecyclerView>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+</LinearLayout>

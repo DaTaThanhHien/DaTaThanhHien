@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HoaDon.Seo_QuanLyHoaDon">
+    <androidx.appcompat.widget.Toolbar
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#000000" >
+    </androidx.appcompat.widget.Toolbar>
+    <EditText
+        android:inputType="text"
+        android:layout_marginTop="5dp"
+        android:id="@+id/edit_TimKiem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/item_boder"
+        android:drawableLeft="@drawable/imgsearch"
+        android:drawablePadding="5dp"
+        android:hint="Tìm hóa đơn"
+        android:padding="7dp">
+    </EditText>
+        <LinearLayout
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_view_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <include layout="@layout/item_layoutloadinglist"></include>
+                        <include layout="@layout/item_layoutloadinglist"></include>
+                        <include layout="@layout/item_layoutloadinglist"></include>
+                        <include layout="@layout/item_layoutloadinglist"></include>
+                        <include layout="@layout/item_layoutloadinglist"></include>
+                        <include layout="@layout/item_layoutloadinglist"></include>
+                        <include layout="@layout/item_layoutloadinglist"></include>
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="gone"
+                    android:id="@+id/recyclerViewListHoaDon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </androidx.recyclerview.widget.RecyclerView>
+            </RelativeLayout>
+        </LinearLayout>
+</LinearLayout>

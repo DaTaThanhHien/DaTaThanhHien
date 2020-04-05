@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QuanLyKho.SanPhamKho.Seo_ChiTietSanPham">
+    <androidx.appcompat.widget.Toolbar
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#000000" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/item_borderquanly"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txtTenSanPham"
+                android:layout_marginBottom="10dp"
+                android:lines="1"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="Seo nè "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Số lượng tồn: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <LinearLayout
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/txtSoLuongTon"
+                        android:textStyle="bold"
+                        android:text="30"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+                    <TextView
+                        android:id="@+id/txtDonViTinh1"
+                        android:layout_marginLeft="5dp"
+                        android:text="Cây"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Số lượng nhập: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <LinearLayout
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/txtSoLuongNhap"
+                        android:textStyle="bold"
+                        android:text="60"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+                    <TextView
+                        android:id="@+id/txtDonViTinh2"
+                        android:layout_marginLeft="5dp"
+                        android:text="Cây"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Số lượng xuất: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <LinearLayout
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/txtSoLuongXuat"
+                        android:textStyle="bold"
+                        android:text="30"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+                    <TextView
+                        android:id="@+id/txtDonViTinh3"
+                        android:layout_marginLeft="5dp"
+                        android:text="Cây"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnNgayKhac"
+            android:background="@drawable/item_borderquanly"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/txtNgay"
+                android:textStyle="bold"
+                android:textSize="35sp"
+                android:text="30"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+            </TextView>
+             <LinearLayout
+                 android:orientation="vertical"
+                 android:layout_marginLeft="10dp"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+                 <TextView
+                     android:drawableRight="@drawable/imgdropdow"
+                     android:layout_marginBottom="5dp"
+                     android:textSize="18sp"
+                     android:text="Hôm nay"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content">
+                 </TextView>
+                 <TextView
+                     android:id="@+id/txtNgayThangNam"
+                     android:text="2020-01-06"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content">
+
+                 </TextView>
+             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+                <ListView
+                    android:scrollbars="none"
+                    android:id="@+id/listViewLichSuNhapXuat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </ListView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

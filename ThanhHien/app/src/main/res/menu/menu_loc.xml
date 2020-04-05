@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        app:showAsAction="always"
+        android:icon="@drawable/imglocdonnhap"
+        android:title="loc">
+        <menu>
+            <item android:title="Toàn thời gian"></item>
+            <item android:title="Hôm nay"></item>
+            <item android:title="7 ngay trước"></item>
+            <item android:title="Tháng này"></item>
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView
+        android:layout_marginTop="20dp"
+        android:scrollbars="none"
+        android:background="@drawable/item_dialogthemnhacungcap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:id="@+id/popup_window"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom|center"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="20dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginBottom="5dp"
+                        android:text="Số điện thoại"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></TextView>
+                    <EditText
+                        android:inputType="number"
+                        android:padding="7dp"
+                        android:background="@drawable/item_boder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </EditText>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Tên khách hàng"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></TextView>
+                    <EditText
+                        android:inputType="text"
+                        android:layout_marginBottom="10dp"
+                        android:padding="7dp"
+                        android:background="@drawable/item_boder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </EditText>
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Nội dung bán"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></TextView>
+                    <EditText
+                        android:gravity="top"
+                        android:inputType="text"
+                        android:layout_marginBottom="10dp"
+                        android:padding="7dp"
+                        android:background="@drawable/item_boder"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp">
+
+                    </EditText>
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Giá tiền"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></TextView>
+                    <EditText
+                        android:inputType="number"
+                        android:layout_marginBottom="10dp"
+                        android:padding="7dp"
+                        android:background="@drawable/item_boder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </EditText>
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+                <Button
+                    android:id="@+id/btnThanhToanNhoLe"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="25dp"
+                    android:textColor="#FFFFFF"
+                    android:textAllCaps="false"
+                    android:text="Thanh toán"
+                    android:background="@drawable/item_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </Button>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:paddingRight="20dp"
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/btnclosedialog"
+            android:src="@drawable/imgclose"
+            android:layout_width="35dp"
+            android:layout_height="35dp">
+        </ImageView>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
