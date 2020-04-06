@@ -2,14 +2,25 @@ package com.example.thanhhien;
 public class Api_custom {
 
       public static String diaChiIP="https://db.cobacoffeeroastery.com/";
+    public static String diaChiIP123456="http://192.168.1.105:8085/";
         //<=========================== phần bán hàng==============================>
         public static String GetTatCaSanPhamTheoDanhMuc=diaChiIP+"listSanPhamTheoDanhMucSP/";
         public static String ListToanBoKhachHang=diaChiIP+"ListToanBoKhachHang";
         public static String ThemHoaDon=diaChiIP+"AddHoaDon";
         public static String ThemCTHoaDon=diaChiIP+"AddCTHoaDon";
         public static String CapNhatSoLuongSanPham=diaChiIP+"CapNhatSoLuongSanPham";
+
+
+
+
+
         //<============================ Phần hóa đơn ============================>
         public static String ListToanBoHoaDon=diaChiIP+"ListToanBoHoaDon";
+
+
+
+
+
         //<============================ Phần quản lý kho ==========================>
         public static String ListToanBoSanPham=diaChiIP+"ListToanSanPham";
         public static String ListCTPhieuNhapSanPham=diaChiIP+"ListCTPhieuNhapSanPham/";
@@ -19,12 +30,34 @@ public class Api_custom {
 
 
       //<==============================phần nhà cung cấp===================================>
-      public static String GetTaCaNhaCungCap=diaChiIP+"listAllNhaCungCap";//seo
+      public static String GetTaCaNhaCungCap=diaChiIP+"listAllNhaCungCap";
         // thêm nhà cung cấp
 
-      public static String ThemNhaCungCap=diaChiIP+"ThemNhaCungCap";//seo
+      public static String ThemNhaCungCap=diaChiIP+"ThemNhaCungCap";
 
 
+
+    //<==============================phần đơn vị tính===================================>
+    public static String GetTaCaDonViTinh=diaChiIP+"listAllDonViTinh";
+
+
+
+
+    //<==============================phần sản phẩm===================================>
+    public static String ThemSanPhamMoi=diaChiIP+"ThemSanPhamMoi";
+    public static String SuaSanPham=diaChiIP+"SuaSanPham";
+    public static String GetTatCaSanPham=diaChiIP+"listAllSanPham";
+    public static String GetSanPham=diaChiIP+"listSanPham/";
+
+
+
+
+
+    //<==============================phần danh mục===================================>
+    public static String GetTaCaDanhMuc=diaChiIP+"listAllDanhMuc";
+    // thêm nhà cung cấp
+
+    public static String ThemDanhMuc=diaChiIP+"ThemDanhMuc";
 
       // phần nhập hàng
     public static String listAllNhaCungCap=diaChiIP+"listAllNhaCungCap/";
@@ -41,6 +74,14 @@ public class Api_custom {
     public static String listSanPhamTheoIDSanPham=diaChiIP+"listSanPhamTheoIDSanPham/";
     public static String CapNhatHoanThanhDon=diaChiIP+"CapNhatTinhTrangPhieu";
     public static String ListChiTietPhieuNhap=diaChiIP+"listCTPhieuNhap/";
+
+
+
+
+
+
+
+
     //<================================= Phần thống kê ==============================>
 
     public static String ThuNhapHomNay=diaChiIP+"ThuNhapHomNay/";

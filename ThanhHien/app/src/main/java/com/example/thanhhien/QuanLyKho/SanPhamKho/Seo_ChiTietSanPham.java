@@ -128,7 +128,7 @@ public class Seo_ChiTietSanPham extends AppCompatActivity {
                 return true;
             case R.id.nav_themsanpham:
                 Intent intent1=new Intent(Seo_ChiTietSanPham.this, Seo_SuaXoaSanPham.class);
-                intent1.putExtra("Ma","2");
+                intent1.putExtra("Ma",intent.getStringExtra("MaSanPham"));
                 intent1.putExtra("banIDChiTietSanPham",intent.getStringExtra("banIDChiTietSanPham"));
                 startActivityForResult(intent1,111);
                 return true;

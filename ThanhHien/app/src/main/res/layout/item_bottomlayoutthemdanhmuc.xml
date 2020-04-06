@@ -42,7 +42,7 @@
                     <EditText
                         android:inputType="text"
                         android:hint="Tên danh mục"
-                        android:id="@+id/edit_GhiChu"
+                        android:id="@+id/edit_TenDanhMuc"
                         android:padding="10dp"
                         android:background="@drawable/item_boder"
                         android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <Button
-                        android:id="@+id/btnThemNhaCungCap"
+                        android:id="@+id/btnThemDanhMuc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"

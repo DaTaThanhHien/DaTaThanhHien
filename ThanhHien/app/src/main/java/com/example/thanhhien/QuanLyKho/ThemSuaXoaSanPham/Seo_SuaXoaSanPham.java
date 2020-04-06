@@ -51,7 +51,10 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +62,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Seo_SuaXoaSanPham extends AppCompatActivity {
     private Toolbar toolbar;
-    private LinearLayout btnChuyenDoiNhapQuyCach,layoutQuyCach1,layoutQuyCach2;
+    private LinearLayout btnChuyenDoiNhapQuyCach,layoutQuyCach1,layoutQuyCach2,btnThemNhaCungCap,btnThemDanhMuc;
     private boolean isChecked=false;
     private ImageView hinhchuyendoi;
     private Button btnThemSanPham;
@@ -74,6 +77,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
     private ArrayList<Model_ListThuocTinhSanPham> mListNhaCungCap,mListDanhMucSanPham,
             mListTrongLuong,mListDoDai,mListDoDay,
             mListDonViGiaSi,mListDonViGiaLe;
+    private String IDThuocTinhHome="123";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,21 +88,18 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
         setTitle("Thêm sản phẩm");
         AnhXa();
         onClick();
+        Intent intent=getIntent();
+        getSanPham(Api_custom.GetSanPham,intent.getStringExtra("Ma"));
         // tạo mảng
         mListNhaCungCap=new ArrayList<>();
-        mListNhaCungCap.add(new Model_ListThuocTinhSanPham("Tôn hoa sen"));
         mListDanhMucSanPham=new ArrayList<>();
-        mListDanhMucSanPham.add(new Model_ListThuocTinhSanPham("Tôn hoa sen"));
         mListTrongLuong=new ArrayList<>();
-        mListTrongLuong.add(new Model_ListThuocTinhSanPham("Tôn hoa sen"));
         mListDoDai=new ArrayList<>();
-        mListDoDai.add(new Model_ListThuocTinhSanPham("Tôn hoa sen"));
         mListDoDay=new ArrayList<>();
-        mListDoDay.add(new Model_ListThuocTinhSanPham("Tôn hoa sen"));
         mListDonViGiaLe=new ArrayList<>();
-        mListDonViGiaLe.add(new Model_ListThuocTinhSanPham("Tôn hoa sen"));
         mListDonViGiaSi=new ArrayList<>();
-        mListDonViGiaSi.add(new Model_ListThuocTinhSanPham("Tôn hoa sen"));
+
+        getAllDonViTinh(Api_custom.GetTaCaDonViTinh);
     }
     // ánh xạ khai báo đối tượng
     private void AnhXa() {
@@ -117,6 +118,9 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
         btnDonViCuaGiaSi=findViewById(R.id.btnDonViCuaGiaSi);
         btnDonViCuaGiaLe=findViewById(R.id.btnDonViCuaGiaLe);
         btnThemSanPham=findViewById(R.id.btnSuaSanPham);
+        btnThemNhaCungCap=findViewById(R.id.btnThemNhaCungCap);
+        btnThemDanhMuc=findViewById(R.id.btnThemDanhMuc);
+
         edit_TenSanPham=findViewById(R.id.edit_TenSanPham);
         edit_QK1=findViewById(R.id.edit_QK1);
         edit_QK2=findViewById(R.id.edit_QK2);
@@ -132,6 +136,19 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
 
     }
     private void onClick(){
+        btnThemNhaCungCap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomThemNhaCungCap();
+            }
+        });
+        // sự kiện thêm danh mục sản phẩm
+        btnThemDanhMuc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomThemDanhMucSanPham();
+            }
+        });// kết thúc
         //sự kiện chọn nhà cung cấp
         btnChonNhaCungCap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,12 +223,128 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                 if(isCheckedValidation()==false){
                     return;
                 }else {
-                    TastyToast.makeText(Seo_SuaXoaSanPham.this,"Thêm thành công",TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
+                    if(btnDonViCuaGiaSi.getText().toString().trim().length()==0){
+                        new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Lỗi")
+                                .setContentText("Vui lòng chọn đơn vị bán giá sỉ")
+                                .show();
+                    }
+                    else if(btnDonViCuaGiaLe.getText().toString().trim().length()==0){
+                        new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Lỗi")
+                                .setContentText("Vui lòng chọn đơn vị bán giá lẻ")
+                                .show();
+                    }
+
+                    else {
+                        Intent intent1=getIntent();
+                        String IDThuocTinh = IDThuocTinhHome;
+                        String QuyCach="";
+                        if(isChecked==false){
+                            QuyCach = edit_QK1.getText().toString().trim();
+                        }else {
+                            QuyCach = edit_QK3.getText().toString().trim();
+                        }
+                        String TrongLuong = edit_TrongLuong.getText().toString().trim();
+                        String DoDay = edit_DoDay.getText().toString().trim();
+                        String Dai = edit_DoDai.getText().toString().trim();
+                        String thuoctinhkhac = edit_ThuocTinhKhac.getText().toString().trim();
+                        String IDSanPham = intent1.getStringExtra("Ma");
+                        String tenncc = btnChonNhaCungCap.getText().toString().trim();
+                        String tendanhmuc = btnChonDanhMucSanPham.getText().toString().trim();
+                        String TenSP = edit_TenSanPham.getText().toString().trim();
+                        String SoLuong = "0";
+                        String DonViTinh = btnDoDay.getText().toString().trim() + ";" + btnDoDai.getText().toString().trim() + ";" + btnTrongLuong.getText().toString().trim() + ";" +btnDonViCuaGiaLe.getText().toString().trim()+";"+ btnDonViCuaGiaSi.getText().toString().trim();
+                        String giale = edit_GiaLe.getText().toString().trim();
+                        String giasi = edit_GiaSi.getText().toString().trim();
+                        SuaSanPham(Api_custom.SuaSanPham, IDThuocTinh, QuyCach, TrongLuong, DoDay, Dai, thuoctinhkhac, IDSanPham, tenncc, tendanhmuc, TenSP, SoLuong, DonViTinh, giale, giasi);
+                    }
                 }
             }
         });
 
     }
+    private void bottomThemNhaCungCap(){
+        View view = getLayoutInflater().inflate(R.layout.item_bottomthemnhacungcap, null);
+        ImageView btnclosedialog=view.findViewById(R.id.btnclosedialog);
+        Button btnThemNhaCungCap=view.findViewById(R.id.btnThemNhaCungCap);
+        final EditText edit_TenNhaCungCap=view.findViewById(R.id.edit_TenNhaCungCap);
+        final EditText edit_SoDienThoai=view.findViewById(R.id.edit_SoDienThoai);
+        final EditText edit_DiaChi=view.findViewById(R.id.edit_DiaChi);
+        final EditText edit_Email=view.findViewById(R.id.edit_Email);
+        final Dialog mBottomSheetDialog = new Dialog(Seo_SuaXoaSanPham.this, R.style.MaterialDialogSheet);
+        mBottomSheetDialog.setContentView(view);
+        mBottomSheetDialog.setCancelable(true);
+        mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mBottomSheetDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
+        mBottomSheetDialog.show();
+        btnclosedialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBottomSheetDialog.dismiss();
+            }
+        });
+
+        btnThemNhaCungCap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String TenNCC=edit_TenNhaCungCap.getText().toString().trim();
+                String SDT=edit_SoDienThoai.getText().toString().trim();
+                String DiaChi=edit_DiaChi.getText().toString().trim();
+                String Email=edit_Email.getText().toString().trim();
+                if(TenNCC.isEmpty()||SDT.isEmpty()||DiaChi.isEmpty()||Email.isEmpty()){
+                    Toast.makeText(Seo_SuaXoaSanPham.this, "Bạn chưa nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+                }else {
+                    DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddhhmmss");
+                    dateFormatter.setLenient(false);
+                    Date today = new Date();
+                    String IDNhaCungCap = "NCC-"+dateFormatter.format(today)+"B";
+                    ThemNhaCungCap(Api_custom.ThemNhaCungCap,IDNhaCungCap,TenNCC,SDT,DiaChi,Email);
+                    mBottomSheetDialog.dismiss();
+                }
+            }
+        });
+
+    }//kết thúc hàm
+
+    // thêm danh danh mục sản phẩm
+    private void bottomThemDanhMucSanPham(){
+        View view = getLayoutInflater().inflate(R.layout.item_bottomlayoutthemdanhmuc, null);
+        ImageView btnclosedialog=view.findViewById(R.id.btnclosedialog);
+        final EditText edit_TenDanhMuc=view.findViewById(R.id.edit_TenDanhMuc);
+        Button btnThemDanhMuc=view.findViewById(R.id.btnThemDanhMuc);
+        final Dialog mBottomSheetDialog = new Dialog(Seo_SuaXoaSanPham.this, R.style.MaterialDialogSheet);
+        mBottomSheetDialog.setContentView(view);
+        mBottomSheetDialog.setCancelable(true);
+        mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mBottomSheetDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
+        mBottomSheetDialog.show();
+        btnclosedialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBottomSheetDialog.dismiss();
+            }
+        });
+
+        btnThemDanhMuc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(edit_TenDanhMuc.getText().toString().trim().isEmpty()){
+                    Toast.makeText(Seo_SuaXoaSanPham.this, "Bạn chưa nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+                }else {
+                    DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddhhmmss");
+                    dateFormatter.setLenient(false);
+                    Date today = new Date();
+                    String IDDanhMuc = "M-"+dateFormatter.format(today)+"B";
+                    ThemDanhMuc(Api_custom.ThemDanhMuc,IDDanhMuc,edit_TenDanhMuc.getText().toString().trim());
+                    mBottomSheetDialog.dismiss();
+                }
+            }
+        });
+
+    }//kết thúc hàm
     // khởi tạo menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -475,7 +608,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
         ListView listViewNhaCungCap=view.findViewById(R.id.listViewThuocTinh);
         Adapter_ThuocTinhSanPham adapter_thuocTinhSanPham=new Adapter_ThuocTinhSanPham(Seo_SuaXoaSanPham.this,R.layout.item_layoutspiner,mListNhaCungCap);
         listViewNhaCungCap.setAdapter(adapter_thuocTinhSanPham);
-
+        getAllNhaCungCap(Api_custom.GetTaCaNhaCungCap);
         final Dialog mBottomSheetDialog = new Dialog(Seo_SuaXoaSanPham.this, R.style.MaterialDialogSheet);
         mBottomSheetDialog.setContentView(view);
         mBottomSheetDialog.setCancelable(true);
@@ -510,6 +643,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
         ListView listViewDanhMucSanPham=view.findViewById(R.id.listViewThuocTinh);
         Adapter_ThuocTinhSanPham adapter_thuocTinhSanPham=new Adapter_ThuocTinhSanPham(Seo_SuaXoaSanPham.this,R.layout.item_layoutspiner,mListDanhMucSanPham);
         listViewDanhMucSanPham.setAdapter(adapter_thuocTinhSanPham);
+        getAllDanhMuc(Api_custom.GetTaCaDanhMuc,listViewDanhMucSanPham);
         final Dialog mBottomSheetDialog = new Dialog(Seo_SuaXoaSanPham.this, R.style.MaterialDialogSheet);
         mBottomSheetDialog.setContentView(view);
         mBottomSheetDialog.setCancelable(true);
@@ -557,6 +691,15 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                 mBottomSheetDialog.dismiss();
             }
         });
+        listViewThuocTinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Model_ListThuocTinhSanPham model_listThuocTinhSanPham=mListTrongLuong.get(position);
+                btnTrongLuong.setText(model_listThuocTinhSanPham.getTenSanPham());
+                mBottomSheetDialog.dismiss();
+            }
+        });
+        getAllDonViTinh(Api_custom.GetTaCaDonViTinh);
 
     }//kết thúc hàm
     //chọn độ dày
@@ -582,6 +725,15 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                 mBottomSheetDialog.dismiss();
             }
         });
+        listViewThuocTinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Model_ListThuocTinhSanPham model_listThuocTinhSanPham=mListDoDay.get(position);
+                btnDoDay.setText(model_listThuocTinhSanPham.getTenSanPham());
+                mBottomSheetDialog.dismiss();
+            }
+        });
+        getAllDonViTinh(Api_custom.GetTaCaDonViTinh);
 
     }//kết thúc hàm
     //chọn độ dài
@@ -606,6 +758,15 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                 mBottomSheetDialog.dismiss();
             }
         });
+        listViewThuocTinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Model_ListThuocTinhSanPham model_listThuocTinhSanPham=mListDoDai.get(position);
+                btnDoDai.setText(model_listThuocTinhSanPham.getTenSanPham());
+                mBottomSheetDialog.dismiss();
+            }
+        });
+        getAllDonViTinh(Api_custom.GetTaCaDonViTinh);
 
     }//kết thúc hàm
 
@@ -632,6 +793,15 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                 mBottomSheetDialog.dismiss();
             }
         });
+        listViewThuocTinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Model_ListThuocTinhSanPham model_listThuocTinhSanPham=mListDoDai.get(position);
+                btnDoDai.setText(model_listThuocTinhSanPham.getTenSanPham());
+                mBottomSheetDialog.dismiss();
+            }
+        });
+        getAllDonViTinh(Api_custom.GetTaCaDonViTinh);
 
     }//kết thúc hàm
 
@@ -656,8 +826,340 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                 mBottomSheetDialog.dismiss();
             }
         });
+        listViewThuocTinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Model_ListThuocTinhSanPham model_listThuocTinhSanPham=mListDonViGiaLe.get(position);
+                btnDonViCuaGiaLe.setText(model_listThuocTinhSanPham.getTenSanPham());
+                mBottomSheetDialog.dismiss();
+            }
+        });
+        getAllDonViTinh(Api_custom.GetTaCaDonViTinh);
 
     }//kết thúc hàm
+    private  void ThemNhaCungCap(String url, final String IDNhaCungCap, final String TenNhaCungCap, final String SDT, final String DiaChi, final String Email){
+        RequestQueue requestQueue;
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+        final Network network = new BasicNetwork(new HurlStack());
+        requestQueue = new RequestQueue(cache, network);
+        requestQueue.start();
+        requestQueue.getCache().clear();
+        StringRequest stringRequest=new StringRequest(
+                Request.Method.POST,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(Seo_SuaXoaSanPham.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        getAllNhaCungCap(Api_custom.GetTaCaNhaCungCap);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Seo_SuaXoaSanPham.this, "error ThemSanPham", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<>();
+                params.put("IDNhaCungCap",IDNhaCungCap);
+                params.put("TenNhaCungCap",TenNhaCungCap);
+                params.put("SDT",SDT);
+                params.put("DiaChi",DiaChi);
+                params.put("Email",Email);
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }//end ThemNhaCungCap
+    public void getAllNhaCungCap(String urlService){
+        RequestQueue requestQueue;
 
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+
+        final Network network = new BasicNetwork(new HurlStack());
+
+        requestQueue = new RequestQueue(cache, network);
+
+        requestQueue.start();
+
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(
+                Request.Method.GET,
+                urlService,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        if(response!=null&&response.length()!=0){
+                            mListNhaCungCap.clear();
+                            for (int i=0;i<response.length();i++){
+                                try {
+                                    JSONObject jsonObject=response.getJSONObject(i);
+                                    mListNhaCungCap.add(new Model_ListThuocTinhSanPham(jsonObject.getString("TenNhaCungCap")));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Seo_SuaXoaSanPham.this, "error getAllNhaCungCap", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+// Add the request to the RequestQueue.
+        requestQueue.add(jsonArrayRequest);
+    }//end getAllNhaCungCap
+    private  void ThemDanhMuc(String url, final String IDDanhMuc, final String TenDanhMuc){
+        RequestQueue requestQueue;
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+        final Network network = new BasicNetwork(new HurlStack());
+        requestQueue = new RequestQueue(cache, network);
+        requestQueue.start();
+        requestQueue.getCache().clear();
+        StringRequest stringRequest=new StringRequest(
+                Request.Method.POST,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(Seo_SuaXoaSanPham.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Seo_SuaXoaSanPham.this, "error ThemDanhMuc", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<>();
+                params.put("IDDanhMuc",IDDanhMuc);
+                params.put("TenDanhMuc",TenDanhMuc);
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }//end ThemDanhMuc
+    public void getAllDanhMuc(String urlService, final ListView listViewDanhMucSanPham){
+        RequestQueue requestQueue;
+
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+
+        final Network network = new BasicNetwork(new HurlStack());
+
+        requestQueue = new RequestQueue(cache, network);
+
+        requestQueue.start();
+
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(
+                Request.Method.GET,
+                urlService,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        if(response!=null&&response.length()!=0){
+                            mListDanhMucSanPham.clear();
+                            for (int i=0;i<response.length();i++){
+                                try {
+                                    JSONObject jsonObject=response.getJSONObject(i);
+                                    mListDanhMucSanPham.add(new Model_ListThuocTinhSanPham(jsonObject.getString("TenDanhMuc")));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            Adapter_ThuocTinhSanPham adapter_thuocTinhSanPham=new Adapter_ThuocTinhSanPham(Seo_SuaXoaSanPham.this,R.layout.item_layoutspiner,mListDanhMucSanPham);
+                            listViewDanhMucSanPham.setAdapter(adapter_thuocTinhSanPham);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Seo_SuaXoaSanPham.this, "error getAllNhaCungCap", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+// Add the request to the RequestQueue.
+        requestQueue.add(jsonArrayRequest);
+    }//end getAllDanhMuc
+    public void getAllDonViTinh(String urlService){
+        RequestQueue requestQueue;
+
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+
+        final Network network = new BasicNetwork(new HurlStack());
+
+        requestQueue = new RequestQueue(cache, network);
+
+        requestQueue.start();
+
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(
+                Request.Method.GET,
+                urlService,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        if(response!=null&&response.length()!=0){
+                            mListTrongLuong.clear();
+                            mListDoDai.clear();
+                            mListDoDay.clear();
+                            mListDonViGiaSi.clear();
+                            mListDonViGiaLe.clear();
+                            for (int i=0;i<response.length();i++){
+                                try {
+                                    JSONObject jsonObject=response.getJSONObject(i);
+                                    String trongLuong[]=jsonObject.getString("trongluong").split(";");
+                                    String dairong[]=jsonObject.getString("dairong").split(";");
+                                    String loai[]=jsonObject.getString("loai").split(";");
+                                    for (int j=0;j<trongLuong.length;j++){
+                                        mListTrongLuong.add(new Model_ListThuocTinhSanPham(trongLuong[j]));
+                                    }
+                                    for (int j=0;j<dairong.length;j++){
+                                        mListDoDai.add(new Model_ListThuocTinhSanPham(dairong[j]));
+                                        mListDoDay.add(new Model_ListThuocTinhSanPham(dairong[j]));
+                                        mListDonViGiaLe.add(new Model_ListThuocTinhSanPham(dairong[j]));
+                                    }
+                                    for (int j=0;j<loai.length;j++){
+                                        mListDonViGiaSi.add(new Model_ListThuocTinhSanPham(loai[j]));
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Seo_SuaXoaSanPham.this, "error getAllDonViTinh", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+// Add the request to the RequestQueue.
+        requestQueue.add(jsonArrayRequest);
+    }//end getAllDanhMuc
+    private  void SuaSanPham(String url, final String IDThuocTinh, final String QuyCach, final String TrongLuong, final String DoDay, final String Dai, final String thuoctinhkhac, final String IDSanPham, final String tenncc, final String tendanhmuc, final String TenSP, final String SoLuong, final String DonViTinh, final String giale, final String giasi){
+        RequestQueue requestQueue;
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+        final Network network = new BasicNetwork(new HurlStack());
+        requestQueue = new RequestQueue(cache, network);
+        requestQueue.start();
+        requestQueue.getCache().clear();
+        StringRequest stringRequest=new StringRequest(
+                Request.Method.POST,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        TastyToast.makeText(Seo_SuaXoaSanPham.this,"Sửa thành công",TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Seo_SuaXoaSanPham.this, "error SuaSanPham", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<>();
+                params.put("IDThuocTinh",IDThuocTinh);
+                params.put("QuyCach",QuyCach);
+                params.put("TrongLuong",TrongLuong);
+                params.put("DoDay",DoDay);
+                params.put("Dai",Dai);
+                params.put("thuoctinhkhac",thuoctinhkhac);
+                params.put("IDSanPham",IDSanPham);
+                params.put("tenncc",tenncc);
+                params.put("tendanhmuc",tendanhmuc);
+                params.put("TenSP",TenSP);
+                params.put("SoLuong",SoLuong);
+                params.put("DonViTinh",DonViTinh);
+                params.put("giale",giale);
+                params.put("giasi",giasi);
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }//end SuaSanPham
+    public void getSanPham(String urlService, final String IDSanPham){
+        RequestQueue requestQueue;
+        urlService=urlService+"/"+IDSanPham;
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+
+        final Network network = new BasicNetwork(new HurlStack());
+
+        requestQueue = new RequestQueue(cache, network);
+
+        requestQueue.start();
+
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(
+                Request.Method.GET,
+                urlService,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        if(response!=null&&response.length()!=0){
+                            mListTrongLuong.clear();
+                            mListDoDai.clear();
+                            mListDoDay.clear();
+                            mListDonViGiaSi.clear();
+                            mListDonViGiaLe.clear();
+                            for (int i=0;i<response.length();i++){
+                                try {
+                                    JSONObject jsonObject=response.getJSONObject(i);
+                                    String mangDonVi[]=jsonObject.getString("DonViTinh").split(";");
+                                    edit_TenSanPham.setText(jsonObject.getString("TenSP"));
+                                    edit_QK1.setText(jsonObject.getString("QuyCach"));
+                                    edit_QK3.setText(jsonObject.getString("QuyCach"));
+                                    edit_TrongLuong.setText(jsonObject.getString("TrongLuong"));
+                                    edit_DoDay.setText(jsonObject.getString("DoDay"));
+                                    edit_DoDai.setText(jsonObject.getString("Dai"));
+                                    edit_ThuocTinhKhac.setText(jsonObject.getString("thuoctinhkhac"));
+                                    edit_GiaSi.setText(jsonObject.getString("giasi"));
+                                    edit_GiaLe.setText(jsonObject.getString("giale"));
+                                    btnTrongLuong.setText(mangDonVi[2]);
+                                    btnDoDay.setText(mangDonVi[0]);
+                                    btnDoDai.setText(mangDonVi[1]);
+                                    btnDonViCuaGiaSi.setText(mangDonVi[4]);
+                                    btnDonViCuaGiaLe.setText(mangDonVi[3]);
+
+                                    IDThuocTinhHome=jsonObject.getString("IDThuocTinh");
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Seo_SuaXoaSanPham.this, "error getSanPham", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+// Add the request to the RequestQueue.
+        requestQueue.add(jsonArrayRequest);
+    }//end getSanPham
 }
+
 

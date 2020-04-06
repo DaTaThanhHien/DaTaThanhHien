@@ -35,6 +35,7 @@ import com.example.thanhhien.BanHang.Seo_BanHangLe.ListSanPhamBanLe.Seo_ListSanP
 import com.example.thanhhien.HttpsTrustManager;
 import com.example.thanhhien.MainActivity;
 import com.example.thanhhien.NhapXuatHang.Seo_GiaoDienDanhMuc;
+import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Model_ListThuocTinhSanPham;
 import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Seo_SuaXoaSanPham;
 import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Seo_ThemSanPhamMoi;
 import com.example.thanhhien.R;
@@ -69,13 +70,13 @@ public class Seo_QuanLySanPhamKho extends AppCompatActivity {
         new HttpsTrustManager();
         HttpsTrustManager.allowAllSSL();
         sanPhamArrayList=new ArrayList<>();
-        sanPhamArrayList.add(new Model_SanPhamKho("kkk","jss","5000","5","sjsjs","ssjsj0","aesf"));
         //GetTatCaSanPham(Api_custom.ListToanBoSanPham);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewListSanPham.setLayoutManager(layoutManager);
         adapter_sanPhamKho=new Adapter_SanPhamKho(Seo_QuanLySanPhamKho.this,sanPhamArrayList);
         recyclerViewListSanPham.setAdapter(adapter_sanPhamKho);
+        getAllSanPham(Api_custom.GetTatCaSanPham);
     }
     private void onClick() {
         edit_TimKiem.addTextChangedListener(new TextWatcher() {
@@ -140,79 +141,69 @@ public class Seo_QuanLySanPhamKho extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_themsanpham,menu);
         return super.onCreateOptionsMenu(menu);
     }
-    // lấy toàn bộ sản phẩm
-    public void GetTatCaSanPham(String urlService){
-        final RequestQueue requestQueue;
+    public void getAllSanPham(String urlService){
+        RequestQueue requestQueue;
+
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+
         final Network network = new BasicNetwork(new HurlStack());
+
         requestQueue = new RequestQueue(cache, network);
+
         requestQueue.start();
-        requestQueue.getCache().clear();
-        final JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(
+
+        JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(
                 Request.Method.GET,
                 urlService,
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-
                         if(response!=null&&response.length()!=0){
                             for (int i=0;i<response.length();i++){
                                 try {
                                     JSONObject jsonObject=response.getJSONObject(i);
-                                    String ThuocTinh="",TrongLuong="",DoDay="",Dai="",ThuocTinhKhac="";
+                                    String mangDonVi[]=jsonObject.getString("DonViTinh").split(";");
+                                    String QuyCach="";
+                                    String Day="";
+                                    String Dai="";
+                                    String Nang="";
+                                    String Khac="";
+                                    if(jsonObject.getString("QuyCach").trim().length()==0){
+                                        QuyCach="Không";
+                                    }else {QuyCach=jsonObject.getString("QuyCach").trim();}
+                                    if(jsonObject.getString("DoDay").trim().length()==0){
+                                        Day="Không";
+                                    }else {Day=jsonObject.getString("DoDay").trim();}
+                                    if(jsonObject.getString("Dai").trim().length()==0){
+                                        Dai="Không";
+                                    }else {Dai=jsonObject.getString("Dai").trim();}
+                                    if(jsonObject.getString("TrongLuong").trim().length()==0){
+                                        Nang="Không";
+                                    }else {Nang=jsonObject.getString("TrongLuong").trim();}
+                                    if(jsonObject.getString("thuoctinhkhac").trim().length()==0){
+                                        Khac="Không";
+                                    }else {Khac=jsonObject.getString("thuoctinhkhac").trim();}
 
-                                    //1
-                                    if(!jsonObject.getString("TrongLuong").isEmpty()||jsonObject.getString("TrongLuong").trim().length()!=0){
-                                        TrongLuong="Nặng: "+jsonObject.getString("TrongLuong")+", ";
-                                    }
-                                    //2
-                                    if(!jsonObject.getString("DoDay").isEmpty()||jsonObject.getString("DoDay").trim().length()!=0){
-                                        DoDay="Dày: "+jsonObject.getString("DoDay")+", ";;
-                                    }
-                                    //3
-                                    if(!jsonObject.getString("Dai").isEmpty()||jsonObject.getString("Dai").trim().length()!=0){
-                                        Dai="Dài: "+jsonObject.getString("Dai")+", ";;
-                                    }
-                                    //4
-                                    if(!jsonObject.getString("ThuocTinhKhac1").isEmpty()||jsonObject.getString("ThuocTinhKhac1").trim().length()!=0){
-                                        ThuocTinhKhac="Khác: "+jsonObject.getString("ThuocTinhKhac1")+", ";;
-                                    }
-                                    //5
-                                    if(!jsonObject.getString("ThuocTinhKhac2").isEmpty()||jsonObject.getString("ThuocTinhKhac2").trim().length()!=0){
-                                        if(ThuocTinhKhac.length()==0){
-                                            ThuocTinhKhac="Khác: "+jsonObject.getString("ThuocTinhKhac1");
-                                        }else{
-                                            ThuocTinhKhac=ThuocTinhKhac+", "+jsonObject.getString("ThuocTinhKhac1");
-                                        }
-                                    }
-                                    ThuocTinh=TrongLuong+DoDay+Dai+ThuocTinhKhac;
-                                    String TenSanPham=jsonObject.getString("TenSP")+" - "+jsonObject.getString("QuyCach");
-                                    sanPhamArrayList.add(new Model_SanPhamKho(jsonObject.getString("IDSanPham"),TenSanPham,jsonObject.getString("DonGia1"),jsonObject.getString("SoLuong"),jsonObject.getString("tenncc"),ThuocTinh,jsonObject.getString("DonViTinh")));
+                                    sanPhamArrayList.add(new Model_SanPhamKho(jsonObject.getString("IDSanPham"),jsonObject.getString("TenSP"),jsonObject.getString("giasi"),jsonObject.getString("SoLuong"),jsonObject.getString("tenncc"),"Quy cách: "+QuyCach+"- dày: "+Day+mangDonVi[0]+" - Dài: "+Dai+mangDonVi[1]+" - Nặng: "+Nang+mangDonVi[2]+" - Khác: "+Khac,jsonObject.getString("DonViTinh")));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
-//                            container.setVisibility(View.GONE);
-//                            recyclerViewListSanPham.setVisibility(View.VISIBLE);
-//                            container.stopShimmer();
-                            adapter_sanPhamKho.notifyDataSetChanged();
+                            adapter_sanPhamKho=new Adapter_SanPhamKho(Seo_QuanLySanPhamKho.this,sanPhamArrayList);
+                            recyclerViewListSanPham.setAdapter(adapter_sanPhamKho);
                         }
-
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        TastyToast.makeText(getApplicationContext(), "Lỗi lấy tất cả sản phẩm !", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
-                        onBackPressed();
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        Toast.makeText(Seo_QuanLySanPhamKho.this, "error getAllSanPham", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
 
 // Add the request to the RequestQueue.
         requestQueue.add(jsonArrayRequest);
-    }//end
-
+    }//end getAllSanPham
 }

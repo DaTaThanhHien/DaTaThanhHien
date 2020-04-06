@@ -288,6 +288,7 @@
 
                         </EditText>
                         <TextView
+                            android:text="kg"
                             android:id="@+id/btnTrongLuong"
                             android:padding="5dp"
                             android:drawablePadding="5dp"
@@ -335,6 +336,7 @@
 
                        </EditText>
                        <TextView
+                           android:text="mm"
                            android:id="@+id/btnDoDay"
                            android:padding="5dp"
                            android:drawablePadding="5dp"
@@ -390,6 +392,7 @@
 
                        </EditText>
                        <TextView
+                           android:text="m"
                            android:id="@+id/btnDoDai"
                            android:padding="5dp"
                            android:drawablePadding="5dp"

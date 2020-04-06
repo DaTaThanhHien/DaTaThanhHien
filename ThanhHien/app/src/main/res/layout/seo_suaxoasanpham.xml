@@ -60,6 +60,7 @@
                         android:layout_height="wrap_content">
                     </TextView>
                     <LinearLayout
+                        android:id="@+id/btnThemNhaCungCap"
                         android:layout_marginLeft="10dp"
                         android:gravity="right"
                         android:layout_weight="1"
@@ -107,6 +108,7 @@
                         android:layout_height="wrap_content">
                     </TextView>
                     <LinearLayout
+                        android:id="@+id/btnThemDanhMuc"
                         android:layout_marginLeft="10dp"
                         android:gravity="right"
                         android:layout_weight="1"
