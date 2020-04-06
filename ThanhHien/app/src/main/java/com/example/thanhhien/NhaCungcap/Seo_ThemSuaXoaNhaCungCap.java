@@ -48,7 +48,6 @@ public class Seo_ThemSuaXoaNhaCungCap extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.seo_themsuaxoanhacungcap);
-
         AnhXa();
         Intent intent=getIntent();
         if(intent.getStringExtra("Ma").equals("0")){

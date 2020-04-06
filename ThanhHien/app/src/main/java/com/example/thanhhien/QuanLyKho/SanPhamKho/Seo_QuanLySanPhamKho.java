@@ -106,9 +106,6 @@ public class Seo_QuanLySanPhamKho extends AppCompatActivity {
         recyclerViewListSanPham=findViewById(R.id.recyclerViewListSanPham);
         container= (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
 
-        container.setVisibility(View.GONE);
-        recyclerViewListSanPham.setVisibility(View.VISIBLE);
-        container.stopShimmer();
     }
 
     @Override
@@ -190,6 +187,10 @@ public class Seo_QuanLySanPhamKho extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
+
+                            container.setVisibility(View.GONE);
+                            recyclerViewListSanPham.setVisibility(View.VISIBLE);
+                            container.stopShimmer();
                             adapter_sanPhamKho=new Adapter_SanPhamKho(Seo_QuanLySanPhamKho.this,sanPhamArrayList);
                             recyclerViewListSanPham.setAdapter(adapter_sanPhamKho);
                         }

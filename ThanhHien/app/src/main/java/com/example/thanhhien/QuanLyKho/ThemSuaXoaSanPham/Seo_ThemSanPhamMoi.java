@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -95,6 +96,8 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
         mListDonViGiaLe=new ArrayList<>();
         mListDonViGiaSi=new ArrayList<>();
         getAllDonViTinh(Api_custom.GetTaCaDonViTinh);
+        getAllNhaCungCap(Api_custom.GetTaCaNhaCungCap);
+        getAllDanhMuc(Api_custom.GetTaCaDanhMuc);
     }
     // ánh xạ khai báo đối tượng
     private void AnhXa() {
@@ -528,7 +531,7 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
         ListView listViewNhaCungCap=view.findViewById(R.id.listViewThuocTinh);
         Adapter_ThuocTinhSanPham adapter_thuocTinhSanPham=new Adapter_ThuocTinhSanPham(Seo_ThemSanPhamMoi.this,R.layout.item_layoutspiner,mListNhaCungCap);
         listViewNhaCungCap.setAdapter(adapter_thuocTinhSanPham);
-        getAllNhaCungCap(Api_custom.GetTaCaNhaCungCap);
+
         final Dialog mBottomSheetDialog = new Dialog(Seo_ThemSanPhamMoi.this, R.style.MaterialDialogSheet);
         mBottomSheetDialog.setContentView(view);
         mBottomSheetDialog.setCancelable(true);
@@ -547,6 +550,7 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Model_ListThuocTinhSanPham model_listThuocTinhSanPham=mListNhaCungCap.get(position);
                 btnChonNhaCungCap.setText(model_listThuocTinhSanPham.getTenSanPham());
+                btnChonNhaCungCap.setTextColor(Color.BLACK);
                 mBottomSheetDialog.dismiss();
             }
         });
@@ -606,8 +610,8 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
         TextView txtTitle=view.findViewById(R.id.txtTitle);
         txtTitle.setText("Chọn danh mục sản phẩm");
         ListView listViewDanhMucSanPham=view.findViewById(R.id.listViewThuocTinh);
-        getAllDanhMuc(Api_custom.GetTaCaDanhMuc,listViewDanhMucSanPham);
-
+        Adapter_ThuocTinhSanPham adapter_thuocTinhSanPham=new Adapter_ThuocTinhSanPham(Seo_ThemSanPhamMoi.this,R.layout.item_layoutspiner,mListDanhMucSanPham);
+        listViewDanhMucSanPham.setAdapter(adapter_thuocTinhSanPham);
         final Dialog mBottomSheetDialog = new Dialog(Seo_ThemSanPhamMoi.this, R.style.MaterialDialogSheet);
         mBottomSheetDialog.setContentView(view);
         mBottomSheetDialog.setCancelable(true);
@@ -627,6 +631,7 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Model_ListThuocTinhSanPham model_listThuocTinhSanPham=mListDanhMucSanPham.get(position);
                 btnChonDanhMucSanPham.setText(model_listThuocTinhSanPham.getTenSanPham());
+                btnChonDanhMucSanPham.setTextColor(Color.BLACK);
                 mBottomSheetDialog.dismiss();
             }
         });
@@ -735,7 +740,7 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
                 mBottomSheetDialog.dismiss();
             }
         });
-        getAllDonViTinh(Api_custom.GetTaCaDonViTinh);
+        getAllDonViTinh(Api_custom.GetTaCaDonViTinh);//
 
     }//kết thúc hàm
     //chọn độ dài
@@ -951,7 +956,7 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
         };
         requestQueue.add(stringRequest);
     }//end ThemDanhMuc
-    public void getAllDanhMuc(String urlService, final ListView listViewDanhMucSanPham){
+    public void getAllDanhMuc(String urlService){
         RequestQueue requestQueue;
 
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
@@ -979,8 +984,7 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
-                            Adapter_ThuocTinhSanPham adapter_thuocTinhSanPham=new Adapter_ThuocTinhSanPham(Seo_ThemSanPhamMoi.this,R.layout.item_layoutspiner,mListDanhMucSanPham);
-                            listViewDanhMucSanPham.setAdapter(adapter_thuocTinhSanPham);
+
                         }
                     }
                 },

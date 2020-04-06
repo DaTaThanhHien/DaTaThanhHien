@@ -288,6 +288,9 @@
 
                         </EditText>
                         <TextView
+                            android:textColor="#000000"
+                            android:gravity="center"
+                            android:textStyle="bold"
                             android:id="@+id/btnTrongLuong"
                             android:padding="5dp"
                             android:drawablePadding="5dp"
@@ -335,6 +338,9 @@
 
                         </EditText>
                         <TextView
+                            android:textColor="#000000"
+                            android:gravity="center"
+                            android:textStyle="bold"
                             android:id="@+id/btnDoDay"
                             android:padding="5dp"
                             android:drawablePadding="5dp"
@@ -390,6 +396,9 @@
 
                         </EditText>
                         <TextView
+                            android:textColor="#000000"
+                            android:gravity="center"
+                            android:textStyle="bold"
                             android:id="@+id/btnDoDai"
                             android:padding="5dp"
                             android:drawablePadding="5dp"
@@ -472,6 +481,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content">
                         <TextView
+                            android:textColor="#000000"
+                            android:gravity="center"
+                            android:textStyle="bold"
                             android:id="@+id/btnDonViCuaGiaSi"
                             android:padding="5dp"
                             android:drawablePadding="5dp"
@@ -522,6 +534,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content">
                         <TextView
+                            android:textColor="#000000"
+                            android:gravity="center"
+                            android:textStyle="bold"
                             android:id="@+id/btnDonViCuaGiaLe"
                             android:padding="5dp"
                             android:drawablePadding="5dp"
