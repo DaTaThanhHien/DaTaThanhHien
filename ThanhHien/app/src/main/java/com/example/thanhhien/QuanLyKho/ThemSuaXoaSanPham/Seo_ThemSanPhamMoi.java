@@ -65,16 +65,16 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
     private ImageView hinhchuyendoi;
     private Button btnThemSanPham;
     private EditText edit_TenSanPham,edit_QK1,edit_QK2,
-                     edit_QK3,edit_TrongLuong,edit_DoDay,
-                     edit_DoDai,edit_ThuocTinhKhac,
-                     edit_GiaSi,edit_GiaLe;
+            edit_QK3,edit_TrongLuong,edit_DoDay,
+            edit_DoDai,edit_ThuocTinhKhac,
+            edit_GiaSi,edit_GiaLe;
     private TextView btnChonNhaCungCap,btnChonDanhMucSanPham,
-                     btnTrongLuong,btnDoDay,btnDoDai,btnDonViCuaGiaSi,
-                     btnDonViCuaGiaLe;
+            btnTrongLuong,btnDoDay,btnDoDai,btnDonViCuaGiaSi,
+            btnDonViCuaGiaLe;
 
     private ArrayList<Model_ListThuocTinhSanPham> mListNhaCungCap,mListDanhMucSanPham,
-                                                  mListTrongLuong,mListDoDai,mListDoDay,
-                                                  mListDonViGiaSi,mListDonViGiaLe;
+            mListTrongLuong,mListDoDai,mListDoDay,
+            mListDonViGiaSi,mListDonViGiaLe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
