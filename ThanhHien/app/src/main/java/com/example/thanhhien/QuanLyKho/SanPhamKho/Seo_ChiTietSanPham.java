@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Cache;
 import com.android.volley.Network;
 import com.android.volley.Request;
@@ -36,9 +37,11 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.example.thanhhien.Api_custom;
 import com.example.thanhhien.ChuyenDoiTongTien;
 import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Seo_SuaXoaSanPham;
+import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Seo_ThemSanPhamMoi;
 import com.example.thanhhien.R;
 import com.sdsmdg.tastytoast.TastyToast;
 
@@ -52,6 +55,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -109,6 +114,30 @@ public class Seo_ChiTietSanPham extends AppCompatActivity {
                 intent1.putExtra("banIDChiTietSanPham",intent.getStringExtra("banIDChiTietSanPham"));
                 startActivityForResult(intent1,111);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+        });
+
+        btnXoaSanPham.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SweetAlertDialog(Seo_ChiTietSanPham.this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Xác nhận?")
+                        .setContentText("Bạn có xác nhận xóa sản phẩm!")
+                        .setConfirmText("Xóa!")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                XoaSanPham(Api_custom.XoaSanPham,intent.getStringExtra("MaSanPham"));
+                                sDialog.dismissWithAnimation();
+                            }
+                        })
+                        .setCancelButton("Hủy", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                            }
+                        })
+                        .show();
             }
         });
     }
@@ -385,7 +414,43 @@ public class Seo_ChiTietSanPham extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
     }//end
 
+    private  void XoaSanPham(String url, final String IDSanPham){
+        RequestQueue requestQueue;
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+        final Network network = new BasicNetwork(new HurlStack());
+        requestQueue = new RequestQueue(cache, network);
+        requestQueue.start();
+        requestQueue.getCache().clear();
+        StringRequest stringRequest=new StringRequest(
+                Request.Method.POST,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(response.equals("ok")){
+                            TastyToast.makeText(Seo_ChiTietSanPham.this,"Sản phẩm đã xóa",TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
+                            onBackPressed();
+                            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        TastyToast.makeText(Seo_ChiTietSanPham.this,"Lỗi không thể xóa sản phẩm",TastyToast.LENGTH_SHORT,TastyToast.ERROR);
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<>();
+                params.put("IDSP",IDSanPham);
 
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }//end ThemNhaCungCap
 
 
 

@@ -61,7 +61,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class Seo_ThemSanPhamMoi extends AppCompatActivity {
     private Toolbar toolbar;
     private LinearLayout btnChuyenDoiNhapQuyCach,layoutQuyCach1,layoutQuyCach2,btnThemNhaCungCap,btnThemDanhMucSanPham;
-    private boolean isChecked=false;
+    private boolean isChecked=true;
     private ImageView hinhchuyendoi;
     private Button btnThemSanPham;
     private EditText edit_TenSanPham,edit_QK1,edit_QK2,
@@ -298,9 +298,9 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
         String GiaLe=edit_GiaLe.getText().toString().trim();
         // khai báo định dạng kiểm tra
         String kiemtraquycachkhac="^[a-zA-Z0-9]{1,60}$";
-        String kitudacbiet="^[a-zA-Z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{1,60}+$";
+        String kitudacbiet="^[a-zA-Z0-9 ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{1,60}+$";
         // kiểm tra chọn nhà cung cấp
-        if(btnChonNhaCungCap.getText().equals("Vui lòng chọn nhà cung cấp")){
+        if(btnChonNhaCungCap.getText().equals("Chọn nhà cung cấp")){
             new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
                     .setTitleText("Lỗi")
                     .setContentText("Vui lòng chọn nhà cung cấp!")
@@ -308,7 +308,7 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
             return false;
         }else {
             // kiểm tra danh mục sản phẩm
-            if(btnChonDanhMucSanPham.getText().equals("Vui lòng chọn danh mục sản phẩm")){
+            if(btnChonDanhMucSanPham.getText().equals("Chọn danh mục sản phẩm")){
                 new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
                         .setTitleText("Lỗi")
                         .setContentText("Vui lòng chọn danh mục sản phẩm!")
@@ -333,99 +333,7 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
                     }else {
                         // xét quy cách
                         if(isChecked==false){
-                            if(QuyCach1.length()==0 || QuyCach2.length()==0){
-                                new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
-                                        .setTitleText("Lỗi")
-                                        .setContentText("Vui lòng nhập quy cách!")
-                                        .show();
-                                return false;
-                            }else {
-                                // xét điều kiện trọng lượng
-                                if(Integer.parseInt(QuyCach1)==0 || Integer.parseInt(QuyCach2)==0){
-                                    new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
-                                            .setTitleText("Lỗi")
-                                            .setContentText("Vui lòng nhập quy cách khác 0!")
-                                            .show();
-                                    return false;
-                                }else {
-                                    // set điều kiện trọng lượng
-                                    if(TrongLuong.length()==0){
-                                        new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
-                                                .setTitleText("Lỗi")
-                                                .setContentText("Vui lòng nhập trọng lượng!")
-                                                .show();
-                                        return false;
-                                    }else {
-                                        if(Integer.parseInt(edit_TrongLuong.getText().toString())==0){
-                                            new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
-                                                    .setTitleText("Lỗi")
-                                                    .setContentText("Nhập trọng lượng khác 0 !")
-                                                    .show();
-                                            return false;
-                                        }else {
-                                            if(DoDay.length()==0){
-                                                new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
-                                                        .setTitleText("Lỗi")
-                                                        .setContentText("Vui lòng nhập độ dày!")
-                                                        .show();
-                                                return false;
-                                            }else {
-                                                if(Integer.parseInt(DoDay)==0){
-                                                    new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
-                                                            .setTitleText("Lỗi")
-                                                            .setContentText("Nhập độ dày khác 0 !")
-                                                            .show();
-                                                    return false;
-                                                }else {
-                                                    if(DoDai.length()==0){
-                                                        new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
-                                                                .setTitleText("Lỗi")
-                                                                .setContentText("Vui lòng nhập độ dài!")
-                                                                .show();
-                                                        return false;
-                                                    }else {
-                                                        if(Integer.parseInt(DoDai)==0){
-                                                            new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
-                                                                    .setTitleText("Lỗi")
-                                                                    .setContentText("Nhập độ dài khác 0 !")
-                                                                    .show();
-                                                            return false;
-                                                        }else {
 
-                                                            if(ThuocTinhKhac.length()>0){
-                                                                if(!ThuocTinhKhac.matches(kiemtraquycachkhac)){
-                                                                    new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
-                                                                            .setTitleText("Lỗi")
-                                                                            .setContentText("Thuộc tính không có kí tự đặc biệt!")
-                                                                            .show();
-                                                                    return false;
-                                                                }
-
-                                                            }else {
-                                                                if(GiaSi.length()==0){
-                                                                    new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
-                                                                            .setTitleText("Lỗi")
-                                                                            .setContentText("Vui lòng nhập giá sỉ!")
-                                                                            .show();
-                                                                    return false;
-                                                                }else {
-                                                                    if(GiaLe.length()==0){
-                                                                        new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
-                                                                                .setTitleText("Lỗi")
-                                                                                .setContentText("Vui lòng nhập giá lẻ!")
-                                                                                .show();
-                                                                        return false;
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
                         }else {
                             if(QuyCach3.length()==0){
                                 new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
@@ -442,7 +350,7 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
                                             .show();
                                     return false;
                                 }else {
-                                    if(Integer.parseInt(edit_TrongLuong.getText().toString())==0){
+                                    if(Double.parseDouble(edit_TrongLuong.getText().toString())==0){
                                         new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
                                                 .setTitleText("Lỗi")
                                                 .setContentText("Nhập trọng lượng khác 0 !")
@@ -456,7 +364,7 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
                                                     .show();
                                             return false;
                                         }else {
-                                            if(Integer.parseInt(DoDay)==0){
+                                            if(Double.parseDouble(DoDay)==0){
                                                 new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
                                                         .setTitleText("Lỗi")
                                                         .setContentText("Nhập độ dày khác 0 !")
@@ -470,7 +378,7 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
                                                             .show();
                                                     return false;
                                                 }else {
-                                                    if(Integer.parseInt(DoDai)==0){
+                                                    if(Double.parseDouble(DoDai)==0){
                                                         new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
                                                                 .setTitleText("Lỗi")
                                                                 .setContentText("Nhập độ dài khác 0 !")
@@ -1077,7 +985,7 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Seo_ThemSanPhamMoi.this, "error ThemSanPhamMoi", Toast.LENGTH_SHORT).show();
+                        TastyToast.makeText(Seo_ThemSanPhamMoi.this,"Lỗi thêm sản phẩm",TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
                     }
                 }
         ){

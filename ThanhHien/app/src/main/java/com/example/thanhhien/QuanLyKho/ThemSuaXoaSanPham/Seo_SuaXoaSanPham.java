@@ -42,6 +42,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.thanhhien.Api_custom;
 import com.example.thanhhien.NhaCungcap.Model_NhaCungCap;
 import com.example.thanhhien.NhapXuatHang.Adapter_NhaCungCap;
+import com.example.thanhhien.QuanLyKho.SanPhamKho.Seo_ChiTietSanPham;
 import com.example.thanhhien.R;
 import com.sdsmdg.tastytoast.TastyToast;
 
@@ -63,7 +64,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class Seo_SuaXoaSanPham extends AppCompatActivity {
     private Toolbar toolbar;
     private LinearLayout btnChuyenDoiNhapQuyCach,layoutQuyCach1,layoutQuyCach2,btnThemNhaCungCap,btnThemDanhMuc;
-    private boolean isChecked=false;
+    private boolean isChecked=true;
     private ImageView hinhchuyendoi;
     private Button btnThemSanPham;
     private EditText edit_TenSanPham,edit_QK1,edit_QK2,
@@ -98,7 +99,6 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
         mListDoDay=new ArrayList<>();
         mListDonViGiaLe=new ArrayList<>();
         mListDonViGiaSi=new ArrayList<>();
-
         getAllDonViTinh(Api_custom.GetTaCaDonViTinh);
     }
     // ánh xạ khai báo đối tượng
@@ -184,23 +184,6 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                 bottomDoDay();
             }
         });// kết thúc hàm
-        // sự kiện click chuyển đổi nhập quy cách
-        btnChuyenDoiNhapQuyCach.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isChecked==false){
-                    layoutQuyCach1.setVisibility(View.GONE);
-                    layoutQuyCach2.setVisibility(View.VISIBLE);
-                    hinhchuyendoi.setImageResource(R.drawable.imgchuyendoiquycach2);
-                    isChecked=true;
-                }else {
-                    layoutQuyCach1.setVisibility(View.VISIBLE);
-                    layoutQuyCach2.setVisibility(View.GONE);
-                    hinhchuyendoi.setImageResource(R.drawable.imgchuyendoiquycach);
-                    isChecked=false;
-                }
-            }
-        });// kết thúc hàm
         // sự kiện đơn vị giá sỉ
         btnDonViCuaGiaSi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,26 +221,41 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
 
                     else {
                         Intent intent1=getIntent();
-                        String IDThuocTinh = IDThuocTinhHome;
-                        String QuyCach="";
-                        if(isChecked==false){
-                            QuyCach = edit_QK1.getText().toString().trim();
-                        }else {
-                            QuyCach = edit_QK3.getText().toString().trim();
-                        }
-                        String TrongLuong = edit_TrongLuong.getText().toString().trim();
-                        String DoDay = edit_DoDay.getText().toString().trim();
-                        String Dai = edit_DoDai.getText().toString().trim();
-                        String thuoctinhkhac = edit_ThuocTinhKhac.getText().toString().trim();
-                        String IDSanPham = intent1.getStringExtra("Ma");
-                        String tenncc = btnChonNhaCungCap.getText().toString().trim();
-                        String tendanhmuc = btnChonDanhMucSanPham.getText().toString().trim();
-                        String TenSP = edit_TenSanPham.getText().toString().trim();
-                        String SoLuong = "0";
-                        String DonViTinh = btnDoDay.getText().toString().trim() + ";" + btnDoDai.getText().toString().trim() + ";" + btnTrongLuong.getText().toString().trim() + ";" +btnDonViCuaGiaLe.getText().toString().trim()+";"+ btnDonViCuaGiaSi.getText().toString().trim();
-                        String giale = edit_GiaLe.getText().toString().trim();
-                        String giasi = edit_GiaSi.getText().toString().trim();
-                        SuaSanPham(Api_custom.SuaSanPham, IDThuocTinh, QuyCach, TrongLuong, DoDay, Dai, thuoctinhkhac, IDSanPham, tenncc, tendanhmuc, TenSP, SoLuong, DonViTinh, giale, giasi);
+                        final String IDThuocTinh = IDThuocTinhHome;
+                        final String QuyCach = edit_QK3.getText().toString().trim();
+                        final String TrongLuong = edit_TrongLuong.getText().toString().trim();
+                        final String DoDay = edit_DoDay.getText().toString().trim();
+                        final String Dai = edit_DoDai.getText().toString().trim();
+                        final String thuoctinhkhac = edit_ThuocTinhKhac.getText().toString().trim();
+                        final String IDSanPham = intent1.getStringExtra("Ma");
+                        final String tenncc = btnChonNhaCungCap.getText().toString().trim();
+                        final String tendanhmuc = btnChonDanhMucSanPham.getText().toString().trim();
+                        final String TenSP = edit_TenSanPham.getText().toString().trim();
+                        final String SoLuong = "0";
+                        final String DonViTinh = btnDoDay.getText().toString().trim() + ";" + btnDoDai.getText().toString().trim() + ";" + btnTrongLuong.getText().toString().trim() + ";" +btnDonViCuaGiaLe.getText().toString().trim()+";"+ btnDonViCuaGiaSi.getText().toString().trim();
+                        final String giale = edit_GiaLe.getText().toString().trim();
+                        final String giasi = edit_GiaSi.getText().toString().trim();
+
+                        new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Xác nhận?")
+                                .setContentText("Bạn có xác nhận sửa sản phẩm!")
+                                .setConfirmText("Xác nhận!")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        SuaSanPham(Api_custom.SuaSanPham, IDThuocTinh, QuyCach, TrongLuong, DoDay, Dai, thuoctinhkhac, IDSanPham, tenncc, tendanhmuc, TenSP, SoLuong, DonViTinh, giale, giasi);
+                                        sDialog.dismissWithAnimation();
+                                    }
+                                })
+                                .setCancelButton("Hủy", new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        sDialog.dismissWithAnimation();
+                                    }
+                                })
+                                .show();
+
+
                     }
                 }
             }
@@ -377,7 +375,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
         String kiemtraquycachkhac="^[a-zA-Z0-9]{1,60}$";
         String kitudacbiet="^[a-zA-Z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{1,60}+$";
         // kiểm tra chọn nhà cung cấp
-        if(btnChonNhaCungCap.getText().equals("Vui lòng chọn nhà cung cấp")){
+        if(btnChonNhaCungCap.getText().equals("Chọn nhà cung cấp")){
             new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
                     .setTitleText("Lỗi")
                     .setContentText("Vui lòng chọn nhà cung cấp!")
@@ -385,7 +383,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
             return false;
         }else {
             // kiểm tra danh mục sản phẩm
-            if(btnChonDanhMucSanPham.getText().equals("Vui lòng chọn danh mục sản phẩm")){
+            if(btnChonDanhMucSanPham.getText().equals("Chọn danh mục sản phẩm")){
                 new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
                         .setTitleText("Lỗi")
                         .setContentText("Vui lòng chọn danh mục sản phẩm!")
@@ -410,99 +408,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                     }else {
                         // xét quy cách
                         if(isChecked==false){
-                            if(QuyCach1.length()==0 || QuyCach2.length()==0){
-                                new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
-                                        .setTitleText("Lỗi")
-                                        .setContentText("Vui lòng nhập quy cách!")
-                                        .show();
-                                return false;
-                            }else {
-                                // xét điều kiện trọng lượng
-                                if(Integer.parseInt(QuyCach1)==0 || Integer.parseInt(QuyCach2)==0){
-                                    new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
-                                            .setTitleText("Lỗi")
-                                            .setContentText("Vui lòng nhập quy cách khác 0!")
-                                            .show();
-                                    return false;
-                                }else {
-                                    // set điều kiện trọng lượng
-                                    if(TrongLuong.length()==0){
-                                        new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
-                                                .setTitleText("Lỗi")
-                                                .setContentText("Vui lòng nhập trọng lượng!")
-                                                .show();
-                                        return false;
-                                    }else {
-                                        if(Integer.parseInt(edit_TrongLuong.getText().toString())==0){
-                                            new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
-                                                    .setTitleText("Lỗi")
-                                                    .setContentText("Nhập trọng lượng khác 0 !")
-                                                    .show();
-                                            return false;
-                                        }else {
-                                            if(DoDay.length()==0){
-                                                new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
-                                                        .setTitleText("Lỗi")
-                                                        .setContentText("Vui lòng nhập độ dày!")
-                                                        .show();
-                                                return false;
-                                            }else {
-                                                if(Integer.parseInt(DoDay)==0){
-                                                    new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
-                                                            .setTitleText("Lỗi")
-                                                            .setContentText("Nhập độ dày khác 0 !")
-                                                            .show();
-                                                    return false;
-                                                }else {
-                                                    if(DoDai.length()==0){
-                                                        new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
-                                                                .setTitleText("Lỗi")
-                                                                .setContentText("Vui lòng nhập độ dài!")
-                                                                .show();
-                                                        return false;
-                                                    }else {
-                                                        if(Integer.parseInt(DoDai)==0){
-                                                            new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
-                                                                    .setTitleText("Lỗi")
-                                                                    .setContentText("Nhập độ dài khác 0 !")
-                                                                    .show();
-                                                            return false;
-                                                        }else {
 
-                                                            if(ThuocTinhKhac.length()>0){
-                                                                if(!ThuocTinhKhac.matches(kiemtraquycachkhac)){
-                                                                    new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
-                                                                            .setTitleText("Lỗi")
-                                                                            .setContentText("Thuộc tính không có kí tự đặc biệt!")
-                                                                            .show();
-                                                                    return false;
-                                                                }
-
-                                                            }else {
-                                                                if(GiaSi.length()==0){
-                                                                    new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
-                                                                            .setTitleText("Lỗi")
-                                                                            .setContentText("Vui lòng nhập giá sỉ!")
-                                                                            .show();
-                                                                    return false;
-                                                                }else {
-                                                                    if(GiaLe.length()==0){
-                                                                        new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
-                                                                                .setTitleText("Lỗi")
-                                                                                .setContentText("Vui lòng nhập giá lẻ!")
-                                                                                .show();
-                                                                        return false;
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
                         }else {
                             if(QuyCach3.length()==0){
                                 new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
@@ -519,7 +425,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                                             .show();
                                     return false;
                                 }else {
-                                    if(Integer.parseInt(edit_TrongLuong.getText().toString())==0){
+                                    if(Double.parseDouble(edit_TrongLuong.getText().toString())==0){
                                         new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
                                                 .setTitleText("Lỗi")
                                                 .setContentText("Nhập trọng lượng khác 0 !")
@@ -533,7 +439,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                                                     .show();
                                             return false;
                                         }else {
-                                            if(Integer.parseInt(DoDay)==0){
+                                            if(Double.parseDouble(DoDay)==0){
                                                 new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
                                                         .setTitleText("Lỗi")
                                                         .setContentText("Nhập độ dày khác 0 !")
@@ -547,7 +453,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                                                             .show();
                                                     return false;
                                                 }else {
-                                                    if(Integer.parseInt(DoDai)==0){
+                                                    if(Double.parseDouble(DoDai)==0){
                                                         new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
                                                                 .setTitleText("Lỗi")
                                                                 .setContentText("Nhập độ dài khác 0 !")
@@ -850,14 +756,14 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(Seo_SuaXoaSanPham.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        TastyToast.makeText(Seo_SuaXoaSanPham.this,"Thêm thành công",TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
                         getAllNhaCungCap(Api_custom.GetTaCaNhaCungCap);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Seo_SuaXoaSanPham.this, "error ThemSanPham", Toast.LENGTH_SHORT).show();
+                        TastyToast.makeText(Seo_SuaXoaSanPham.this,"Lỗi không thể thêm nhà cung cấp",TastyToast.LENGTH_SHORT,TastyToast.ERROR);
                     }
                 }
         ){
@@ -1066,6 +972,9 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         TastyToast.makeText(Seo_SuaXoaSanPham.this,"Sửa thành công",TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
+                        onBackPressed();
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -1126,7 +1035,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                                     JSONObject jsonObject=response.getJSONObject(i);
                                     String mangDonVi[]=jsonObject.getString("DonViTinh").split(";");
                                     edit_TenSanPham.setText(jsonObject.getString("TenSP"));
-                                    edit_QK1.setText(jsonObject.getString("QuyCach"));
+                                   // edit_QK1.setText(jsonObject.getString("QuyCach"));
                                     edit_QK3.setText(jsonObject.getString("QuyCach"));
                                     edit_TrongLuong.setText(jsonObject.getString("TrongLuong"));
                                     edit_DoDay.setText(jsonObject.getString("DoDay"));

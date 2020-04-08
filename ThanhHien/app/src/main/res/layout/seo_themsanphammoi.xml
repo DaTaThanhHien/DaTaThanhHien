@@ -52,7 +52,7 @@
                         android:textSize="15dp"
                         android:drawableRight="@drawable/imgdropdow"
                         android:textColor="#B6B6B6"
-                        android:text="Vui lòng chọn nhà cung cấp"
+                        android:text="Chọn nhà cung cấp"
                         android:id="@+id/btnChonNhaCungCap"
                         android:layout_weight="9"
                         android:padding="10dp"
@@ -101,7 +101,7 @@
                        android:textSize="15sp"
                        android:drawableRight="@drawable/imgdropdow"
                        android:textColor="#B6B6B6"
-                       android:text="Vui lòng chọn danh mục sản phẩm"
+                       android:text="Chọn danh mục sản phẩm"
                        android:id="@+id/btnChonDanhMucSanPham"
                        android:layout_weight="9"
                        android:padding="10dp"
@@ -145,6 +145,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content">
                    <EditText
+                       android:textColor="#000000"
                        android:inputType="text"
                        android:hint="Vui lòng nhập tên sản phẩm"
                        android:id="@+id/edit_TenSanPham"
@@ -178,11 +179,12 @@
                    android:layout_height="wrap_content">
                    <LinearLayout
                        android:orientation="vertical"
-                       android:layout_weight="9"
-                       android:layout_width="0dp"
+
+                       android:layout_width="match_parent"
                        android:layout_height="wrap_content">
                        <!--Mở hàm -->
                        <LinearLayout
+                           android:visibility="gone"
                            android:id="@+id/layoutQuyCach1"
                            android:weightSum="10"
                            android:orientation="horizontal"
@@ -215,11 +217,12 @@
                        <!--Mở hàm -->
                        <LinearLayout
                            android:id="@+id/layoutQuyCach2"
-                           android:visibility="gone"
                            android:orientation="horizontal"
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content">
                            <EditText
+                               android:textColor="#000000"
+                               android:hint="Nhập quy cách"
                                android:id="@+id/edit_QK3"
                                android:padding="10dp"
                                android:background="@drawable/item_boder"
@@ -234,6 +237,7 @@
 
                    </LinearLayout>
                    <LinearLayout
+                       android:visibility="gone"
                        android:id="@+id/btnChuyenDoiNhapQuyCach"
                        android:layout_marginLeft="10dp"
                        android:gravity="right"
@@ -280,6 +284,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <EditText
+                            android:textColor="#000000"
                             android:id="@+id/edit_TrongLuong"
                             android:inputType="number"
                             android:layout_weight="6"
@@ -331,6 +336,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content">
                        <EditText
+                           android:textColor="#000000"
                            android:id="@+id/edit_DoDay"
                            android:inputType="number"
                            android:layout_weight="6"
@@ -390,6 +396,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content">
                        <EditText
+                           android:textColor="#000000"
                            android:id="@+id/edit_DoDai"
                            android:inputType="number"
                            android:layout_weight="6"
@@ -436,6 +443,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content">
                        <EditText
+                           android:textColor="#000000"
                            android:id="@+id/edit_ThuocTinhKhac"
                            android:inputType="text"
                            android:padding="10dp"
@@ -473,7 +481,7 @@
                        android:id="@+id/edit_GiaSi"
                        android:inputType="number"
                        android:hint="Nhập giá sỉ"
-                       android:textColor="#B6B6B6"
+                       android:textColor="#000000"
                        android:layout_weight="7"
                        android:padding="10dp"
                        android:background="@drawable/item_boderotrongluong"
@@ -527,7 +535,7 @@
                        android:id="@+id/edit_GiaLe"
                        android:inputType="number"
                        android:hint="Nhập giá lẻ"
-                       android:textColor="#B6B6B6"
+                       android:textColor="#000000"
                        android:layout_weight="7"
                        android:padding="10dp"
                        android:background="@drawable/item_boderotrongluong"

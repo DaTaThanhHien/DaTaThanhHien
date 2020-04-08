@@ -48,7 +48,7 @@ public class Api_custom {
     public static String SuaSanPham=diaChiIP+"SuaSanPham";
     public static String GetTatCaSanPham=diaChiIP+"listAllSanPham";
     public static String GetSanPham=diaChiIP+"listSanPham/";
-
+    public static String XoaSanPham=diaChiIP+"xoaSanPham";
 
 
 
