@@ -1139,8 +1139,9 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                                     btnDoDai.setText(mangDonVi[1]);
                                     btnDonViCuaGiaSi.setText(mangDonVi[4]);
                                     btnDonViCuaGiaLe.setText(mangDonVi[3]);
-
                                     IDThuocTinhHome=jsonObject.getString("IDThuocTinh");
+                                    btnChonDanhMucSanPham.setText(jsonObject.getString("tendanhmuc"));
+                                    btnChonNhaCungCap.setText(jsonObject.getString("tenncc"));
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
