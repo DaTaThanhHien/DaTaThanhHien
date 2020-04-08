@@ -64,7 +64,7 @@ public class Seo_ChiTietSanPham extends AppCompatActivity {
     private Intent intent;
     private LinearLayout btnChonNgay;
     private int mYear, mMonth, mDay,LuuNgayBatDau,LuuNgayKetThuc;
-    private Button btnNgayHomNay,btnNgayHomQua,btnBayNgayQua,btnBaMuoiNgayQua,btnNgayKhac;
+    private Button btnNgayHomNay,btnNgayHomQua,btnBayNgayQua,btnBaMuoiNgayQua,btnNgayKhac,btnXoaSanPham,btnSuaSanPham;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +99,18 @@ public class Seo_ChiTietSanPham extends AppCompatActivity {
                 eventClickChonNgay();
             }
         });
+
+        // sự kiện onclick
+        btnSuaSanPham.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1=new Intent(Seo_ChiTietSanPham.this, Seo_SuaXoaSanPham.class);
+                intent1.putExtra("Ma",intent.getStringExtra("MaSanPham"));
+                intent1.putExtra("banIDChiTietSanPham",intent.getStringExtra("banIDChiTietSanPham"));
+                startActivityForResult(intent1,111);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+        });
     }
     private void AnhXa() {
         toolbar=findViewById(R.id.toolbar);
@@ -115,6 +127,8 @@ public class Seo_ChiTietSanPham extends AppCompatActivity {
         txtNgay=findViewById(R.id.txtNgay);
         txtNgayThangNam=findViewById(R.id.txtNgayThangNam);
         btnChonNgay=findViewById(R.id.btnNgayKhac);
+        btnXoaSanPham=findViewById(R.id.btnXoaSanPham);
+        btnSuaSanPham=findViewById(R.id.btnSuaSanPham);
     }
 
     @Override
@@ -124,13 +138,7 @@ public class Seo_ChiTietSanPham extends AppCompatActivity {
             case android.R.id.home:
 
                 onBackPressed();
-
-                return true;
-            case R.id.nav_themsanpham:
-                Intent intent1=new Intent(Seo_ChiTietSanPham.this, Seo_SuaXoaSanPham.class);
-                intent1.putExtra("Ma",intent.getStringExtra("MaSanPham"));
-                intent1.putExtra("banIDChiTietSanPham",intent.getStringExtra("banIDChiTietSanPham"));
-                startActivityForResult(intent1,111);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
             default:
                 break;
@@ -148,12 +156,6 @@ public class Seo_ChiTietSanPham extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_themsanpham,menu);
-        menu.getItem(0).setIcon(R.drawable.imgedit);
-        return super.onCreateOptionsMenu(menu);
-    }
     private void eventClickChonNgay() {
         // khai báo ánh xạ
         View view = getLayoutInflater().inflate(R.layout.item_layoutchonngay, null);
