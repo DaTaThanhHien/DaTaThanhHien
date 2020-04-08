@@ -129,6 +129,7 @@ public class Seo_QuanLySanPhamKho extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
+        getAllSanPham(Api_custom.GetTatCaSanPham);
         super.onRestart();
 
     }
