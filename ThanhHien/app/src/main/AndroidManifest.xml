@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.thanhhien">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".QuanLyKho.ThemSuaXoaSanPham.Seo_ThemSanPhamMoi"></activity>
+        <activity android:name=".SeoCheckConnection"></activity>
+        <activity android:name=".QuanLyKho.ThemSuaXoaSanPham.Seo_ThemSanPhamMoi" />
         <activity android:name=".Seo_TrangThongBao" />
         <activity android:name=".LichSuNhapXuat.Seo_ChiTietNhapHang" />
         <activity android:name=".NhapXuatHang.Seo_NhapHangNhoLe" />

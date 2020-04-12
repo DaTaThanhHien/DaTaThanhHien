@@ -7,7 +7,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -91,13 +95,22 @@ public class Seo_GiaoDienChinh extends AppCompatActivity {
         dateFormatter.setLenient(false);
         Date today = new Date();
         final String NgayHomNay = dateFormatter.format(today);
-        GetThuNhapHomNay(Api_custom.ThuNhapHomNay,NgayHomNay);
+        if(isOnline()==false){
+            Intent intent=new Intent(Seo_GiaoDienChinh.this,SeoCheckConnection.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+
+        }else {
+            GetThuNhapHomNay(Api_custom.ThuNhapHomNay,NgayHomNay);
+        }
+
 
         // dữ liệu biểu đồ
         Calendar c = Calendar.getInstance();
         c.setTime(today);
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-        TastyToast.makeText(Seo_GiaoDienChinh.this,dayOfWeek+"",TastyToast.LENGTH_SHORT,TastyToast.INFO);
+
     }
     private void onClick() {
         btnBanHang.setOnClickListener(new View.OnClickListener() {
@@ -246,7 +259,19 @@ public class Seo_GiaoDienChinh extends AppCompatActivity {
 
         super.onRestart();
     }
+    // check connect
+    public boolean isOnline() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.INTERNET}, 1);
+        }
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
 
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
+    }
     public void GetThuNhapHomNay(String urlService,String NgayHomNay){
         urlService=urlService+NgayHomNay;
         final RequestQueue requestQueue;
