@@ -2,16 +2,17 @@ package com.example.thanhhien;
 public class Api_custom {
 
       public static String diaChiIP="https://db.cobacoffeeroastery.com/";
-    public static String diaChiIP123456="http://192.168.1.105:8085/";
+
+        //<================================== Login ===========================>
+        public static String Login=diaChiIP+"Login/";
+
+
         //<=========================== phần bán hàng==============================>
         public static String GetTatCaSanPhamTheoDanhMuc=diaChiIP+"listSanPhamTheoDanhMucSP/";
         public static String ListToanBoKhachHang=diaChiIP+"ListToanBoKhachHang";
         public static String ThemHoaDon=diaChiIP+"AddHoaDon";
         public static String ThemCTHoaDon=diaChiIP+"AddCTHoaDon";
         public static String CapNhatSoLuongSanPham=diaChiIP+"CapNhatSoLuongSanPham";
-
-
-
 
 
         //<============================ Phần hóa đơn ============================>
