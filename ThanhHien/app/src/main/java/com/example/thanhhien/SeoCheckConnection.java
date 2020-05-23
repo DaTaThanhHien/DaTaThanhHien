@@ -27,7 +27,7 @@ public class SeoCheckConnection extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isOnline()==false){
-                    TastyToast.makeText(SeoCheckConnection.this,"Không có kết nối internet",TastyToast.LENGTH_SHORT,TastyToast.ERROR);
+                    TastyToast.makeText(SeoCheckConnection.this,"Kiểm tra kết nối của bạn",TastyToast.LENGTH_SHORT,TastyToast.ERROR);
                 }else {
                     onBackPressed();
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

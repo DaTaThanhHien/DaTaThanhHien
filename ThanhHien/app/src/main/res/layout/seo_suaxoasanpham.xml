@@ -68,9 +68,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content">
                         <ImageView
-                            android:src="@drawable/themsanpham"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp">
+                            android:src="@drawable/imgaddnhacungcap"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp">
                         </ImageView>
                     </LinearLayout>
                 </LinearLayout>
@@ -116,9 +116,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content">
                         <ImageView
-                            android:src="@drawable/themsanpham"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp">
+                            android:src="@drawable/imgaddnhacungcap"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp">
                         </ImageView>
                     </LinearLayout>
                 </LinearLayout>
@@ -171,6 +171,7 @@
                     android:layout_height="wrap_content">
                 </TextView>
                 <LinearLayout
+                    android:orientation="horizontal"
                     android:gravity="center"
                     android:weightSum="10"
                     android:layout_width="match_parent"
@@ -568,6 +569,7 @@
                 android:layout_height="wrap_content">
                 <Button
                     android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
                     android:id="@+id/btnSuaSanPham"
                     android:textAllCaps="false"
                     android:textColor="#03A9F4"

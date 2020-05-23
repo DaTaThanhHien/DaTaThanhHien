@@ -123,7 +123,7 @@
                 android:layout_weight="7"
                 android:background="#03A9F4"
                 android:padding="5dp"
-                android:text="Thanh Toán: 62,222,000 VNĐ"
+                android:text="Thanh Toán:  0 VNĐ"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"></Button>
 

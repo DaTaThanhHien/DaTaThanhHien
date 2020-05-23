@@ -136,7 +136,7 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
         txtTenSP.setText(TenSP);
         txtTrongLuong.setText(TrongLuong);
         txtQuyCach.setText(QuyCach);
-        txtGiaNhap.setText(ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(GiaNhap)));
+        txtGiaNhap.setText(ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(GiaNhap))+" VNĐ");
         ibTang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

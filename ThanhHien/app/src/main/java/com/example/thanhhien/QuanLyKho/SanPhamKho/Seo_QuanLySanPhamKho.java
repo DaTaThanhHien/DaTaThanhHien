@@ -5,8 +5,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,6 +44,8 @@ import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Model_ListThuocTinhSanP
 import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Seo_SuaXoaSanPham;
 import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Seo_ThemSanPhamMoi;
 import com.example.thanhhien.R;
+import com.example.thanhhien.SeoCheckConnection;
+import com.example.thanhhien.Seo_GiaoDienLogin;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.github.clans.fab.FloatingActionButton;
 import com.sdsmdg.tastytoast.TastyToast;
@@ -65,12 +72,18 @@ public class Seo_QuanLySanPhamKho extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.seo_quanlykho);
+        if(isOnline()==false){
+            Intent intent=new Intent(Seo_QuanLySanPhamKho.this, SeoCheckConnection.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+
+        }
         AnhXa();
         onClick();
         new HttpsTrustManager();
         HttpsTrustManager.allowAllSSL();
         sanPhamArrayList=new ArrayList<>();
-        //GetTatCaSanPham(Api_custom.ListToanBoSanPham);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewListSanPham.setLayoutManager(layoutManager);
@@ -107,7 +120,6 @@ public class Seo_QuanLySanPhamKho extends AppCompatActivity {
         container= (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
 
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
@@ -129,11 +141,33 @@ public class Seo_QuanLySanPhamKho extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
-        getAllSanPham(Api_custom.GetTatCaSanPham);
+        if(isOnline()==false){
+            Intent intent=new Intent(Seo_QuanLySanPhamKho.this, SeoCheckConnection.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+
+        }else {
+            sanPhamArrayList.clear();
+            getAllSanPham(Api_custom.GetTatCaSanPham);
+        }
+
         super.onRestart();
 
     }
+    // check connect
+    public boolean isOnline() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.INTERNET}, 1);
+        }
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
 
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_themsanpham,menu);
@@ -149,7 +183,6 @@ public class Seo_QuanLySanPhamKho extends AppCompatActivity {
         requestQueue = new RequestQueue(cache, network);
 
         requestQueue.start();
-
         JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(
                 Request.Method.GET,
                 urlService,
@@ -183,7 +216,7 @@ public class Seo_QuanLySanPhamKho extends AppCompatActivity {
                                         Khac="Không";
                                     }else {Khac=jsonObject.getString("thuoctinhkhac").trim();}
 
-                                    sanPhamArrayList.add(new Model_SanPhamKho(jsonObject.getString("IDSanPham"),jsonObject.getString("TenSP"),jsonObject.getString("giasi"),jsonObject.getString("SoLuong"),jsonObject.getString("tenncc"),"Quy cách: "+QuyCach+"- dày: "+Day+mangDonVi[0]+" - Dài: "+Dai+mangDonVi[1]+" - Nặng: "+Nang+mangDonVi[2]+" - Khác: "+Khac,jsonObject.getString("DonViTinh")));
+                                    sanPhamArrayList.add(new Model_SanPhamKho(jsonObject.getString("IDSanPham"),jsonObject.getString("TenSP"),jsonObject.getString("giasi"),jsonObject.getString("SoLuong"),jsonObject.getString("tenncc"),"Quy cách: "+QuyCach+"- dày: "+Day+mangDonVi[0]+" - Dài: "+Dai+mangDonVi[1]+" - Nặng: "+Nang+mangDonVi[2]+" - Khác: "+Khac,mangDonVi[3]));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

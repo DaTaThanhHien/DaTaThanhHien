@@ -3,10 +3,15 @@ package com.example.thanhhien.ThongKe;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Gravity;
@@ -32,6 +37,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.thanhhien.Api_custom;
 import com.example.thanhhien.ChuyenDoiTongTien;
 import com.example.thanhhien.R;
+import com.example.thanhhien.SeoCheckConnection;
+import com.example.thanhhien.Seo_GiaoDienLogin;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import org.eazegraph.lib.charts.PieChart;
@@ -59,6 +66,13 @@ public class Seo_QuanLyThongKe extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.seo_quanlythongke);
         setTitle("Thống kê");
+        if(isOnline()==false){
+            Intent intent=new Intent(Seo_QuanLyThongKe.this, SeoCheckConnection.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+
+        }
         AnhXa();
         enventClick();
         // biểu đồ sản phẩm bán chạy
@@ -103,6 +117,31 @@ public class Seo_QuanLyThongKe extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(isOnline()==false){
+            Intent intent=new Intent(Seo_QuanLyThongKe.this, SeoCheckConnection.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+
+        }
+    }
+
+    // check connect
+    public boolean isOnline() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.INTERNET}, 1);
+        }
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
+    }
     private void eventClickChonNgay() {
         // khai báo ánh xạ
         View view = getLayoutInflater().inflate(R.layout.item_layoutchonngay, null);

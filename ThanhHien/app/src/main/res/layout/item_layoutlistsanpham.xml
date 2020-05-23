@@ -105,6 +105,8 @@
             </TextView>
 
             <TextView
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textSize="13sp"
                 android:id="@+id/txtThuocTinh"
                 android:layout_marginLeft="5dp"

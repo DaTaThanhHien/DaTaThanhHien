@@ -15,7 +15,7 @@
         android:background="@drawable/item_borderbuttonblue"
         android:textAllCaps="false"
         android:id="@+id/btnTenSanPham"
-        android:layout_width="100dp"
+        android:layout_width="98dp"
         android:layout_height="40dp">
 
     </TextView>

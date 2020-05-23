@@ -50,7 +50,7 @@ public class Seo_ChonNhaCungCap extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.seo_chonnguyenlieu);
+        setContentView(R.layout.seo_chonnhacungcap);
         setTitle("Chọn nhà cung cấp");
         AnhXa();
         new NukeSSLCerts().nuke();

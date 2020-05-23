@@ -90,7 +90,7 @@ public class Seo_ChiTietNhapHang extends AppCompatActivity {
         AnhXa();
         Intent intent=getIntent();
         setTitle(intent.getStringExtra("MaPhieuNhap")+"");
-        txtNhaCungCap.setText(intent.getStringExtra("NhaCungCap"));
+//        txtNhaCungCap.setText(intent.getStringExtra("NhaCungCap"));
         txtNgayNhap.setText(intent.getStringExtra("NgayNhap"));
         txtNgayTao.setText(intent.getStringExtra("NgayTaoPhieu"));
         txtTongTien.setText(intent.getStringExtra("TongTien") +"VNĐ");

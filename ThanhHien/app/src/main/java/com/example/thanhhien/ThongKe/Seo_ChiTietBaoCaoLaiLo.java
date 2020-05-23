@@ -3,8 +3,14 @@ package com.example.thanhhien.ThongKe;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Gravity;
@@ -31,6 +37,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.thanhhien.Api_custom;
 import com.example.thanhhien.ChuyenDoiTongTien;
 import com.example.thanhhien.R;
+import com.example.thanhhien.SeoCheckConnection;
 
 import org.eazegraph.lib.charts.BarChart;
 import org.eazegraph.lib.charts.StackedBarChart;
@@ -66,7 +73,13 @@ public class Seo_ChiTietBaoCaoLaiLo extends AppCompatActivity {
         setContentView(R.layout.seo_chitietbaocaolailo);
         setTitle("Chi tiết lợi nhuận");
         AnhXa();
+        if(isOnline()==false){
+            Intent intent=new Intent(Seo_ChiTietBaoCaoLaiLo.this, SeoCheckConnection.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
+
+        }
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         dateFormatter.setLenient(false);
         Date today = new Date();
@@ -120,6 +133,30 @@ public class Seo_ChiTietBaoCaoLaiLo extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(isOnline()==false){
+            Intent intent=new Intent(Seo_ChiTietBaoCaoLaiLo.this, SeoCheckConnection.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+
+        }
+    }
+    // check connect
+    public boolean isOnline() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.INTERNET}, 1);
+        }
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
+    }
     private void eventClickChonNgay() {
         // khai báo ánh xạ
         View view = getLayoutInflater().inflate(R.layout.bottom_layoutchonthang, null);

@@ -12,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,6 +84,8 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
     private ArrayList<Model_ListThuocTinhSanPham> mListNhaCungCap,mListDanhMucSanPham,
             mListTrongLuong,mListDoDai,mListDoDay,
             mListDonViGiaSi,mListDonViGiaLe;
+    private  SweetAlertDialog pDialog ;
+    private  String QuyCach="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -240,32 +243,43 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
                         DateFormat dateFormatter = new SimpleDateFormat("MMddhhmmss");
                         dateFormatter.setLenient(false);
                         Date today = new Date();
-                        String IDThuocTinh = dateFormatter.format(today);
-                        String QuyCach="";
+                        final String IDThuocTinh = dateFormatter.format(today);
+
                         if(isChecked==false){
                             QuyCach = edit_QK1.getText().toString().trim();
                         }else {
                             QuyCach = edit_QK3.getText().toString().trim();
                         }
-                        String TrongLuong = edit_TrongLuong.getText().toString().trim();
-                        String DoDay = edit_DoDay.getText().toString().trim();
-                        String Dai = edit_DoDai.getText().toString().trim();
-                        String thuoctinhkhac = edit_ThuocTinhKhac.getText().toString().trim();
-                        String IDSanPham = "SP-" + dateFormatter.format(today);
-                        String tenncc = btnChonNhaCungCap.getText().toString().trim();
-                        String tendanhmuc = btnChonDanhMucSanPham.getText().toString().trim();
-                        String TenSP = edit_TenSanPham.getText().toString().trim();
-                        String SoLuong = "0";
-                        String DonViTinh = btnDoDay.getText().toString().trim() + ";" + btnDoDai.getText().toString().trim() + ";" + btnTrongLuong.getText().toString().trim() + ";" +btnDonViCuaGiaLe.getText().toString().trim()+";"+ btnDonViCuaGiaSi.getText().toString().trim();
-                        String giale = edit_GiaLe.getText().toString().trim();
-                        String giasi = edit_GiaSi.getText().toString().trim();
-                        String trangthaisanpham = "1";
+                        final String TrongLuong = edit_TrongLuong.getText().toString().trim();
+                        final String DoDay = edit_DoDay.getText().toString().trim();
+                        final String Dai = edit_DoDai.getText().toString().trim();
+                        final String thuoctinhkhac = edit_ThuocTinhKhac.getText().toString().trim();
+                        final String IDSanPham = "SP-" + dateFormatter.format(today);
+                        final String tenncc = btnChonNhaCungCap.getText().toString().trim();
+                        final String tendanhmuc = btnChonDanhMucSanPham.getText().toString().trim();
+                        final String TenSP = edit_TenSanPham.getText().toString().trim();
+                        final String SoLuong = "0";
+                        final String DonViTinh = btnDoDay.getText().toString().trim() + ";" + btnDoDai.getText().toString().trim() + ";" + btnTrongLuong.getText().toString().trim() + ";" +btnDonViCuaGiaLe.getText().toString().trim()+";"+ btnDonViCuaGiaSi.getText().toString().trim();
+                        final String giale = edit_GiaLe.getText().toString().trim();
+                        final String giasi = edit_GiaSi.getText().toString().trim();
+                        final String trangthaisanpham = "1";
                         if(isOnline()==false){
                             Intent intent=new Intent(Seo_ThemSanPhamMoi.this, SeoCheckConnection.class);
                             startActivity(intent);
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         }else {
-                            ThemSanPhamMoi(Api_custom.ThemSanPhamMoi, IDThuocTinh, QuyCach, TrongLuong, DoDay, Dai, thuoctinhkhac, IDSanPham, tenncc, tendanhmuc, TenSP, SoLuong, DonViTinh, giale, giasi, trangthaisanpham);
+                            pDialog = new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.PROGRESS_TYPE);
+                            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                            pDialog.setTitleText("Loading ...");
+                            pDialog.setCancelable(true);
+                            pDialog.show();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ThemSanPhamMoi(Api_custom.ThemSanPhamMoi, IDThuocTinh, QuyCach, TrongLuong, DoDay, Dai, thuoctinhkhac, IDSanPham, tenncc, tendanhmuc, TenSP, SoLuong, DonViTinh, giale, giasi, trangthaisanpham);
+                                }
+                            }, 500);
+
                         }
 
                     }
@@ -291,9 +305,16 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
-        getAllDonViTinh(Api_custom.GetTaCaDonViTinh);
-        getAllNhaCungCap(Api_custom.GetTaCaNhaCungCap);
-        getAllDanhMuc(Api_custom.GetTaCaDanhMuc);
+        if(isOnline()==false){
+            Intent intent=new Intent(Seo_ThemSanPhamMoi.this, SeoCheckConnection.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }else {
+            getAllDonViTinh(Api_custom.GetTaCaDonViTinh);
+            getAllNhaCungCap(Api_custom.GetTaCaNhaCungCap);
+            getAllDanhMuc(Api_custom.GetTaCaDanhMuc);
+        }
+
         super.onRestart();
     }
 
@@ -519,24 +540,37 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
         btnThemNhaCungCap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String TenNCC=edit_TenNhaCungCap.getText().toString().trim();
-                String SDT=edit_SoDienThoai.getText().toString().trim();
-                String DiaChi=edit_DiaChi.getText().toString().trim();
-                String Email=edit_Email.getText().toString().trim();
+                final String TenNCC=edit_TenNhaCungCap.getText().toString().trim();
+                final String SDT=edit_SoDienThoai.getText().toString().trim();
+                final String DiaChi=edit_DiaChi.getText().toString().trim();
+                final String Email=edit_Email.getText().toString().trim();
                 if(TenNCC.isEmpty()||SDT.isEmpty()||DiaChi.isEmpty()||Email.isEmpty()){
-                    Toast.makeText(Seo_ThemSanPhamMoi.this, "Bạn chưa nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+                    TastyToast.makeText(getApplicationContext(), "Bạn chưa nhập đủ thông tin", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
+
                 }else {
                     DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddhhmmss");
                     dateFormatter.setLenient(false);
                     Date today = new Date();
-                    String IDNhaCungCap = "NCC-"+dateFormatter.format(today)+"B";
+                    final String IDNhaCungCap = "NCC-"+dateFormatter.format(today)+"B";
                     if(isOnline()==false){
                         Intent intent=new Intent(Seo_ThemSanPhamMoi.this, SeoCheckConnection.class);
                         startActivity(intent);
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }else {
-                        ThemNhaCungCap(Api_custom.ThemNhaCungCap,IDNhaCungCap,TenNCC,SDT,DiaChi,Email);
-                        mBottomSheetDialog.dismiss();
+                        pDialog = new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.PROGRESS_TYPE);
+                        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                        pDialog.setTitleText("Loading ...");
+                        pDialog.setCancelable(true);
+                        pDialog.show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ThemNhaCungCap(Api_custom.ThemNhaCungCap,IDNhaCungCap,TenNCC,SDT,DiaChi,Email);
+                                mBottomSheetDialog.dismiss();
+                            }
+                        }, 500);
+
+
                     }
 
                 }
@@ -605,19 +639,30 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(edit_TenDanhMuc.getText().toString().trim().isEmpty()){
-                    Toast.makeText(Seo_ThemSanPhamMoi.this, "Bạn chưa nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+                    TastyToast.makeText(getApplicationContext(), "Bạn chưa nhập đủ thông tin", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
                 }else {
-                    DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddhhmmss");
+                    DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddHHmmss");
                     dateFormatter.setLenient(false);
                     Date today = new Date();
-                    String IDDanhMuc = "M-"+dateFormatter.format(today)+"B";
+                    final String IDDanhMuc = "M-"+dateFormatter.format(today)+"B";
                     if(isOnline()==false){
                         Intent intent=new Intent(Seo_ThemSanPhamMoi.this, SeoCheckConnection.class);
                         startActivity(intent);
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }else {
-                        ThemDanhMuc(Api_custom.ThemDanhMuc,IDDanhMuc,edit_TenDanhMuc.getText().toString().trim());
-                        mBottomSheetDialog.dismiss();
+                        pDialog = new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.PROGRESS_TYPE);
+                        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                        pDialog.setTitleText("Loading ...");
+                        pDialog.setCancelable(true);
+                        pDialog.show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ThemDanhMuc(Api_custom.ThemDanhMuc,IDDanhMuc,edit_TenDanhMuc.getText().toString().trim());
+                                mBottomSheetDialog.dismiss();
+                            }
+                        }, 500);
+
                     }
 
                 }
@@ -807,14 +852,16 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(Seo_ThemSanPhamMoi.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        TastyToast.makeText(getApplicationContext(), "Thêm nhà cung cấp thành công", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
+                        pDialog.cancel();
                         getAllNhaCungCap(Api_custom.GetTaCaNhaCungCap);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Seo_ThemSanPhamMoi.this, "error ThemSanPham", Toast.LENGTH_SHORT).show();
+                        pDialog.cancel();
+                        TastyToast.makeText(getApplicationContext(), "Lỗi không thể thêm nhà cung cấp", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
                     }
                 }
         ){
@@ -886,13 +933,14 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(Seo_ThemSanPhamMoi.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        pDialog.cancel();
+                        TastyToast.makeText(getApplicationContext(), "Thêm danh mục thành công", TastyToast.LENGTH_SHORT, TastyToast.SUCCESS);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Seo_ThemSanPhamMoi.this, "error ThemDanhMuc", Toast.LENGTH_SHORT).show();
+                        TastyToast.makeText(getApplicationContext(), "Lỗi thêm danh mục", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
                     }
                 }
         ){
@@ -1023,12 +1071,14 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         TastyToast.makeText(Seo_ThemSanPhamMoi.this,"Thêm thành công",TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
+                        pDialog.cancel();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         TastyToast.makeText(Seo_ThemSanPhamMoi.this,"Lỗi thêm sản phẩm",TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
+                        pDialog.cancel();
                     }
                 }
         ){

@@ -4,9 +4,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -43,6 +48,8 @@ import com.example.thanhhien.ChuyenDoiTongTien;
 import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Seo_SuaXoaSanPham;
 import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Seo_ThemSanPhamMoi;
 import com.example.thanhhien.R;
+import com.example.thanhhien.SeoCheckConnection;
+import com.example.thanhhien.Seo_GiaoDienLogin;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import org.json.JSONArray;
@@ -78,13 +85,19 @@ public class Seo_ChiTietSanPham extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.seo_chitietsanpham);
         setTitle("Chi tiết sản phẩm");
+        if(isOnline()==false){
+            Intent intent=new Intent(Seo_ChiTietSanPham.this, SeoCheckConnection.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+
+        }
         AnhXa();
         intent=getIntent();
         txtTenSanPham.setText(intent.getStringExtra("TenSanPham"));
         txtSoLuongTon.setText(intent.getStringExtra("SoLuongTon"));
         txtDonViTinh1.setText(intent.getStringExtra("DonViTinh"));
         txtDonViTinh2.setText(intent.getStringExtra("DonViTinh"));
-        txtDonViTinh3.setText(intent.getStringExtra("DonViTinh"));
         final Calendar calendar=Calendar.getInstance();
         final int ngay=calendar.get(Calendar.DATE);
         txtNgay.setText(ngay+"");
@@ -149,10 +162,10 @@ public class Seo_ChiTietSanPham extends AppCompatActivity {
         txtTenSanPham=findViewById(R.id.txtTenSanPham);
         txtSoLuongTon=findViewById(R.id.txtSoLuongTon);
         txtSoLuongNhap=findViewById(R.id.txtSoLuongNhap);
-        txtSoLuongXuat=findViewById(R.id.txtSoLuongXuat);
+
         txtDonViTinh2=findViewById(R.id.txtDonViTinh2);
         txtDonViTinh1=findViewById(R.id.txtDonViTinh1);
-        txtDonViTinh3=findViewById(R.id.txtDonViTinh3);
+
         txtNgay=findViewById(R.id.txtNgay);
         txtNgayThangNam=findViewById(R.id.txtNgayThangNam);
         btnChonNgay=findViewById(R.id.btnNgayKhac);
@@ -183,6 +196,30 @@ public class Seo_ChiTietSanPham extends AppCompatActivity {
                 finish();
             }
         }
+    }
+    // check connect
+    public boolean isOnline() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.INTERNET}, 1);
+        }
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
+    }
+    @Override
+    protected void onRestart() {
+        if(isOnline()==false){
+            Intent intent=new Intent(Seo_ChiTietSanPham.this, SeoCheckConnection.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+
+        }
+        super.onRestart();
     }
 
     private void eventClickChonNgay() {

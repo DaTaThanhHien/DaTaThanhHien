@@ -62,16 +62,13 @@ public class Api_custom {
 
       // phần nhập hàng
     public static String listAllNhaCungCap=diaChiIP+"listAllNhaCungCap/";
-    public static String listAllDanhMucSanPham=diaChiIP+"listAllDanhMucSanPham/";
+    public static String listAllDanhMucSanPham=diaChiIP+"listAllDanhMuc";
     public static String listAllPhieuNhap=diaChiIP+"listAllPhieuNhap";
     public static String ThemPhieuNhap=diaChiIP+"ThemPhieuNhap";
     public static String ThemChiTietPhieuNhap=diaChiIP+"ThemChiTietPhieuNhap";
-    public static String listQuyCachDanhMucSP=diaChiIP+"listQuyCachDanhMucSP/";
-    public static String listQuyCachTheoNhaCungCapDanhMucSP=diaChiIP+"listQuyCachTheoNhaCungCapDanhMucSP/";
+    public static String listQuyCachDanhMucSP=diaChiIP+"listQuyCachTheoDanhMuc/";
     public static String listSanPhamTheoQuyCachDanhMucSP=diaChiIP+"listSanPhamTheoQuyCachDanhMucSP/";
-    public static String listSanPhamTheoQuyCachTheoNhaCungCapDanhMucSP=diaChiIP+"listSanPhamTheoQuyCachTheoNhaCungCapDanhMucSP/";
-    public static String listSanPhamTheoDanhMucSPKoNCCBanDau=diaChiIP+"listSanPhamTheoDanhMucSPKoNCCBanDau/";
-    public static String listSanPhamTheoNhaCungCapDanhMucSPBanDau=diaChiIP+"listSanPhamTheoNhaCungCapDanhMucSPBanDau/";
+    public static String listSanPhamTheoDanhMuc=diaChiIP+"listSanPhamTheoDanhMuc/";
     public static String listSanPhamTheoIDSanPham=diaChiIP+"listSanPhamTheoIDSanPham/";
     public static String CapNhatHoanThanhDon=diaChiIP+"CapNhatTinhTrangPhieu";
     public static String ListChiTietPhieuNhap=diaChiIP+"listCTPhieuNhap/";

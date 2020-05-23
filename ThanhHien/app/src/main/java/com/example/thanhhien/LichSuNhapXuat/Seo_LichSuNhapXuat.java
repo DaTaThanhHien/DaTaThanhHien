@@ -79,7 +79,7 @@ public class Seo_LichSuNhapXuat extends AppCompatActivity {
             public void onItemClick(String MaPhieuNhap, String NhaCungCap, String NgayTaoPhieu, String NgayNhap, String TongTien, String TongTienDaTra, String TinhTrang) {
                 Intent intent=new Intent(Seo_LichSuNhapXuat.this,Seo_ChiTietNhapHang.class);
                 intent.putExtra("MaPhieuNhap",MaPhieuNhap);
-                intent.putExtra("NhaCungCap",NhaCungCap);
+               intent.putExtra("NhaCungCap",NhaCungCap);
                 intent.putExtra("NgayTaoPhieu",NgayTaoPhieu);
                 intent.putExtra("NgayNhap",NgayNhap);
                 intent.putExtra("TongTien",TongTien);

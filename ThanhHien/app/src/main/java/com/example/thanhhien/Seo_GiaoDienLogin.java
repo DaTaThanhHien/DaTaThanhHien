@@ -10,6 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -42,6 +43,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class Seo_GiaoDienLogin extends AppCompatActivity {
     private EditText edit_TaiKhoan,edit_MatKhau;
     private Button btnDangNhap;
+    private  SweetAlertDialog pDialog ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +133,18 @@ public class Seo_GiaoDienLogin extends AppCompatActivity {
                 if(KiemTra()==false){
                     return;
                 }else {
-                    Login(Api_custom.Login);
+                    pDialog = new SweetAlertDialog(Seo_GiaoDienLogin.this, SweetAlertDialog.PROGRESS_TYPE);
+                    pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                    pDialog.setTitleText("Loading ...");
+                    pDialog.setCancelable(true);
+                    pDialog.show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Login(Api_custom.Login);
+                        }
+                    }, 800);
+
                 }
 
             }
@@ -166,6 +179,7 @@ public class Seo_GiaoDienLogin extends AppCompatActivity {
                     public void onResponse(JSONArray response) {
 
                         if(response!=null&&response.length()!=0){
+                            pDialog.cancel();
                             for (int i=0;i<response.length();i++){
                                 try {
                                     JSONObject jsonObject=response.getJSONObject(i);
@@ -182,6 +196,7 @@ public class Seo_GiaoDienLogin extends AppCompatActivity {
                                 }
                             }
                         }else {
+                            pDialog.cancel();
                             TastyToast.makeText(getApplicationContext(), "Tài khoản không tồn tại", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
                         }
                     }
@@ -189,6 +204,7 @@ public class Seo_GiaoDienLogin extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        pDialog.cancel();
                         TastyToast.makeText(getApplicationContext(), "Lỗi không thể kết nối sever !", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
                     }
                 }

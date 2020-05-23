@@ -19,16 +19,7 @@
             android:layout_weight="5"
             android:layout_width="match_parent"
             android:layout_height="0dp">
-            <TextView
-                android:textSize="16sp"
-                android:layout_marginTop="50dp"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:text="Seo nè!"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-            </TextView>
 
             <TextView
                 android:layout_marginBottom="20dp"
@@ -142,7 +133,7 @@
                 android:background="@drawable/item_button"
                 android:text="Đăng nhập"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></Button>
+                android:layout_height="40dp"></Button>
         </LinearLayout>
     </LinearLayout>
 

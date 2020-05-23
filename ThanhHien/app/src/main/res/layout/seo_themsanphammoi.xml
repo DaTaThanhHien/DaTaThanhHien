@@ -63,14 +63,14 @@
                     <LinearLayout
                         android:id="@+id/btnThemNhaCungCap"
                         android:layout_marginLeft="10dp"
-                        android:gravity="right"
+                        android:gravity="center"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content">
                         <ImageView
-                            android:src="@drawable/themsanpham"
-                            android:layout_width="35dp"
-                            android:layout_height="35dp">
+                            android:src="@drawable/imgaddnhacungcap"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp">
                         </ImageView>
                     </LinearLayout>
                 </LinearLayout>
@@ -112,14 +112,14 @@
                    <LinearLayout
                        android:id="@+id/btnThemDanhMucSanPham"
                        android:layout_marginLeft="10dp"
-                       android:gravity="right"
+                       android:gravity="center"
                        android:layout_weight="1"
                        android:layout_width="0dp"
                        android:layout_height="wrap_content">
                        <ImageView
-                           android:src="@drawable/themsanpham"
-                           android:layout_width="35dp"
-                           android:layout_height="35dp">
+                           android:src="@drawable/imgaddnhacungcap"
+                           android:layout_width="30dp"
+                           android:layout_height="30dp">
                        </ImageView>
                    </LinearLayout>
                </LinearLayout>
@@ -568,20 +568,20 @@
            <!--Mở hàm-->
            <LinearLayout
                android:layout_marginTop="15dp"
-               android:layout_marginBottom="7dp"
+               android:layout_marginBottom="15dp"
                android:orientation="vertical"
                android:layout_width="match_parent"
                android:layout_height="wrap_content">
+
                <Button
                    android:id="@+id/btnThemSanPham"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:background="@drawable/item_borderbuttonblue"
+                   android:text="Thêm sản phẩm"
                    android:textAllCaps="false"
                    android:textColor="#03A9F4"
-                   android:textStyle="bold"
-                   android:text="Thêm sản phẩm"
-                   android:background="@drawable/item_borderbuttonblue"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-               </Button>
+                   android:textStyle="bold"></Button>
            </LinearLayout>
            <!--Kết thúc hàm-->
        </LinearLayout>

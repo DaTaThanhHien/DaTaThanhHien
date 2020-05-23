@@ -42,7 +42,9 @@ import com.example.thanhhien.BanHang.Seo_BanHangLe.ListSanPhamBanLe.Model_ListSa
 import com.example.thanhhien.BanHang.Seo_BanHangLe.ListSanPhamBanLe.Adapter_QuyCachVaTinhChat;
 import com.example.thanhhien.BanHang.Seo_BanHangLe.ListSanPhamBanLe.Model_QuyCachVaTinhChat;
 import com.example.thanhhien.ChuyenDoiTongTien;
+import com.example.thanhhien.HttpsTrustManager;
 import com.example.thanhhien.NukeSSLCerts;
+import com.example.thanhhien.QuanLyKho.SanPhamKho.Model_SanPhamKho;
 import com.example.thanhhien.R;
 
 import org.json.JSONArray;
@@ -74,6 +76,7 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
     private ArrayList<Model_QuyCachVaTinhChat> mListQuyCach;
     private ArrayList<Model_ListSanPhamBanLe> mListSanPhamBanLe;
     private ArrayList<Model_QuyCachVaTinhChat>mListTinhChat;
+    private ArrayList<Model_QuyCachVaTinhChat> mListQuyCach2;
     private ArrayList<Model_ListSanPhamBan> mListSanPhamBan;
     private int SoTienNo=0;
     public static String tenSP="";
@@ -86,11 +89,15 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.seo_listsanphamnhapkho);
+        new HttpsTrustManager();
+        HttpsTrustManager.allowAllSSL();
         AnhXa();
-        new NukeSSLCerts().nuke();
-        TongTien();
+//        TongTien();
         mListQuyCach=new ArrayList<>();
+        mListQuyCach2=new ArrayList<>();
         mListTinhChat=new ArrayList<>();
+        // lấy quy cách của từng sản phẩm theo tên danh mục của sản phẩm đó
+        getQuyCachTungSanPham(Api_custom.listQuyCachDanhMucSP, Seo_GiaoDienDanhMuc.IDDanhMuc);
         adapter_quyCachVaTinhChat=new Adapter_QuyCachVaTinhChat(Seo_ListSanPhamNhapKho.this,R.layout.item_layoutquycachvatinhchat,mListQuyCach);
         gridViewListQuyCach.setAdapter(adapter_quyCachVaTinhChat);
 
@@ -98,58 +105,34 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
         gridViewListQuyCach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String maHoaCode="";
-                String tenQuyCach=mListQuyCach.get(position).getTenQuyCachVaTT();
-                String QuyCachGoc=mListQuyCach.get(position).getTenQuyCachVaTT();
-                try {
-                    if(tenQuyCach.trim().equalsIgnoreCase("Trống")){
-                        maHoaCode  = URLEncoder.encode(" ", "UTF-8");
-                    } else {
-                        maHoaCode  = URLEncoder.encode(mListQuyCach.get(position).getTenQuyCachVaTT(), "UTF-8");
+                if(mListQuyCach.get(position).getMaQuyCachVaTT().equalsIgnoreCase("CODESEONE")){
+                    eventViewMoreDanhMuc();
+                }else {
+                    String maHoaCode="";
+                    String tenQuyCach=mListQuyCach.get(position).getTenQuyCachVaTT();
+                    String QuyCachGoc=mListQuyCach.get(position).getTenQuyCachVaTT();
+
+                    try {
+                        if(tenQuyCach.trim().equalsIgnoreCase("Trống")){
+                            maHoaCode  = URLEncoder.encode(" ", "UTF-8");
+                        } else {
+                            maHoaCode  = URLEncoder.encode(mListQuyCach.get(position).getTenQuyCachVaTT(), "UTF-8");
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
                     }
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                mListSanPhamBan.clear();
-                if(Seo_ChonNhaCungCap.IDNhaCungCap.equalsIgnoreCase("0")){
-                    getSanPhamTheoQuyCach(Api_custom.listSanPhamTheoQuyCachDanhMucSP,Seo_ChonNhaCungCap.IDNhaCungCap,IDDanhMuc,tenSP,maHoaCode.replace("+","%20"),QuyCachGoc);
-                }else{
-                    getSanPhamTheoQuyCach(Api_custom.listSanPhamTheoQuyCachTheoNhaCungCapDanhMucSP,Seo_ChonNhaCungCap.IDNhaCungCap,IDDanhMuc,tenSP,maHoaCode.replace("+","%20"),QuyCachGoc);
+
                 }
 
-//                getSanPhamTheoQuyCach(Api_custom.listSanPhamTheoQuyCachTheoNhaCungCapDanhMucSPTenSP,Seo_ChonNhaCungCap.IDNhaCungCap,Seo_GiaoDienNhapXuatHang.IDDanhMuc,tenSP,maHoaCode.replace("+","%20"),QuyCachGoc);
-
-//                Model_QuyCachVaTinhChat model_quyCachVaTinhChat=mListQuyCach.get(position);
-//                txtTenQuyCach.setText(model_quyCachVaTinhChat.getTenQuyCachVaTT());
-//                if(model_quyCachVaTinhChat.getTenQuyCachVaTT().equals("Khác")){
-//
-//                    eventClickBanHang();
-//                }
             }
         });
         //jjjsjsjs
         mListSanPhamBanLe=new ArrayList<>();
         getAllDanhMucSanPham(Api_custom.listAllDanhMucSanPham);
-        if(Seo_ChonNhaCungCap.IDNhaCungCap.equalsIgnoreCase("0")){
-            getSanPhamTheoQuyCach(Api_custom.listSanPhamTheoDanhMucSPKoNCCBanDau,Seo_ChonNhaCungCap.IDNhaCungCap, Seo_GiaoDienDanhMuc.IDDanhMuc,"a","a","a");
-        }else{
-            getSanPhamTheoQuyCach(Api_custom.listSanPhamTheoNhaCungCapDanhMucSPBanDau,Seo_ChonNhaCungCap.IDNhaCungCap, Seo_GiaoDienDanhMuc.IDDanhMuc,"a","a","a");
-        }
-        if(Seo_ChonNhaCungCap.IDNhaCungCap.equalsIgnoreCase("0")){
-            getQuyCachTungSanPham(Api_custom.listQuyCachDanhMucSP,Seo_ChonNhaCungCap.IDNhaCungCap, Seo_GiaoDienDanhMuc.IDDanhMuc);
-        }else{
-            getQuyCachTungSanPham(Api_custom.listQuyCachTheoNhaCungCapDanhMucSP,Seo_ChonNhaCungCap.IDNhaCungCap, Seo_GiaoDienDanhMuc.IDDanhMuc);
-        }
-//        getSanPhamTheoNhaCungCapDanhMucSPLoaiBoTrungTen(Api_custom.listSanPhamTheoNhaCungCapDanhMucSPLoaiBoTrungTen,Seo_ChonNhaCungCap.IDNhaCungCap,Seo_GiaoDienNhapXuatHang.IDDanhMuc);
+        getSanPhamTheoDanhMuc(Api_custom.listSanPhamTheoDanhMuc, Seo_GiaoDienDanhMuc.IDDanhMuc);
         gridViewListTinhChat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String maHoaCode="";
-//                try {
-//                    maHoaCode  = URLEncoder.encode(mListSanPhamBanLe.get(position).getTenSanPham(), "UTF-8");
-//                } catch (UnsupportedEncodingException e) {
-//                    e.printStackTrace();
-//                }
                 mListQuyCach.clear();
                 adapter_quyCachVaTinhChat=new Adapter_QuyCachVaTinhChat(Seo_ListSanPhamNhapKho.this,R.layout.item_layoutquycachvatinhchat,mListQuyCach);
                 gridViewListQuyCach.setAdapter(adapter_quyCachVaTinhChat);
@@ -160,26 +143,23 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                 recyclerViewListSanPham.setLayoutManager(layoutManager);
                 recyclerViewListSanPham.setAdapter(adapter_listSanPhamBan);
                 IDDanhMuc=mListSanPhamBanLe.get(position).getIDSanPham();
-
                 mListSanPhamBan.clear();
                 adapter_listSanPhamBan=new Adapter_ListSanPhamNhap(Seo_ListSanPhamNhapKho.this,mListSanPhamBan);
                 recyclerViewListSanPham.setAdapter(adapter_listSanPhamBan);
 
 
                 if(Seo_ChonNhaCungCap.IDNhaCungCap.equalsIgnoreCase("0")){
-                    getQuyCachTungSanPham(Api_custom.listQuyCachDanhMucSP,Seo_ChonNhaCungCap.IDNhaCungCap,mListSanPhamBanLe.get(position).getIDSanPham());
-                    getSanPhamTheoQuyCach(Api_custom.listSanPhamTheoDanhMucSPKoNCCBanDau,Seo_ChonNhaCungCap.IDNhaCungCap,IDDanhMuc,"a","a","a");
+                    //getQuyCachTungSanPham(Api_custom.listQuyCachDanhMucSP,Seo_ChonNhaCungCap.IDNhaCungCap,mListSanPhamBanLe.get(position).getIDSanPham());
+                    //getSanPhamTheoQuyCach(Api_custom.listSanPhamTheoDanhMucSPKoNCCBanDau,Seo_ChonNhaCungCap.IDNhaCungCap,IDDanhMuc,"a","a","a");
                 }else{
-                    getQuyCachTungSanPham(Api_custom.listQuyCachTheoNhaCungCapDanhMucSP,Seo_ChonNhaCungCap.IDNhaCungCap,mListSanPhamBanLe.get(position).getIDSanPham());
-                    getSanPhamTheoQuyCach(Api_custom.listSanPhamTheoNhaCungCapDanhMucSPBanDau,Seo_ChonNhaCungCap.IDNhaCungCap,IDDanhMuc,"a","a","a");
+                    //getQuyCachTungSanPham(Api_custom.listQuyCachTheoNhaCungCapDanhMucSP,Seo_ChonNhaCungCap.IDNhaCungCap,mListSanPhamBanLe.get(position).getIDSanPham());
+                    //getSanPhamTheoQuyCach(Api_custom.listSanPhamTheoNhaCungCapDanhMucSPBanDau,Seo_ChonNhaCungCap.IDNhaCungCap,IDDanhMuc,"a","a","a");
                 }
-//                getQuyCachTungSanPham(Api_custom.listQuyCachSanPhamTheoNhaCungCapDanhMucSP,Seo_ChonNhaCungCap.IDNhaCungCap,Seo_GiaoDienNhapXuatHang.IDDanhMuc,maHoaCode.replace("+","%20"));
             }
         });
 
         // list sản phẩm
         mListSanPhamBan=new ArrayList<>();
-
         adapter_listSanPhamBan=new Adapter_ListSanPhamNhap(Seo_ListSanPhamNhapKho.this,mListSanPhamBan);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Seo_ListSanPhamNhapKho.this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -190,11 +170,7 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
         btnGioHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivity(new Intent(Seo_ListSanPhamNhapKho.this,Seo_BanHang_GioHang.class));
-//                for (int i=0;i<Seo_ChonNhaCungCap.gioHang.size();i++){
-//                    Log.d("polkmjnh", ""+Seo_ChonNhaCungCap.gioHang.get(i).getMaSanPham());
-//                }
             }
         });
         btnTrove.setOnClickListener(new View.OnClickListener() {
@@ -211,19 +187,14 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
     }
-    private void TongTien(){
-        tongTien=0;
-        for (int i=0;i<Seo_ChonNhaCungCap.gioHang.size();i++){
-            tongTien=tongTien+(Double.parseDouble(Seo_ChonNhaCungCap.gioHang.get(i).getGiaSanPham())*Double.parseDouble(Seo_ChonNhaCungCap.gioHang.get(i).getSoLuong()));
-        }
-        btnThanhToan.setText("Thanh Toán: "+ChuyenDoiTongTien.priceWithoutDecimal(tongTien)+" VNĐ");
-    }
+//    private void TongTien(){
+//        tongTien=0;
+//        for (int i=0;i<Seo_ChonNhaCungCap.gioHang.size();i++){
+//            tongTien=tongTien+(Double.parseDouble(Seo_ChonNhaCungCap.gioHang.get(i).getGiaSanPham())*Double.parseDouble(Seo_ChonNhaCungCap.gioHang.get(i).getSoLuong()));
+//        }
+//        btnThanhToan.setText("Thanh Toán: "+ChuyenDoiTongTien.priceWithoutDecimal(tongTien)+" VNĐ");
+//    }
     private void AnhXa() {
         toolbar=(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -243,6 +214,7 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
         {
             case android.R.id.home:
                 onBackPressed();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
 
             default:
@@ -254,11 +226,10 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        TongTien();
+//        TongTien();
     }
 
-    private void eventClickBanHang() {
-
+    private void eventViewMoreDanhMuc() {
         View view = getLayoutInflater().inflate(R.layout.item_bottomdialogquycachkhac, null);
         ImageView btnclosedialog=view.findViewById(R.id.btnclosedialog);
         GridView gridViewListQuyCach=view.findViewById(R.id.gridViewListQuyCach);
@@ -275,15 +246,6 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                 mBottomSheetDialog.dismiss();
             }
         });
-        final ArrayList<Model_QuyCachVaTinhChat> mListQuyCach2=new ArrayList<>();
-        mListQuyCach2.add(new Model_QuyCachVaTinhChat("55","U 60*2.5"));
-        mListQuyCach2.add(new Model_QuyCachVaTinhChat("55","U 20*2.5"));
-        mListQuyCach2.add(new Model_QuyCachVaTinhChat("55","U 50*2.5"));
-        mListQuyCach2.add(new Model_QuyCachVaTinhChat("55","U 60*2.5"));
-        mListQuyCach2.add(new Model_QuyCachVaTinhChat("55","U 30*2.5"));
-        mListQuyCach2.add(new Model_QuyCachVaTinhChat("55","U 10*2.5"));
-        mListQuyCach2.add(new Model_QuyCachVaTinhChat("55","U 55*2.5"));
-        mListQuyCach2.add(new Model_QuyCachVaTinhChat("55","U 60*2.5"));
         adapter_quyCachVaTinhChat=new Adapter_QuyCachVaTinhChat(Seo_ListSanPhamNhapKho.this,R.layout.item_layoutlistsanphambanle,mListQuyCach2);
         gridViewListQuyCach.setAdapter(adapter_quyCachVaTinhChat);
 //        gridViewListQuyCach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -391,29 +353,12 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
         });
 
     }
-    public void getSanPhamTheoQuyCach(String urlService, String IDNhaCungCap, String IDDanhMuc, String TenSanPham, final String QuyCach, final String QuyCachGoc){
+    public void getSanPhamTheoDanhMuc(String urlService,  String IDDanhMuc){
         final RequestQueue requestQueue;
-        if(urlService.equalsIgnoreCase(Api_custom.listSanPhamTheoDanhMucSPKoNCCBanDau)){
-            urlService=urlService+IDDanhMuc;
-
-        }else if(urlService.equalsIgnoreCase(Api_custom.listSanPhamTheoNhaCungCapDanhMucSPBanDau)){
-            urlService=urlService+IDNhaCungCap+"/"+IDDanhMuc;
-
-        }
-        else if(urlService.equalsIgnoreCase(Api_custom.listSanPhamTheoQuyCachDanhMucSP)){
-            urlService=urlService+IDDanhMuc+"/"+QuyCach;
-
-        }else if(urlService.equalsIgnoreCase(Api_custom.listSanPhamTheoQuyCachTheoNhaCungCapDanhMucSP)){
-            urlService=urlService+IDNhaCungCap+"/"+IDDanhMuc+"/"+QuyCach;
-
-        }
-
+        urlService=urlService+IDDanhMuc;
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-
         final Network network = new BasicNetwork(new HurlStack());
-
         requestQueue = new RequestQueue(cache, network);
-
         requestQueue.start();
         requestQueue.getCache().clear();
         JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(
@@ -424,38 +369,33 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         if(response!=null&&response.length()!=0){
-                            for (int i=0;i<response.length();i++){
-                                    try {
-                                    JSONObject jsonObject=response.getJSONObject(i);
-                                    String ThuocTinh="",TrongLuong="",DoDay="",Dai="",ThuocTinhKhac="";
 
-                                    //1
-                                    if(!jsonObject.getString("TrongLuong").isEmpty()||jsonObject.getString("TrongLuong").trim().length()!=0){
-                                        TrongLuong="Nặng: "+jsonObject.getString("TrongLuong")+", ";
-                                    }
-                                    //2
-                                    if(!jsonObject.getString("DoDay").isEmpty()||jsonObject.getString("DoDay").trim().length()!=0){
-                                        DoDay="Dày: "+jsonObject.getString("DoDay")+", ";;
-                                    }
-                                    //3
-                                    if(!jsonObject.getString("Dai").isEmpty()||jsonObject.getString("Dai").trim().length()!=0){
-                                        Dai="Dài: "+jsonObject.getString("Dai")+", ";;
-                                    }
-                                    //4
-                                    if(!jsonObject.getString("ThuocTinhKhac1").isEmpty()||jsonObject.getString("ThuocTinhKhac1").trim().length()!=0){
-                                        ThuocTinhKhac="Khác: "+jsonObject.getString("ThuocTinhKhac1")+", ";;
-                                    }
-                                    //5
-                                    if(!jsonObject.getString("ThuocTinhKhac2").isEmpty()||jsonObject.getString("ThuocTinhKhac2").trim().length()!=0){
-                                        if(ThuocTinhKhac.length()==0){
-                                            ThuocTinhKhac="Khác: "+jsonObject.getString("ThuocTinhKhac1");
-                                        }else{
-                                            ThuocTinhKhac=ThuocTinhKhac+", "+jsonObject.getString("ThuocTinhKhac1");
-                                        }
-                                    }
-                                    ThuocTinh=TrongLuong+DoDay+Dai+ThuocTinhKhac;
-                                    String TenSanPham=jsonObject.getString("TenSP")+" "+jsonObject.getString("QuyCach");
-                                    mListSanPhamBan.add(new Model_ListSanPhamBan(jsonObject.getString("IDSanPham"),TenSanPham,jsonObject.getString("SoLuong"),jsonObject.getString("DonGia1"),jsonObject.getString("DonViTinh"),ThuocTinh,QuyCachGoc));
+                            for (int i=0;i<response.length();i++){
+                                try {
+                                    JSONObject jsonObject=response.getJSONObject(i);
+                                    String mangDonVi[]=jsonObject.getString("DonViTinh").split(";");
+                                    String QuyCach="";
+                                    String Day="";
+                                    String Dai="";
+                                    String Nang="";
+                                    String Khac="";
+                                    if(jsonObject.getString("QuyCach").trim().length()==0){
+                                        QuyCach="Không";
+                                    }else {QuyCach=jsonObject.getString("QuyCach").trim();}
+                                    if(jsonObject.getString("DoDay").trim().length()==0){
+                                        Day="Không";
+                                    }else {Day=jsonObject.getString("DoDay").trim();}
+                                    if(jsonObject.getString("Dai").trim().length()==0){
+                                        Dai="Không";
+                                    }else {Dai=jsonObject.getString("Dai").trim();}
+                                    if(jsonObject.getString("TrongLuong").trim().length()==0){
+                                        Nang="Không";
+                                    }else {Nang=jsonObject.getString("TrongLuong").trim();}
+                                    if(jsonObject.getString("thuoctinhkhac").trim().length()==0){
+                                        Khac="Không";
+                                    }else {Khac=jsonObject.getString("thuoctinhkhac").trim();}
+
+                                    mListSanPhamBan.add(new Model_ListSanPhamBan(jsonObject.getString("IDSanPham"),jsonObject.getString("TenSP")+" - "+QuyCach,jsonObject.getString("SoLuong"),jsonObject.getString("giasi"),mangDonVi[3],"dày: "+Day+mangDonVi[0]+" - Dài: "+Dai+mangDonVi[1]+" - Nặng: "+Nang+mangDonVi[2]+" - Khác: "+Khac,jsonObject.getString("tenncc")));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -471,7 +411,7 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Seo_ListSanPhamNhapKho.this, "error getSanPhamTheoQuyCach", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Seo_ListSanPhamNhapKho.this, "Lỗi không thể lấy sản phẩm theo danh mục", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -479,20 +419,12 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
 // Add the request to the RequestQueue.
         requestQueue.add(jsonArrayRequest);
     }//end
-    public void getQuyCachTungSanPham(String urlService,String IDNhaCungCap,String IDDanhMuc){
+    public void getQuyCachTungSanPham(String urlService,String IDDanhMuc){
         RequestQueue requestQueue;
-        if(urlService.equalsIgnoreCase(Api_custom.listQuyCachTheoNhaCungCapDanhMucSP)){
-            urlService=urlService+IDNhaCungCap+"/"+IDDanhMuc;
-        }else if(urlService.equalsIgnoreCase(Api_custom.listQuyCachDanhMucSP)){
-            urlService=urlService+IDDanhMuc;
-        }
-
+        urlService=urlService+IDDanhMuc;
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-
         final Network network = new BasicNetwork(new HurlStack());
-
         requestQueue = new RequestQueue(cache, network);
-
         requestQueue.start();
         requestQueue.getCache().clear();
         JsonArrayRequest jsonArrayRequest=new JsonArrayRequest(
@@ -508,16 +440,19 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                                     JSONObject jsonObject=response.getJSONObject(i);
                                     if(jsonObject.getString("QuyCach").isEmpty()||jsonObject.getString("QuyCach").length()==0){
                                         mListQuyCach.add(new Model_QuyCachVaTinhChat("Trống"));
+                                        mListQuyCach2.add(new Model_QuyCachVaTinhChat("Trống"));
                                     }else{
                                         mListQuyCach.add(new Model_QuyCachVaTinhChat(jsonObject.getString("QuyCach")));
+                                        mListQuyCach2.add(new Model_QuyCachVaTinhChat(jsonObject.getString("QuyCach")));
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                                if(mListQuyCach.size()==5){
+                                    mListQuyCach.add(new Model_QuyCachVaTinhChat("CODESEONE","Khác "));
+                                }
                             }
-                            if(mListQuyCach.size()>=6){
-                                mListQuyCach.add(new Model_QuyCachVaTinhChat("CODESEONE","Khác "));
-                            }
+
                             adapter_quyCachVaTinhChat=new Adapter_QuyCachVaTinhChat(Seo_ListSanPhamNhapKho.this,R.layout.item_layoutquycachvatinhchat,mListQuyCach);
                             gridViewListQuyCach.setAdapter(adapter_quyCachVaTinhChat);
                         }
@@ -526,7 +461,7 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Seo_ListSanPhamNhapKho.this, "error getQuyCachTungSanPham", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Seo_ListSanPhamNhapKho.this, "Lỗi get quy cách sản phẩm", Toast.LENGTH_SHORT).show();
                     }
                 }
         );

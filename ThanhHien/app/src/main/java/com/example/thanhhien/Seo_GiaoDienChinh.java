@@ -39,6 +39,8 @@ import com.example.thanhhien.HoaDon.Seo_QuanLyHoaDon;
 import com.example.thanhhien.LichSuNhapXuat.Seo_LichSuNhapXuat;
 import com.example.thanhhien.NhaCungcap.Seo_QuanLyNhaCungCap;
 import com.example.thanhhien.NhapXuatHang.Seo_ChonNhaCungCap;
+import com.example.thanhhien.NhapXuatHang.Seo_GiaoDienDanhMuc;
+import com.example.thanhhien.NhapXuatHang.Seo_ListSanPhamNhapKho;
 import com.example.thanhhien.QuanLyKho.SanPhamKho.Model_LichSuNhapXuatChiTiet;
 import com.example.thanhhien.QuanLyKho.SanPhamKho.Seo_QuanLySanPhamKho;
 import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Seo_ThemSanPhamMoi;
@@ -184,8 +186,8 @@ public class Seo_GiaoDienChinh extends AppCompatActivity {
         btnNhapHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent=new Intent(Seo_GiaoDienChinh.this, Seo_ChonNhaCungCap.class);
+//                Intent intent=new Intent(Seo_GiaoDienChinh.this, Seo_ChonNhaCungCap.class);
+                Intent intent=new Intent(Seo_GiaoDienChinh.this, Seo_GiaoDienDanhMuc.class);
                 startActivity(intent);
 
             }
@@ -250,14 +252,19 @@ public class Seo_GiaoDienChinh extends AppCompatActivity {
     }
     @Override
     protected void onRestart() {
-        mBarChart.clearChart();
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormatter.setLenient(false);
-        Date today = new Date();
-        final String NgayHomNay = dateFormatter.format(today);
-        GetThuNhapHomNay(Api_custom.ThuNhapHomNay,NgayHomNay);
-
         super.onRestart();
+        if(isOnline()==false){
+            Intent intent=new Intent(Seo_GiaoDienChinh.this,SeoCheckConnection.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }else {
+            mBarChart.clearChart();
+            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+            dateFormatter.setLenient(false);
+            Date today = new Date();
+            final String NgayHomNay = dateFormatter.format(today);
+            GetThuNhapHomNay(Api_custom.ThuNhapHomNay,NgayHomNay);
+        }
     }
     // check connect
     public boolean isOnline() {
@@ -331,8 +338,6 @@ public class Seo_GiaoDienChinh extends AppCompatActivity {
                     }
                 }
         );
-
-// Add the request to the RequestQueue.
         requestQueue.add(jsonArrayRequest);
     }//end
 

@@ -13,6 +13,8 @@ public class Model_LichSuNhapXuat {
         NgayNhap = ngayNhap;
     }
 
+
+
     public String getTenNhaCungCap() {
         return TenNhaCungCap;
     }

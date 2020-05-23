@@ -4,11 +4,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -44,6 +50,8 @@ import com.example.thanhhien.NhaCungcap.Model_NhaCungCap;
 import com.example.thanhhien.NhapXuatHang.Adapter_NhaCungCap;
 import com.example.thanhhien.QuanLyKho.SanPhamKho.Seo_ChiTietSanPham;
 import com.example.thanhhien.R;
+import com.example.thanhhien.SeoCheckConnection;
+import com.example.thanhhien.Seo_GiaoDienLogin;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import org.json.JSONArray;
@@ -79,6 +87,8 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
             mListTrongLuong,mListDoDai,mListDoDay,
             mListDonViGiaSi,mListDonViGiaLe;
     private String IDThuocTinhHome="123";
+    private  SweetAlertDialog pDialog ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +109,16 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
         mListDoDay=new ArrayList<>();
         mListDonViGiaLe=new ArrayList<>();
         mListDonViGiaSi=new ArrayList<>();
-        getAllDonViTinh(Api_custom.GetTaCaDonViTinh);
+        if(isOnline()==false){
+            Intent intent2=new Intent(Seo_SuaXoaSanPham.this, SeoCheckConnection.class);
+            startActivity(intent2);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }else {
+            getAllDonViTinh(Api_custom.GetTaCaDonViTinh);
+            getAllNhaCungCap(Api_custom.GetTaCaNhaCungCap);
+            getAllDanhMuc(Api_custom.GetTaCaDanhMuc);
+        }
+
     }
     // ánh xạ khai báo đối tượng
     private void AnhXa() {
@@ -134,6 +153,35 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    protected void onRestart() {
+        if(isOnline()==false){
+            Intent intent2=new Intent(Seo_SuaXoaSanPham.this, SeoCheckConnection.class);
+            startActivity(intent2);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }else {
+            getAllDanhMuc(Api_custom.GetTaCaDanhMuc);
+            getAllDonViTinh(Api_custom.GetTaCaDonViTinh);
+            getAllNhaCungCap(Api_custom.GetTaCaNhaCungCap);
+
+        }
+        super.onRestart();
+    }
+
+    // check connect
+    public boolean isOnline() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.INTERNET}, 1);
+        }
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
     }
     private void onClick(){
         btnThemNhaCungCap.setOnClickListener(new View.OnClickListener() {
@@ -242,9 +290,29 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                                 .setConfirmText("Xác nhận!")
                                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
-                                    public void onClick(SweetAlertDialog sDialog) {
-                                        SuaSanPham(Api_custom.SuaSanPham, IDThuocTinh, QuyCach, TrongLuong, DoDay, Dai, thuoctinhkhac, IDSanPham, tenncc, tendanhmuc, TenSP, SoLuong, DonViTinh, giale, giasi);
-                                        sDialog.dismissWithAnimation();
+                                    public void onClick(final SweetAlertDialog sDialog) {
+                                        if(isOnline()==false){
+                                            Intent intent=new Intent(Seo_SuaXoaSanPham.this,SeoCheckConnection.class);
+                                            startActivity(intent);
+                                            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+
+                                        }else {
+                                            pDialog = new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.PROGRESS_TYPE);
+                                            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                            pDialog.setTitleText("Loading ...");
+                                            pDialog.setCancelable(true);
+                                            pDialog.show();
+                                            new Handler().postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    SuaSanPham(Api_custom.SuaSanPham, IDThuocTinh, QuyCach, TrongLuong, DoDay, Dai, thuoctinhkhac, IDSanPham, tenncc, tendanhmuc, TenSP, SoLuong, DonViTinh, giale, giasi);
+                                                    sDialog.dismissWithAnimation();
+                                                }
+                                            }, 500);
+                                        }
+
+
                                     }
                                 })
                                 .setCancelButton("Hủy", new SweetAlertDialog.OnSweetClickListener() {
@@ -287,19 +355,37 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
         btnThemNhaCungCap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String TenNCC=edit_TenNhaCungCap.getText().toString().trim();
-                String SDT=edit_SoDienThoai.getText().toString().trim();
-                String DiaChi=edit_DiaChi.getText().toString().trim();
-                String Email=edit_Email.getText().toString().trim();
+                final String TenNCC=edit_TenNhaCungCap.getText().toString().trim();
+                final String SDT=edit_SoDienThoai.getText().toString().trim();
+                final String DiaChi=edit_DiaChi.getText().toString().trim();
+                final String Email=edit_Email.getText().toString().trim();
                 if(TenNCC.isEmpty()||SDT.isEmpty()||DiaChi.isEmpty()||Email.isEmpty()){
-                    Toast.makeText(Seo_SuaXoaSanPham.this, "Bạn chưa nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+                    TastyToast.makeText(getApplicationContext(), "Bạn chưa nhập đủ thông tin", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
                 }else {
                     DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddhhmmss");
                     dateFormatter.setLenient(false);
                     Date today = new Date();
-                    String IDNhaCungCap = "NCC-"+dateFormatter.format(today)+"B";
-                    ThemNhaCungCap(Api_custom.ThemNhaCungCap,IDNhaCungCap,TenNCC,SDT,DiaChi,Email);
-                    mBottomSheetDialog.dismiss();
+                    final String IDNhaCungCap = "NCC-"+dateFormatter.format(today)+"B";
+                    if(isOnline()==false){
+                        Intent intent2=new Intent(Seo_SuaXoaSanPham.this, SeoCheckConnection.class);
+                        startActivity(intent2);
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }else {
+                        pDialog = new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.PROGRESS_TYPE);
+                        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                        pDialog.setTitleText("Loading ...");
+                        pDialog.setCancelable(true);
+                        pDialog.show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ThemNhaCungCap(Api_custom.ThemNhaCungCap,IDNhaCungCap,TenNCC,SDT,DiaChi,Email);
+                                mBottomSheetDialog.dismiss();
+                            }
+                        }, 500);
+
+                    }
+
                 }
             }
         });
@@ -330,14 +416,33 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(edit_TenDanhMuc.getText().toString().trim().isEmpty()){
-                    Toast.makeText(Seo_SuaXoaSanPham.this, "Bạn chưa nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+                    TastyToast.makeText(getApplicationContext(), "Bạn chưa nhập đủ thông tin", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
                 }else {
                     DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddhhmmss");
                     dateFormatter.setLenient(false);
                     Date today = new Date();
-                    String IDDanhMuc = "M-"+dateFormatter.format(today)+"B";
-                    ThemDanhMuc(Api_custom.ThemDanhMuc,IDDanhMuc,edit_TenDanhMuc.getText().toString().trim());
-                    mBottomSheetDialog.dismiss();
+                    final String IDDanhMuc = "M-"+dateFormatter.format(today)+"B";
+                    if(isOnline()==false){
+                        Intent intent2=new Intent(Seo_SuaXoaSanPham.this, SeoCheckConnection.class);
+                        startActivity(intent2);
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }else {
+                        pDialog = new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.PROGRESS_TYPE);
+                        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                        pDialog.setTitleText("Loading ...");
+                        pDialog.setCancelable(true);
+                        pDialog.show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ThemDanhMuc(Api_custom.ThemDanhMuc,IDDanhMuc,edit_TenDanhMuc.getText().toString().trim());
+                                mBottomSheetDialog.dismiss();
+                            }
+                        }, 500);
+
+                    }
+
+
                 }
             }
         });
@@ -549,7 +654,6 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
         ListView listViewDanhMucSanPham=view.findViewById(R.id.listViewThuocTinh);
         Adapter_ThuocTinhSanPham adapter_thuocTinhSanPham=new Adapter_ThuocTinhSanPham(Seo_SuaXoaSanPham.this,R.layout.item_layoutspiner,mListDanhMucSanPham);
         listViewDanhMucSanPham.setAdapter(adapter_thuocTinhSanPham);
-        getAllDanhMuc(Api_custom.GetTaCaDanhMuc,listViewDanhMucSanPham);
         final Dialog mBottomSheetDialog = new Dialog(Seo_SuaXoaSanPham.this, R.style.MaterialDialogSheet);
         mBottomSheetDialog.setContentView(view);
         mBottomSheetDialog.setCancelable(true);
@@ -756,6 +860,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        pDialog.cancel();
                         TastyToast.makeText(Seo_SuaXoaSanPham.this,"Thêm thành công",TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
                         getAllNhaCungCap(Api_custom.GetTaCaNhaCungCap);
                     }
@@ -763,6 +868,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        pDialog.cancel();
                         TastyToast.makeText(Seo_SuaXoaSanPham.this,"Lỗi không thể thêm nhà cung cấp",TastyToast.LENGTH_SHORT,TastyToast.ERROR);
                     }
                 }
@@ -835,13 +941,15 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(Seo_SuaXoaSanPham.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        pDialog.cancel();
+                        TastyToast.makeText(getApplicationContext(), "Thêm danh mục thành công", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Seo_SuaXoaSanPham.this, "error ThemDanhMuc", Toast.LENGTH_SHORT).show();
+                        pDialog.cancel();
+                        TastyToast.makeText(getApplicationContext(), "Lỗi thêm danh mục", TastyToast.LENGTH_SHORT, TastyToast.ERROR);
                     }
                 }
         ){
@@ -855,7 +963,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
         };
         requestQueue.add(stringRequest);
     }//end ThemDanhMuc
-    public void getAllDanhMuc(String urlService, final ListView listViewDanhMucSanPham){
+    public void getAllDanhMuc(String urlService){
         RequestQueue requestQueue;
 
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
@@ -883,8 +991,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
-                            Adapter_ThuocTinhSanPham adapter_thuocTinhSanPham=new Adapter_ThuocTinhSanPham(Seo_SuaXoaSanPham.this,R.layout.item_layoutspiner,mListDanhMucSanPham);
-                            listViewDanhMucSanPham.setAdapter(adapter_thuocTinhSanPham);
+
                         }
                     }
                 },
@@ -971,6 +1078,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        pDialog.cancel();
                         TastyToast.makeText(Seo_SuaXoaSanPham.this,"Sửa thành công",TastyToast.LENGTH_SHORT,TastyToast.SUCCESS);
                         onBackPressed();
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -980,7 +1088,8 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Seo_SuaXoaSanPham.this, "error SuaSanPham", Toast.LENGTH_SHORT).show();
+                        pDialog.cancel();
+                        TastyToast.makeText(Seo_SuaXoaSanPham.this,"Lỗi sửa sản phẩm",TastyToast.LENGTH_SHORT,TastyToast.ERROR);
                     }
                 }
         ){
