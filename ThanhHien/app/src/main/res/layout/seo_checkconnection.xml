@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:gravity="center"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SeoCheckConnection">
+    <ImageView
+
+        android:layout_gravity="center"
+        android:src="@drawable/imgconnect"
+        android:layout_width="300dp"
+        android:layout_height="300dp">
+
+    </ImageView>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="Vui lòng kiểm tra kết nối!!!!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </TextView>
+    <Button
+        android:id="@+id/btnKetNoiLai"
+        android:textColor="#03A9F4"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/item_borderbuttonblue"
+        android:textAllCaps="false"
+        android:text="Kết nối lại"
+        android:layout_width="250dp"
+        android:layout_height="40dp"></Button>
+</LinearLayout>

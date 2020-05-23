@@ -435,7 +435,7 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         if(response!=null&&response.length()!=0){
-                            for (int i=0;i<response.length();i++){   
+                            for (int i=0;i<response.length();i++){
                                 try {
                                     JSONObject jsonObject=response.getJSONObject(i);
                                     if(jsonObject.getString("QuyCach").isEmpty()||jsonObject.getString("QuyCach").length()==0){
