@@ -40,6 +40,7 @@ import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Seo_ThemSanPhamMoi;
 import com.example.thanhhien.R;
 import com.example.thanhhien.SeoCheckConnection;
 import com.example.thanhhien.Seo_GiaoDienLogin;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import org.json.JSONArray;
@@ -54,6 +55,7 @@ public class Seo_GiaoDienDanhMuc extends AppCompatActivity {
     private ArrayList<Model_ListSanPhamBanLe> mListDanhMuc;
     public static String IDDanhMuc="0";
     public static ArrayList<Model_ListSanPhamBan> gioHang;
+    private ShimmerFrameLayout shimmer_view_quycach;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +90,7 @@ public class Seo_GiaoDienDanhMuc extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         gridViewListSanPham=(GridView) findViewById(R.id.gridViewListSanPham);
+        shimmer_view_quycach=findViewById(R.id.shimmer_view_quycach);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -153,6 +156,8 @@ public class Seo_GiaoDienDanhMuc extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
+                            gridViewListSanPham.setVisibility(View.VISIBLE);
+                            shimmer_view_quycach.setVisibility(View.GONE);
                             adapter_listSanPhamBanLe=new Adapter_ListSanPhamBanLe(Seo_GiaoDienDanhMuc.this,R.layout.item_layoutsanphambanle,mListDanhMuc);
                             gridViewListSanPham.setAdapter(adapter_listSanPhamBanLe);
                         }

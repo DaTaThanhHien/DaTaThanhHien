@@ -81,7 +81,7 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
     private Adapter_ListSanPhamNhap adapter_listSanPhamBan;
     private Adapter_ListSanPhamBanLe adapter_listSanPhamBanLe;
     private ArrayList<Model_QuyCachVaTinhChat> mListQuyCach;
-    private ArrayList<Model_ListSanPhamBanLe> mListSanPhamBanLe;
+    private ArrayList<Model_ListSanPhamBanLe> mListDanhMuc;
     private ArrayList<Model_QuyCachVaTinhChat>mListTinhChat;
     private ArrayList<Model_QuyCachVaTinhChat> mListQuyCach2;
     private ArrayList<Model_ListSanPhamBan> mListSanPhamBan;
@@ -104,7 +104,7 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
         mListQuyCach=new ArrayList<>();
         mListQuyCach2=new ArrayList<>();
         mListTinhChat=new ArrayList<>();
-        mListSanPhamBanLe=new ArrayList<>();
+        mListDanhMuc=new ArrayList<>();
         // lấy quy cách của từng sản phẩm theo tên danh mục của sản phẩm đó
         if(isOnline()==false){
             Intent intent=new Intent(Seo_ListSanPhamNhapKho.this, SeoCheckConnection.class);
@@ -158,7 +158,7 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                 layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerViewListSanPham.setLayoutManager(layoutManager);
                 recyclerViewListSanPham.setAdapter(adapter_listSanPhamBan);
-                IDDanhMuc=mListSanPhamBanLe.get(position).getTenSanPham();
+                IDDanhMuc=mListDanhMuc.get(position).getTenSanPham();
                 mListSanPhamBan.clear();
                 adapter_listSanPhamBan=new Adapter_ListSanPhamNhap(Seo_ListSanPhamNhapKho.this,mListSanPhamBan);
                 recyclerViewListSanPham.setAdapter(adapter_listSanPhamBan);
@@ -246,13 +246,17 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+
         if(isOnline()==false){
             Intent intent=new Intent(Seo_ListSanPhamNhapKho.this, SeoCheckConnection.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
-
         }else {
+            mListQuyCach.clear();
+            mListQuyCach2.clear();
+            mListTinhChat.clear();
+            mListSanPhamBan.clear();
+            mListDanhMuc.clear();
             getQuyCachTungSanPham(Api_custom.listQuyCachDanhMucSP, Seo_GiaoDienDanhMuc.IDDanhMuc);
             getAllDanhMucSanPham(Api_custom.listAllDanhMucSanPham);
             getSanPhamTheoDanhMuc(Api_custom.listSanPhamTheoDanhMuc, Seo_GiaoDienDanhMuc.IDDanhMuc,"NULLQUYCACH");
@@ -549,14 +553,14 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                                     if(i==0){
                                         IDDanhMuc=jsonObject.getString("IDDanhMuc");
                                     }
-                                    mListSanPhamBanLe.add(new Model_ListSanPhamBanLe(jsonObject.getString("IDDanhMuc"),jsonObject.getString("TenDanhMuc")));
+                                    mListDanhMuc.add(new Model_ListSanPhamBanLe(jsonObject.getString("IDDanhMuc"),jsonObject.getString("TenDanhMuc")));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
                             gridViewListTinhChat.setVisibility(View.VISIBLE);
                             shimmer_view_danhmuc.setVisibility(View.GONE);
-                            adapter_listSanPhamBanLe=new Adapter_ListSanPhamBanLe(Seo_ListSanPhamNhapKho.this,R.layout.item_layoutsanphambanle2,mListSanPhamBanLe);
+                            adapter_listSanPhamBanLe=new Adapter_ListSanPhamBanLe(Seo_ListSanPhamNhapKho.this,R.layout.item_layoutsanphambanle2,mListDanhMuc);
                             gridViewListTinhChat.setAdapter(adapter_listSanPhamBanLe);
                         }
 
