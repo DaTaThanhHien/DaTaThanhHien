@@ -107,7 +107,6 @@ public class Seo_ListSanPhamBanLe extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.seo_listsanphambanle);
         final Intent intent=getIntent();
-        new NukeSSLCerts().nuke();
         new HttpsTrustManager();
         HttpsTrustManager.allowAllSSL();
         setTitle(intent.getStringExtra("TenSanPham"));

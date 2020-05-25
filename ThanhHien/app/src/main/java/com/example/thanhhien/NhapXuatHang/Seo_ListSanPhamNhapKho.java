@@ -5,9 +5,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -46,6 +50,9 @@ import com.example.thanhhien.HttpsTrustManager;
 import com.example.thanhhien.NukeSSLCerts;
 import com.example.thanhhien.QuanLyKho.SanPhamKho.Model_SanPhamKho;
 import com.example.thanhhien.R;
+import com.example.thanhhien.SeoCheckConnection;
+import com.example.thanhhien.Seo_GiaoDienLogin;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -81,8 +88,9 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
     private int SoTienNo=0;
     public static String tenSP="";
     public static double tongTien=0;
-    private String IDDanhMuc="";
-
+    private boolean isCheck=false;
+    private String IDDanhMuc="Null";
+    private ShimmerFrameLayout container,shimmer_view_danhmuc,shimmer_view_quycach;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,12 +100,24 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
         new HttpsTrustManager();
         HttpsTrustManager.allowAllSSL();
         AnhXa();
-//        TongTien();
+       TongTien();
         mListQuyCach=new ArrayList<>();
         mListQuyCach2=new ArrayList<>();
         mListTinhChat=new ArrayList<>();
+        mListSanPhamBanLe=new ArrayList<>();
         // lấy quy cách của từng sản phẩm theo tên danh mục của sản phẩm đó
-        getQuyCachTungSanPham(Api_custom.listQuyCachDanhMucSP, Seo_GiaoDienDanhMuc.IDDanhMuc);
+        if(isOnline()==false){
+            Intent intent=new Intent(Seo_ListSanPhamNhapKho.this, SeoCheckConnection.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+
+        }else {
+            getQuyCachTungSanPham(Api_custom.listQuyCachDanhMucSP, Seo_GiaoDienDanhMuc.IDDanhMuc);
+            getAllDanhMucSanPham(Api_custom.listAllDanhMucSanPham);
+            getSanPhamTheoDanhMuc(Api_custom.listSanPhamTheoDanhMuc, Seo_GiaoDienDanhMuc.IDDanhMuc,"NULLQUYCACH");
+        }
+
         adapter_quyCachVaTinhChat=new Adapter_QuyCachVaTinhChat(Seo_ListSanPhamNhapKho.this,R.layout.item_layoutquycachvatinhchat,mListQuyCach);
         gridViewListQuyCach.setAdapter(adapter_quyCachVaTinhChat);
 
@@ -105,21 +125,18 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
         gridViewListQuyCach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(mListQuyCach.get(position).getMaQuyCachVaTT().equalsIgnoreCase("CODESEONE")){
-                    eventViewMoreDanhMuc();
-                }else {
-                    String maHoaCode="";
-                    String tenQuyCach=mListQuyCach.get(position).getTenQuyCachVaTT();
-                    String QuyCachGoc=mListQuyCach.get(position).getTenQuyCachVaTT();
 
-                    try {
-                        if(tenQuyCach.trim().equalsIgnoreCase("Trống")){
-                            maHoaCode  = URLEncoder.encode(" ", "UTF-8");
-                        } else {
-                            maHoaCode  = URLEncoder.encode(mListQuyCach.get(position).getTenQuyCachVaTT(), "UTF-8");
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                if(mListQuyCach.get(position).getMaQuyCachVaTT()=="CODESEONE"){
+                    eventViewMoreQuyCach();
+                }else {
+                    //get sản phẩm theo quy cách
+                    mListSanPhamBan.clear();
+                    recyclerViewListSanPham.setVisibility(View.GONE);
+                    container.setVisibility(View.VISIBLE);
+                    if(isCheck==false){
+                        getSanPhamTheoDanhMuc(Api_custom.listSanPhamTheoQuyCachDanhMucSP,Seo_GiaoDienDanhMuc.IDDanhMuc,mListQuyCach.get(position).getTenQuyCachVaTT());
+                    }else {
+                        getSanPhamTheoDanhMuc(Api_custom.listSanPhamTheoQuyCachDanhMucSP,IDDanhMuc,mListQuyCach.get(position).getTenQuyCachVaTT());
                     }
 
                 }
@@ -127,13 +144,12 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
             }
         });
         //jjjsjsjs
-        mListSanPhamBanLe=new ArrayList<>();
-        getAllDanhMucSanPham(Api_custom.listAllDanhMucSanPham);
-        getSanPhamTheoDanhMuc(Api_custom.listSanPhamTheoDanhMuc, Seo_GiaoDienDanhMuc.IDDanhMuc);
+
         gridViewListTinhChat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mListQuyCach.clear();
+                mListQuyCach2.clear();
                 adapter_quyCachVaTinhChat=new Adapter_QuyCachVaTinhChat(Seo_ListSanPhamNhapKho.this,R.layout.item_layoutquycachvatinhchat,mListQuyCach);
                 gridViewListQuyCach.setAdapter(adapter_quyCachVaTinhChat);
                 mListSanPhamBan.clear();
@@ -142,19 +158,20 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                 layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerViewListSanPham.setLayoutManager(layoutManager);
                 recyclerViewListSanPham.setAdapter(adapter_listSanPhamBan);
-                IDDanhMuc=mListSanPhamBanLe.get(position).getIDSanPham();
+                IDDanhMuc=mListSanPhamBanLe.get(position).getTenSanPham();
                 mListSanPhamBan.clear();
                 adapter_listSanPhamBan=new Adapter_ListSanPhamNhap(Seo_ListSanPhamNhapKho.this,mListSanPhamBan);
                 recyclerViewListSanPham.setAdapter(adapter_listSanPhamBan);
+                // sự kiện loading
+                recyclerViewListSanPham.setVisibility(View.GONE);
+                container.setVisibility(View.VISIBLE);
+                gridViewListQuyCach.setVisibility(View.GONE);
+                shimmer_view_quycach.setVisibility(View.VISIBLE);
+                // lấy sản phẩm theo danh mục
+                isCheck=true;
+                getSanPhamTheoDanhMuc(Api_custom.listSanPhamTheoDanhMuc, IDDanhMuc,"NULLQUYCACH");
+                getQuyCachTungSanPham(Api_custom.listQuyCachDanhMucSP, IDDanhMuc);
 
-
-                if(Seo_ChonNhaCungCap.IDNhaCungCap.equalsIgnoreCase("0")){
-                    //getQuyCachTungSanPham(Api_custom.listQuyCachDanhMucSP,Seo_ChonNhaCungCap.IDNhaCungCap,mListSanPhamBanLe.get(position).getIDSanPham());
-                    //getSanPhamTheoQuyCach(Api_custom.listSanPhamTheoDanhMucSPKoNCCBanDau,Seo_ChonNhaCungCap.IDNhaCungCap,IDDanhMuc,"a","a","a");
-                }else{
-                    //getQuyCachTungSanPham(Api_custom.listQuyCachTheoNhaCungCapDanhMucSP,Seo_ChonNhaCungCap.IDNhaCungCap,mListSanPhamBanLe.get(position).getIDSanPham());
-                    //getSanPhamTheoQuyCach(Api_custom.listSanPhamTheoNhaCungCapDanhMucSPBanDau,Seo_ChonNhaCungCap.IDNhaCungCap,IDDanhMuc,"a","a","a");
-                }
             }
         });
 
@@ -188,13 +205,13 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
             }
         });
     }
-//    private void TongTien(){
-//        tongTien=0;
-//        for (int i=0;i<Seo_ChonNhaCungCap.gioHang.size();i++){
-//            tongTien=tongTien+(Double.parseDouble(Seo_ChonNhaCungCap.gioHang.get(i).getGiaSanPham())*Double.parseDouble(Seo_ChonNhaCungCap.gioHang.get(i).getSoLuong()));
-//        }
-//        btnThanhToan.setText("Thanh Toán: "+ChuyenDoiTongTien.priceWithoutDecimal(tongTien)+" VNĐ");
-//    }
+    private void TongTien(){
+        tongTien=0;
+        for (int i=0;i<Seo_GiaoDienDanhMuc.gioHang.size();i++){
+            tongTien=tongTien+(Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham())*Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong()));
+        }
+        btnThanhToan.setText("Thanh Toán: "+ChuyenDoiTongTien.priceWithoutDecimal(tongTien)+" VNĐ");
+    }
     private void AnhXa() {
         toolbar=(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -207,6 +224,9 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
         btnGioHang=findViewById(R.id.btnGioHang);
         btnTrove=findViewById(R.id.btnTrove);
         btnThanhToan=findViewById(R.id.btnThanhToan);
+        container= (ShimmerFrameLayout) findViewById(R.id.shimmer_view_container);
+        shimmer_view_danhmuc=findViewById(R.id.shimmer_view_danhmuc);
+        shimmer_view_quycach=findViewById(R.id.shimmer_view_quycach);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -226,10 +246,33 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-//        TongTien();
-    }
+        if(isOnline()==false){
+            Intent intent=new Intent(Seo_ListSanPhamNhapKho.this, SeoCheckConnection.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
-    private void eventViewMoreDanhMuc() {
+
+        }else {
+            getQuyCachTungSanPham(Api_custom.listQuyCachDanhMucSP, Seo_GiaoDienDanhMuc.IDDanhMuc);
+            getAllDanhMucSanPham(Api_custom.listAllDanhMucSanPham);
+            getSanPhamTheoDanhMuc(Api_custom.listSanPhamTheoDanhMuc, Seo_GiaoDienDanhMuc.IDDanhMuc,"NULLQUYCACH");
+        }
+        TongTien();
+    }
+    // check connect
+    public boolean isOnline() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.INTERNET}, 1);
+        }
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
+    }
+    private void eventViewMoreQuyCach() {
         View view = getLayoutInflater().inflate(R.layout.item_bottomdialogquycachkhac, null);
         ImageView btnclosedialog=view.findViewById(R.id.btnclosedialog);
         GridView gridViewListQuyCach=view.findViewById(R.id.gridViewListQuyCach);
@@ -248,22 +291,25 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
         });
         adapter_quyCachVaTinhChat=new Adapter_QuyCachVaTinhChat(Seo_ListSanPhamNhapKho.this,R.layout.item_layoutlistsanphambanle,mListQuyCach2);
         gridViewListQuyCach.setAdapter(adapter_quyCachVaTinhChat);
-//        gridViewListQuyCach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String maHoaCode="";
-//                try {
-//                    maHoaCode  = URLEncoder.encode(tenSP, "UTF-8");
-//                } catch (UnsupportedEncodingException e) {
-//                    e.printStackTrace();
-//                }
-//                mListSanPhamBan.clear();
-////                getSanPhamTheoQuyCach(Api_custom.listQuyCachSanPhamTheoNhaCungCapDanhMucSP,Seo_ChonNhaCungCap.IDNhaCungCap,Seo_GiaoDienNhapXuatHang.IDDanhMuc,maHoaCode.replace("+","%20"),mListQuyCach.get(position).getTenQuyCachVaTT(),mListQuyCach.get(position).getTenQuyCachVaTT());
-//                Model_QuyCachVaTinhChat model_quyCachVaTinhChat=mListQuyCach2.get(position);
-//                txtTenQuyCach.setText(model_quyCachVaTinhChat.getTenQuyCachVaTT());
-//                mBottomSheetDialog.dismiss();
-//            }
-//        });
+        gridViewListQuyCach.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                mListSanPhamBan.clear();
+                if(isCheck==false){
+                    recyclerViewListSanPham.setVisibility(View.GONE);
+                    container.setVisibility(View.VISIBLE);
+                    getSanPhamTheoDanhMuc(Api_custom.listSanPhamTheoQuyCachDanhMucSP,Seo_GiaoDienDanhMuc.IDDanhMuc,mListQuyCach2.get(position).getTenQuyCachVaTT());
+                }else {
+                    recyclerViewListSanPham.setVisibility(View.GONE);
+                    container.setVisibility(View.VISIBLE);
+                    getSanPhamTheoDanhMuc(Api_custom.listSanPhamTheoQuyCachDanhMucSP,IDDanhMuc,mListQuyCach2.get(position).getTenQuyCachVaTT());
+                }
+                Model_QuyCachVaTinhChat model_quyCachVaTinhChat=mListQuyCach2.get(position);
+                txtTenQuyCach.setText(model_quyCachVaTinhChat.getTenQuyCachVaTT());
+                mBottomSheetDialog.dismiss();
+            }
+        });
 
     }
 
@@ -353,9 +399,13 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
         });
 
     }
-    public void getSanPhamTheoDanhMuc(String urlService,  String IDDanhMuc){
+    public void getSanPhamTheoDanhMuc(String urlService,  String IDDanhMuc,String QuyCach){
         final RequestQueue requestQueue;
-        urlService=urlService+IDDanhMuc;
+        if(QuyCach.equalsIgnoreCase("NULLQUYCACH")){
+            urlService=urlService+IDDanhMuc;
+        }else {
+            urlService=urlService+IDDanhMuc+"/"+QuyCach;
+        }
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
         final Network network = new BasicNetwork(new HurlStack());
         requestQueue = new RequestQueue(cache, network);
@@ -400,6 +450,8 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
+                            container.setVisibility(View.GONE);
+                            recyclerViewListSanPham.setVisibility(View.VISIBLE);
                             adapter_listSanPhamBan=new Adapter_ListSanPhamNhap(Seo_ListSanPhamNhapKho.this,mListSanPhamBan);
                             LinearLayoutManager layoutManager = new LinearLayoutManager(Seo_ListSanPhamNhapKho.this);
                             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -452,7 +504,8 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                                     mListQuyCach.add(new Model_QuyCachVaTinhChat("CODESEONE","Khác "));
                                 }
                             }
-
+                            gridViewListQuyCach.setVisibility(View.VISIBLE);
+                            shimmer_view_quycach.setVisibility(View.GONE);
                             adapter_quyCachVaTinhChat=new Adapter_QuyCachVaTinhChat(Seo_ListSanPhamNhapKho.this,R.layout.item_layoutquycachvatinhchat,mListQuyCach);
                             gridViewListQuyCach.setAdapter(adapter_quyCachVaTinhChat);
                         }
@@ -501,6 +554,8 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
+                            gridViewListTinhChat.setVisibility(View.VISIBLE);
+                            shimmer_view_danhmuc.setVisibility(View.GONE);
                             adapter_listSanPhamBanLe=new Adapter_ListSanPhamBanLe(Seo_ListSanPhamNhapKho.this,R.layout.item_layoutsanphambanle2,mListSanPhamBanLe);
                             gridViewListTinhChat.setAdapter(adapter_listSanPhamBanLe);
                         }

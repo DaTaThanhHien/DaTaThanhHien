@@ -30,12 +30,35 @@
                 android:id="@+id/llListSanPham"
                 android:layout_width="110dp"
                 android:layout_height="match_parent">
-                <GridView
-                    android:numColumns="1"
-                    android:id="@+id/gridViewListTinhChat"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="none"></GridView>
+                    android:layout_height="match_parent">
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer_view_danhmuc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                            <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                            <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                            <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                            <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                            <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                            <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                        </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                    <GridView
+                        android:visibility="gone"
+                        android:id="@+id/gridViewListTinhChat"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:numColumns="1"
+                        android:scrollbars="none"></GridView>
+                </RelativeLayout>
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
@@ -46,14 +69,46 @@
                     android:layout_height="100dp"
                     android:layout_marginRight="5dp">
 
-                    <GridView
-                        android:id="@+id/gridViewListQuyCach"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:numColumns="3"
-                        android:scrollbars="horizontal">
+                        android:layout_height="match_parent">
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/shimmer_view_quycach"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            >
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                                    <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                                    <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                                    <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+                                    <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                                    <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                                    <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                                    <include layout="@layout/item_layoutloadingdanhmucqutcach"></include>
+                                </LinearLayout>
+                            </LinearLayout>
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+                        <GridView
+                            android:visibility="gone"
+                            android:id="@+id/gridViewListQuyCach"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:numColumns="3"
+                            android:scrollbars="horizontal">
 
-                    </GridView>
+                        </GridView>
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -88,12 +143,33 @@
                         android:textStyle="bold">
 
                     </TextView>
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewListSanPham"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
-                    </androidx.recyclerview.widget.RecyclerView>
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/shimmer_view_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            >
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <include layout="@layout/item_layoutloadinglist"></include>
+                                <include layout="@layout/item_layoutloadinglist"></include>
+                                <include layout="@layout/item_layoutloadinglist"></include>
+                                <include layout="@layout/item_layoutloadinglist"></include>
+                                <include layout="@layout/item_layoutloadinglist"></include>
+                                <include layout="@layout/item_layoutloadinglist"></include>
+                            </LinearLayout>
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:visibility="gone"
+                            android:id="@+id/recyclerViewListSanPham"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                        </androidx.recyclerview.widget.RecyclerView>
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

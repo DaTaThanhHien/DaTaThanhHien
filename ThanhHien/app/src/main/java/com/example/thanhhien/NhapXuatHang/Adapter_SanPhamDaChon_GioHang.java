@@ -65,8 +65,8 @@ public class Adapter_SanPhamDaChon_GioHang extends RecyclerView.Adapter<Adapter_
             public void onClick(View v) {
                 if(Integer.parseInt(holder.txtSoLuongSanPham.getText().toString().trim())>1){
                     holder.txtSoLuongSanPham.setText((Integer.parseInt( holder.txtSoLuongSanPham.getText().toString().trim())-1)+"");
-                    Seo_ChonNhaCungCap.gioHang.set(position,new Model_ListSanPhamBan(Seo_ChonNhaCungCap.gioHang.get(position).getMaSanPham(),Seo_ChonNhaCungCap.gioHang.get(position).getTenSanPham(),(Integer.parseInt(Seo_ChonNhaCungCap.gioHang.get(position).getSoLuong())-1)+"",Seo_ChonNhaCungCap.gioHang.get(position).getGiaSanPham(),Seo_ChonNhaCungCap.gioHang.get(position).getDonViTinh(),Seo_ChonNhaCungCap.gioHang.get(position).getThuocTinh(),Seo_ChonNhaCungCap.gioHang.get(position).getQuyCach()));
-                    Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(Seo_ChonNhaCungCap.gioHang.get(position).getGiaSanPham());
+                    Seo_GiaoDienDanhMuc.gioHang.set(position,new Model_ListSanPhamBan(Seo_GiaoDienDanhMuc.gioHang.get(position).getMaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(position).getTenSanPham(),(Integer.parseInt(Seo_GiaoDienDanhMuc.gioHang.get(position).getSoLuong())-1)+"",Seo_GiaoDienDanhMuc.gioHang.get(position).getGiaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(position).getDonViTinh(),Seo_GiaoDienDanhMuc.gioHang.get(position).getThuocTinh(),Seo_GiaoDienDanhMuc.gioHang.get(position).getQuyCach()));
+                    Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(position).getGiaSanPham());
                     Seo_BanHang_GioHang.btnTongTienThanhToan.setText("Thanh toán: "+Seo_ListSanPhamNhapKho.tongTien+" VNĐ");
                 }
             }
@@ -75,17 +75,17 @@ public class Adapter_SanPhamDaChon_GioHang extends RecyclerView.Adapter<Adapter_
             @Override
             public void onClick(View v) {
                 holder.txtSoLuongSanPham.setText((Integer.parseInt( holder.txtSoLuongSanPham.getText().toString().trim())+1)+"");
-                Seo_ChonNhaCungCap.gioHang.set(position,new Model_ListSanPhamBan(Seo_ChonNhaCungCap.gioHang.get(position).getMaSanPham(),Seo_ChonNhaCungCap.gioHang.get(position).getTenSanPham(),(Integer.parseInt(Seo_ChonNhaCungCap.gioHang.get(position).getSoLuong())+1)+"",Seo_ChonNhaCungCap.gioHang.get(position).getGiaSanPham(),Seo_ChonNhaCungCap.gioHang.get(position).getDonViTinh(),Seo_ChonNhaCungCap.gioHang.get(position).getThuocTinh(),Seo_ChonNhaCungCap.gioHang.get(position).getQuyCach()));
-                Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien+Double.parseDouble(Seo_ChonNhaCungCap.gioHang.get(position).getGiaSanPham());
+                Seo_GiaoDienDanhMuc.gioHang.set(position,new Model_ListSanPhamBan(Seo_GiaoDienDanhMuc.gioHang.get(position).getMaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(position).getTenSanPham(),(Integer.parseInt(Seo_GiaoDienDanhMuc.gioHang.get(position).getSoLuong())+1)+"",Seo_GiaoDienDanhMuc.gioHang.get(position).getGiaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(position).getDonViTinh(),Seo_GiaoDienDanhMuc.gioHang.get(position).getThuocTinh(),Seo_GiaoDienDanhMuc.gioHang.get(position).getQuyCach()));
+                Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien+Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(position).getGiaSanPham());
                 Seo_BanHang_GioHang.btnTongTienThanhToan.setText("Thanh toán: "+Seo_ListSanPhamNhapKho.tongTien+" VNĐ");
             }
         });
         holder.txtXoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(""+(Double.parseDouble(Seo_ChonNhaCungCap.gioHang.get(position).getGiaSanPham())*Double.parseDouble(Seo_ChonNhaCungCap.gioHang.get(position).getSoLuong())));
+                Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(""+(Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(position).getGiaSanPham())*Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(position).getSoLuong())));
                 Seo_BanHang_GioHang.btnTongTienThanhToan.setText("Thanh toán: "+Seo_ListSanPhamNhapKho.tongTien+" VNĐ");
-                Seo_ChonNhaCungCap.gioHang.remove(position);
+                Seo_GiaoDienDanhMuc.gioHang.remove(position);
                 sanphamArrayList.remove(position);
                 notifyDataSetChanged();
 

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    android:padding="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/item_borderquanly"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -32,8 +36,8 @@
                     android:src="@drawable/imgdeletesanpham"
                     android:id="@+id/txtXoa"
                     android:gravity="center"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp">
+                    android:layout_width="25dp"
+                    android:layout_height="25dp">
 
                 </ImageView>
             </LinearLayout>
@@ -68,7 +72,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Giá: "
+                android:text="Giá nhập: "
                 android:textStyle="bold">
 
             </TextView>

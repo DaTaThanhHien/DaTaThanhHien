@@ -145,15 +145,12 @@ public class Adapter_ListSanPham_GioHang extends RecyclerView.Adapter<Adapter_Li
         TextView txtTenSP=view.findViewById(R.id.txtTenSP);
         TextView txtQuyCach=view.findViewById(R.id.txtQuyCach);
         TextView txtTrongLuong=view.findViewById(R.id.txtTrongLuong);
-        TextView txtGiaNhap=view.findViewById(R.id.txtGiaNhap);
         ImageView ibTang=view.findViewById(R.id.ibTang);
         ImageView ibGiam=view.findViewById(R.id.ibGiam);
         final EditText edit_SoLuong=view.findViewById(R.id.edit_SoLuong);
-
         txtTenSP.setText(TenSP);
         txtTrongLuong.setText(TrongLuong);
         txtQuyCach.setText(QuyCach);
-        txtGiaNhap.setText(ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(GiaNhap)));
         ibTang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

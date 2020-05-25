@@ -25,6 +25,7 @@ import com.example.thanhhien.BanHang.Seo_BanHangLe.ListSanPhamBanLe.Model_ListSa
 import com.example.thanhhien.BanHang.Seo_BanHangLe.ListSanPhamBanLe.Adapter_QuyCachVaTinhChat;
 import com.example.thanhhien.ChuyenDoiTongTien;
 import com.example.thanhhien.R;
+import com.sdsmdg.tastytoast.TastyToast;
 
 import java.util.ArrayList;
 
@@ -128,15 +129,13 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
         TextView txtTenSP=view.findViewById(R.id.txtTenSP);
         TextView txtQuyCach=view.findViewById(R.id.txtQuyCach);
         TextView txtTrongLuong=view.findViewById(R.id.txtTrongLuong);
-        TextView txtGiaNhap=view.findViewById(R.id.txtGiaNhap);
+        final EditText edit_GiaNhap=view.findViewById(R.id.edit_GiaNhap);
         ImageView ibTang=view.findViewById(R.id.ibTang);
         ImageView ibGiam=view.findViewById(R.id.ibGiam);
         final EditText edit_SoLuong=view.findViewById(R.id.edit_SoLuong);
-
         txtTenSP.setText(TenSP);
         txtTrongLuong.setText(TrongLuong);
         txtQuyCach.setText(QuyCach);
-        txtGiaNhap.setText(ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(GiaNhap))+" VNĐ");
         ibTang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,34 +184,39 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
             @Override
             public void onClick(View v) {
 
-                mBottomSheetDialog.dismiss();
-                if(Seo_ChonNhaCungCap.gioHang.size()==0){
-                    Seo_ChonNhaCungCap.gioHang.add(new Model_ListSanPhamBan(sanphamArrayList.get(position).getMaSanPham(),sanphamArrayList.get(position).getTenSanPham(),(Integer.parseInt(edit_SoLuong.getText().toString()))+"",sanphamArrayList.get(position).getGiaSanPham(),sanphamArrayList.get(position).getDonViTinh(),sanphamArrayList.get(position).getThuocTinh(),sanphamArrayList.get(position).getQuyCach()));
-                    Seo_ListSanPhamNhapKho.tongTien=Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(sanphamArrayList.get(position).getGiaSanPham());
+
+                if(edit_GiaNhap.getText().length()==0){
+                    TastyToast.makeText(mContext,"Vui lòng nhập giá nhập",TastyToast.LENGTH_SHORT,TastyToast.ERROR).show();
+                }else {
+                    mBottomSheetDialog.dismiss();
+                if(Seo_GiaoDienDanhMuc.gioHang.size()==0){
+                    Seo_GiaoDienDanhMuc.gioHang.add(new Model_ListSanPhamBan(sanphamArrayList.get(position).getMaSanPham(),sanphamArrayList.get(position).getTenSanPham(),(Integer.parseInt(edit_SoLuong.getText().toString()))+"",edit_GiaNhap.getText().toString().trim(),sanphamArrayList.get(position).getDonViTinh(),sanphamArrayList.get(position).getThuocTinh(),sanphamArrayList.get(position).getQuyCach()));
+                    Seo_ListSanPhamNhapKho.tongTien=Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(edit_GiaNhap.getText().toString().trim());
                     Seo_ListSanPhamNhapKho.btnThanhToan.setText("Thanh Toán: "+ChuyenDoiTongTien.priceWithoutDecimal(Seo_ListSanPhamNhapKho.tongTien)+" VNĐ");
                 }else{
-                    for (int i=0;i<Seo_ChonNhaCungCap.gioHang.size();i++){
-                        if(i==(Seo_ChonNhaCungCap.gioHang.size()-1)){
-                            if(sanphamArrayList.get(position).getMaSanPham().equalsIgnoreCase((Seo_ChonNhaCungCap.gioHang.get(i).getMaSanPham()))){
-                                Seo_ChonNhaCungCap.gioHang.set(i,new Model_ListSanPhamBan(Seo_ChonNhaCungCap.gioHang.get(i).getMaSanPham(),Seo_ChonNhaCungCap.gioHang.get(i).getTenSanPham(),(Integer.parseInt(Seo_ChonNhaCungCap.gioHang.get(i).getSoLuong())+Integer.parseInt(edit_SoLuong.getText().toString()))+"",Seo_ChonNhaCungCap.gioHang.get(i).getGiaSanPham(),Seo_ChonNhaCungCap.gioHang.get(i).getDonViTinh(),Seo_ChonNhaCungCap.gioHang.get(i).getThuocTinh(),Seo_ChonNhaCungCap.gioHang.get(i).getQuyCach()));
-                                Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien+(Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(sanphamArrayList.get(position).getGiaSanPham()));
+                    for (int i=0;i<Seo_GiaoDienDanhMuc.gioHang.size();i++){
+                        if(i==(Seo_GiaoDienDanhMuc.gioHang.size()-1)){
+                            if(sanphamArrayList.get(position).getMaSanPham().equalsIgnoreCase((Seo_GiaoDienDanhMuc.gioHang.get(i).getMaSanPham()))){
+                                Seo_GiaoDienDanhMuc.gioHang.set(i,new Model_ListSanPhamBan(Seo_GiaoDienDanhMuc.gioHang.get(i).getMaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getTenSanPham(),(Integer.parseInt(Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong())+Integer.parseInt(edit_SoLuong.getText().toString()))+"",Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getDonViTinh(),Seo_GiaoDienDanhMuc.gioHang.get(i).getThuocTinh(),Seo_GiaoDienDanhMuc.gioHang.get(i).getQuyCach()));
+                                Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien+(Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(edit_GiaNhap.getText().toString().trim()));
                                 Seo_ListSanPhamNhapKho.btnThanhToan.setText("Thanh Toán: "+ChuyenDoiTongTien.priceWithoutDecimal(Seo_ListSanPhamNhapKho.tongTien)+" VNĐ");
-                                i=i+Seo_ChonNhaCungCap.gioHang.size()+10;
+                                i=i+Seo_GiaoDienDanhMuc.gioHang.size()+10;
                             }else{
-                                Seo_ChonNhaCungCap.gioHang.add(new Model_ListSanPhamBan(sanphamArrayList.get(position).getMaSanPham(),sanphamArrayList.get(position).getTenSanPham(),(Integer.parseInt(edit_SoLuong.getText().toString()))+"",sanphamArrayList.get(position).getGiaSanPham(),sanphamArrayList.get(position).getDonViTinh(),sanphamArrayList.get(position).getThuocTinh(),sanphamArrayList.get(position).getQuyCach()));
-                                Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien+(Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(sanphamArrayList.get(position).getGiaSanPham()));
+                                Seo_GiaoDienDanhMuc.gioHang.add(new Model_ListSanPhamBan(sanphamArrayList.get(position).getMaSanPham(),sanphamArrayList.get(position).getTenSanPham(),(Integer.parseInt(edit_SoLuong.getText().toString()))+"",edit_GiaNhap.getText().toString().trim(),sanphamArrayList.get(position).getDonViTinh(),sanphamArrayList.get(position).getThuocTinh(),sanphamArrayList.get(position).getQuyCach()));
+                                Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien+(Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(edit_GiaNhap.getText().toString().trim()));
                                 Seo_ListSanPhamNhapKho.btnThanhToan.setText("Thanh Toán: "+ChuyenDoiTongTien.priceWithoutDecimal(Seo_ListSanPhamNhapKho.tongTien)+" VNĐ");
-                                i=i+Seo_ChonNhaCungCap.gioHang.size()+10;
+                                i=i+Seo_GiaoDienDanhMuc.gioHang.size()+10;
                             }
                         }else{
-                            if(sanphamArrayList.get(position).getMaSanPham().equalsIgnoreCase((Seo_ChonNhaCungCap.gioHang.get(i).getMaSanPham()))){
-                                Seo_ChonNhaCungCap.gioHang.set(i,new Model_ListSanPhamBan(Seo_ChonNhaCungCap.gioHang.get(i).getMaSanPham(),Seo_ChonNhaCungCap.gioHang.get(i).getTenSanPham(),(Integer.parseInt(Seo_ChonNhaCungCap.gioHang.get(i).getSoLuong())+Integer.parseInt(edit_SoLuong.getText().toString()))+"",Seo_ChonNhaCungCap.gioHang.get(i).getGiaSanPham(),Seo_ChonNhaCungCap.gioHang.get(i).getDonViTinh(),Seo_ChonNhaCungCap.gioHang.get(i).getThuocTinh(),Seo_ChonNhaCungCap.gioHang.get(i).getQuyCach()));
-                                Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien+(Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(sanphamArrayList.get(position).getGiaSanPham()));
+                            if(sanphamArrayList.get(position).getMaSanPham().equalsIgnoreCase((Seo_GiaoDienDanhMuc.gioHang.get(i).getMaSanPham()))){
+                                Seo_GiaoDienDanhMuc.gioHang.set(i,new Model_ListSanPhamBan(Seo_GiaoDienDanhMuc.gioHang.get(i).getMaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getTenSanPham(),(Integer.parseInt(Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong())+Integer.parseInt(edit_SoLuong.getText().toString()))+"",Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getDonViTinh(),Seo_GiaoDienDanhMuc.gioHang.get(i).getThuocTinh(),Seo_GiaoDienDanhMuc.gioHang.get(i).getQuyCach()));
+                                Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien+(Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(edit_GiaNhap.getText().toString().trim()));
                                 Seo_ListSanPhamNhapKho.btnThanhToan.setText("Thanh Toán: "+ChuyenDoiTongTien.priceWithoutDecimal(Seo_ListSanPhamNhapKho.tongTien)+" VNĐ");
-                                i=i+Seo_ChonNhaCungCap.gioHang.size()+10;
+                                i=i+Seo_GiaoDienDanhMuc.gioHang.size()+10;
                             }
                         }
                     }
+                }
                 }
             }
         });
@@ -220,30 +224,30 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
      btnThanhToan.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-             if(Seo_ChonNhaCungCap.gioHang.size()==0){
-                 Seo_ChonNhaCungCap.gioHang.add(new Model_ListSanPhamBan(sanphamArrayList.get(position).getMaSanPham(),sanphamArrayList.get(position).getTenSanPham(),(Integer.parseInt(edit_SoLuong.getText().toString()))+"",sanphamArrayList.get(position).getGiaSanPham(),sanphamArrayList.get(position).getDonViTinh(),sanphamArrayList.get(position).getThuocTinh(),sanphamArrayList.get(position).getQuyCach()));
-                 Seo_ListSanPhamNhapKho.tongTien=Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(sanphamArrayList.get(position).getGiaSanPham());
+             if(Seo_GiaoDienDanhMuc.gioHang.size()==0){
+                 Seo_GiaoDienDanhMuc.gioHang.add(new Model_ListSanPhamBan(sanphamArrayList.get(position).getMaSanPham(),sanphamArrayList.get(position).getTenSanPham(),(Integer.parseInt(edit_SoLuong.getText().toString()))+"",edit_GiaNhap.getText().toString().trim(),sanphamArrayList.get(position).getDonViTinh(),sanphamArrayList.get(position).getThuocTinh(),sanphamArrayList.get(position).getQuyCach()));
+                 Seo_ListSanPhamNhapKho.tongTien=Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(edit_GiaNhap.getText().toString().trim());
                  Seo_ListSanPhamNhapKho.btnThanhToan.setText("Thanh Toán: "+ChuyenDoiTongTien.priceWithoutDecimal(Seo_ListSanPhamNhapKho.tongTien)+" VNĐ");
              }else{
-                 for (int i=0;i<Seo_ChonNhaCungCap.gioHang.size();i++){
-                     if(i==(Seo_ChonNhaCungCap.gioHang.size()-1)){
-                         if(sanphamArrayList.get(position).getMaSanPham().equalsIgnoreCase((Seo_ChonNhaCungCap.gioHang.get(i).getMaSanPham()))){
-                             Seo_ChonNhaCungCap.gioHang.set(i,new Model_ListSanPhamBan(Seo_ChonNhaCungCap.gioHang.get(i).getMaSanPham(),Seo_ChonNhaCungCap.gioHang.get(i).getTenSanPham(),(Integer.parseInt(Seo_ChonNhaCungCap.gioHang.get(i).getSoLuong())+Integer.parseInt(edit_SoLuong.getText().toString()))+"",Seo_ChonNhaCungCap.gioHang.get(i).getGiaSanPham(),Seo_ChonNhaCungCap.gioHang.get(i).getDonViTinh(),Seo_ChonNhaCungCap.gioHang.get(i).getThuocTinh(),Seo_ChonNhaCungCap.gioHang.get(i).getQuyCach()));
-                             Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien+(Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(sanphamArrayList.get(position).getGiaSanPham()));
+                 for (int i=0;i<Seo_GiaoDienDanhMuc.gioHang.size();i++){
+                     if(i==(Seo_GiaoDienDanhMuc.gioHang.size()-1)){
+                         if(sanphamArrayList.get(position).getMaSanPham().equalsIgnoreCase((Seo_GiaoDienDanhMuc.gioHang.get(i).getMaSanPham()))){
+                             Seo_GiaoDienDanhMuc.gioHang.set(i,new Model_ListSanPhamBan(Seo_GiaoDienDanhMuc.gioHang.get(i).getMaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getTenSanPham(),(Integer.parseInt(Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong())+Integer.parseInt(edit_SoLuong.getText().toString()))+"",Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getDonViTinh(),Seo_GiaoDienDanhMuc.gioHang.get(i).getThuocTinh(),Seo_GiaoDienDanhMuc.gioHang.get(i).getQuyCach()));
+                             Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien+(Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(edit_GiaNhap.getText().toString().trim()));
                              Seo_ListSanPhamNhapKho.btnThanhToan.setText("Thanh Toán: "+ChuyenDoiTongTien.priceWithoutDecimal(Seo_ListSanPhamNhapKho.tongTien)+" VNĐ");
-                             i=i+Seo_ChonNhaCungCap.gioHang.size()+10;
+                             i=i+Seo_GiaoDienDanhMuc.gioHang.size()+10;
                          }else{
-                             Seo_ChonNhaCungCap.gioHang.add(new Model_ListSanPhamBan(sanphamArrayList.get(position).getMaSanPham(),sanphamArrayList.get(position).getTenSanPham(),(Integer.parseInt(edit_SoLuong.getText().toString()))+"",sanphamArrayList.get(position).getGiaSanPham(),sanphamArrayList.get(position).getDonViTinh(),sanphamArrayList.get(position).getThuocTinh(),sanphamArrayList.get(position).getQuyCach()));
-                             Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien+(Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(sanphamArrayList.get(position).getGiaSanPham()));
+                             Seo_GiaoDienDanhMuc.gioHang.add(new Model_ListSanPhamBan(sanphamArrayList.get(position).getMaSanPham(),sanphamArrayList.get(position).getTenSanPham(),(Integer.parseInt(edit_SoLuong.getText().toString()))+"",edit_GiaNhap.getText().toString().trim(),sanphamArrayList.get(position).getDonViTinh(),sanphamArrayList.get(position).getThuocTinh(),sanphamArrayList.get(position).getQuyCach()));
+                             Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien+(Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(edit_GiaNhap.getText().toString().trim()));
                              Seo_ListSanPhamNhapKho.btnThanhToan.setText("Thanh Toán: "+ChuyenDoiTongTien.priceWithoutDecimal(Seo_ListSanPhamNhapKho.tongTien)+" VNĐ");
-                             i=i+Seo_ChonNhaCungCap.gioHang.size()+10;
+                             i=i+Seo_GiaoDienDanhMuc.gioHang.size()+10;
                          }
                      }else{
-                         if(sanphamArrayList.get(position).getMaSanPham().equalsIgnoreCase((Seo_ChonNhaCungCap.gioHang.get(i).getMaSanPham()))){
-                             Seo_ChonNhaCungCap.gioHang.set(i,new Model_ListSanPhamBan(Seo_ChonNhaCungCap.gioHang.get(i).getMaSanPham(),Seo_ChonNhaCungCap.gioHang.get(i).getTenSanPham(),(Integer.parseInt(Seo_ChonNhaCungCap.gioHang.get(i).getSoLuong())+Integer.parseInt(edit_SoLuong.getText().toString()))+"",Seo_ChonNhaCungCap.gioHang.get(i).getGiaSanPham(),Seo_ChonNhaCungCap.gioHang.get(i).getDonViTinh(),Seo_ChonNhaCungCap.gioHang.get(i).getThuocTinh(),Seo_ChonNhaCungCap.gioHang.get(i).getQuyCach()));
-                             Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien+(Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(sanphamArrayList.get(position).getGiaSanPham()));
+                         if(sanphamArrayList.get(position).getMaSanPham().equalsIgnoreCase((Seo_GiaoDienDanhMuc.gioHang.get(i).getMaSanPham()))){
+                             Seo_GiaoDienDanhMuc.gioHang.set(i,new Model_ListSanPhamBan(Seo_GiaoDienDanhMuc.gioHang.get(i).getMaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getTenSanPham(),(Integer.parseInt(Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong())+Integer.parseInt(edit_SoLuong.getText().toString()))+"",Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getDonViTinh(),Seo_GiaoDienDanhMuc.gioHang.get(i).getThuocTinh(),Seo_GiaoDienDanhMuc.gioHang.get(i).getQuyCach()));
+                             Seo_ListSanPhamNhapKho.tongTien=Seo_ListSanPhamNhapKho.tongTien+(Double.parseDouble(edit_SoLuong.getText().toString())*Double.parseDouble(edit_GiaNhap.getText().toString().trim()));
                              Seo_ListSanPhamNhapKho.btnThanhToan.setText("Thanh Toán: "+ChuyenDoiTongTien.priceWithoutDecimal(Seo_ListSanPhamNhapKho.tongTien)+" VNĐ");
-                             i=i+Seo_ChonNhaCungCap.gioHang.size()+10;
+                             i=i+Seo_GiaoDienDanhMuc.gioHang.size()+10;
                          }
                      }
                  }

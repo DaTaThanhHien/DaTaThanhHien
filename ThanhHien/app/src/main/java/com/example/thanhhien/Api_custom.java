@@ -67,7 +67,7 @@ public class Api_custom {
     public static String ThemPhieuNhap=diaChiIP+"ThemPhieuNhap";
     public static String ThemChiTietPhieuNhap=diaChiIP+"ThemChiTietPhieuNhap";
     public static String listQuyCachDanhMucSP=diaChiIP+"listQuyCachTheoDanhMuc/";
-    public static String listSanPhamTheoQuyCachDanhMucSP=diaChiIP+"listSanPhamTheoQuyCachDanhMucSP/";
+    public static String listSanPhamTheoQuyCachDanhMucSP=diaChiIP+"listSanPhamTheoQuyCach/";
     public static String listSanPhamTheoDanhMuc=diaChiIP+"listSanPhamTheoDanhMuc/";
     public static String listSanPhamTheoIDSanPham=diaChiIP+"listSanPhamTheoIDSanPham/";
     public static String CapNhatHoanThanhDon=diaChiIP+"CapNhatTinhTrangPhieu";

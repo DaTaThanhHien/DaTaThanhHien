@@ -58,7 +58,6 @@
 
                     </TextView>
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -69,10 +68,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
-                        android:text="Quy cách:"
+                        android:text="Nhà cung cấp:"
                         android:textColor="#000000"
                         android:textStyle="bold">
-
                     </TextView>
 
                     <TextView
@@ -82,12 +80,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
                         android:gravity="right"
-                        android:text="H 100*100*6.0*8"
                         android:textColor="#000000">
 
                     </TextView>
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
@@ -105,19 +101,18 @@
                     </TextView>
 
                     <TextView
+                        android:layout_marginLeft="7dp"
                         android:id="@+id/txtTrongLuong"
-                        android:textStyle="bold"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
-                        android:gravity="right"
                         android:text="13.5"
                         android:textColor="#000000">
 
                     </TextView>
 
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -132,17 +127,20 @@
                         android:textColor="#000000"
                         android:textStyle="bold"></TextView>
 
-                    <TextView
-                        android:id="@+id/txtGiaNhap"
-                        android:textStyle="bold"
+                    <EditText
+                        android:drawablePadding="10dp"
+                        android:textSize="15sp"
+                        android:inputType="number"
+                        android:id="@+id/edit_GiaNhap"
+                        android:padding="6dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/item_boder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
-                        android:gravity="right"
-                        android:text="60,000 VNĐ"
-                        android:textColor="#F44336"></TextView>
+                        android:gravity="center"
+                        android:textColor="#F44336"></EditText>
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="10dp"
@@ -238,7 +236,7 @@
                     android:layout_weight="7"
                     android:background="#03A9F4"
                     android:padding="5dp"
-                    android:text="Nhập hàng: 62,222,000 VNĐ"
+                    android:text="Nhập hàng: 0 VNĐ"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"></Button>
 

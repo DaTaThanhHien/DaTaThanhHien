@@ -32,6 +32,7 @@ import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.thanhhien.Api_custom;
 import com.example.thanhhien.BanHang.Seo_BanHangLe.Adapter_ListSanPhamBanLe;
+import com.example.thanhhien.BanHang.Seo_BanHangLe.ListSanPhamBanLe.Model_ListSanPhamBan;
 import com.example.thanhhien.BanHang.Seo_BanHangLe.Model_ListSanPhamBanLe;
 import com.example.thanhhien.HttpsTrustManager;
 import com.example.thanhhien.NukeSSLCerts;
@@ -52,6 +53,7 @@ public class Seo_GiaoDienDanhMuc extends AppCompatActivity {
     private Adapter_ListSanPhamBanLe adapter_listSanPhamBanLe;
     private ArrayList<Model_ListSanPhamBanLe> mListDanhMuc;
     public static String IDDanhMuc="0";
+    public static ArrayList<Model_ListSanPhamBan> gioHang;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,7 @@ public class Seo_GiaoDienDanhMuc extends AppCompatActivity {
         new HttpsTrustManager();
         HttpsTrustManager.allowAllSSL();
         mListDanhMuc=new ArrayList<>();
+        gioHang=new ArrayList<>();
         if(isOnline()==false){
             Intent intent=new Intent(Seo_GiaoDienDanhMuc.this, SeoCheckConnection.class);
             startActivity(intent);

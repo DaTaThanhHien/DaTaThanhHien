@@ -34,10 +34,12 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class Seo_BanHang_GioHang extends AppCompatActivity {
     private Toolbar toolbar;
     public static Button btnTongTienThanhToan,btnTrove;
+    private LinearLayout layoutkhongsanpham,layoutsanphamnhap;
     private ArrayList<Model_ListSanPhamBan> mListSanPhamBan;
     private Adapter_SanPhamDaChon_GioHang adapter_listSanPhamBan;
     private RecyclerView recyclerViewListSanPham;
     long SoTienNo=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +49,14 @@ public class Seo_BanHang_GioHang extends AppCompatActivity {
         setTitle("Giỏ hàng");
         AnhXa();
         onClick();
-        btnTongTienThanhToan.setText("Thanh toán: "+Seo_ListSanPhamNhapKho.tongTien+" VNĐ");
+        if(Seo_GiaoDienDanhMuc.gioHang.size()>0){
+            layoutkhongsanpham.setVisibility(View.GONE);
+            layoutsanphamnhap.setVisibility(View.VISIBLE);
+        }
+        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(Seo_ListSanPhamNhapKho.tongTien+""));
+        btnTongTienThanhToan.setText("Thanh toán: "+TongTienChuyenDoi+" VNĐ");
         mListSanPhamBan=new ArrayList<>();
-        mListSanPhamBan.addAll(Seo_ChonNhaCungCap.gioHang);
+        mListSanPhamBan.addAll(Seo_GiaoDienDanhMuc.gioHang);
         adapter_listSanPhamBan=new Adapter_SanPhamDaChon_GioHang(Seo_BanHang_GioHang.this,mListSanPhamBan);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Seo_BanHang_GioHang.this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -64,6 +71,8 @@ public class Seo_BanHang_GioHang extends AppCompatActivity {
         btnTongTienThanhToan=findViewById(R.id.btnTongTienThanhToan);
         btnTrove=findViewById(R.id.btnTrove);
         recyclerViewListSanPham=findViewById(R.id.recyclerViewListSanPham);
+        layoutsanphamnhap=findViewById(R.id.layoutsanphamnhap);
+        layoutkhongsanpham=findViewById(R.id.layoutkhongsanpham);
     }
     private void onClick(){
         btnTongTienThanhToan.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +97,7 @@ public class Seo_BanHang_GioHang extends AppCompatActivity {
         {
             case android.R.id.home:
                onBackPressed();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
             default:
                 break;
