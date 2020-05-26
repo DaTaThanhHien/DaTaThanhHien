@@ -143,7 +143,7 @@ public class Adapter_ListSanPham_GioHang extends RecyclerView.Adapter<Adapter_Li
         final LayoutInflater inflater=(LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.item_layoutnhapsanpham, null);
         TextView txtTenSP=view.findViewById(R.id.txtTenSP);
-        TextView txtQuyCach=view.findViewById(R.id.txtQuyCach);
+        TextView txtQuyCach=view.findViewById(R.id.txtNhaCungCap);
         TextView txtTrongLuong=view.findViewById(R.id.txtTrongLuong);
         ImageView ibTang=view.findViewById(R.id.ibTang);
         ImageView ibGiam=view.findViewById(R.id.ibGiam);

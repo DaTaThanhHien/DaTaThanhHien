@@ -1,7 +1,7 @@
 package com.example.thanhhien.BanHang.Seo_BanHangLe.ListSanPhamBanLe;
 
 public class Model_ListSanPhamBan {
-    String MaSanPham,TenSanPham,SoLuong,GiaSanPham,ThuocTinh,NhaCungCap,DonViTinh,QuyCach;
+    String MaSanPham,TenSanPham,SoLuong,GiaSanPham,ThuocTinh,NhaCungCap,DonViTinh,QuyCach,DonViNhap;
 
     public Model_ListSanPhamBan() {
     }
@@ -25,6 +25,18 @@ public class Model_ListSanPhamBan {
         DonViTinh = donViTinh;
         ThuocTinh = thuocTinh;
         QuyCach = quyCach;
+    }
+
+    public Model_ListSanPhamBan(String maSanPham, String tenSanPham, String soLuong, String giaSanPham, String thuocTinh, String nhaCungCap, String donViTinh, String quyCach, String donViNhap) {
+        MaSanPham = maSanPham;
+        TenSanPham = tenSanPham;
+        SoLuong = soLuong;
+        GiaSanPham = giaSanPham;
+        ThuocTinh = thuocTinh;
+        NhaCungCap = nhaCungCap;
+        DonViTinh = donViTinh;
+        QuyCach = quyCach;
+        DonViNhap = donViNhap;
     }
 
     public Model_ListSanPhamBan(String maSanPham, String tenSanPham, String soLuong, String giaSanPham) {
@@ -99,5 +111,13 @@ public class Model_ListSanPhamBan {
 
     public void setDonViTinh(String donViTinh) {
         DonViTinh = donViTinh;
+    }
+
+    public String getDonViNhap() {
+        return DonViNhap;
+    }
+
+    public void setDonViNhap(String donViNhap) {
+        DonViNhap = donViNhap;
     }
 }

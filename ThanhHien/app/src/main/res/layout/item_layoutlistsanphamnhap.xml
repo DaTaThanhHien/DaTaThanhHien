@@ -16,24 +16,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:weightSum="10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:layout_weight="8"
                 android:id="@+id/txtTenSanPham"
-                android:textSize="15sp"
                 android:layout_marginBottom="5dp"
                 android:textStyle="bold"
                 android:text="Sắt U 20"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content">
             </TextView>
             <TextView
+                android:layout_weight="2"
                 android:id="@+id/txtTinhTrangSanPham"
                 android:textSize="12sp"
                 android:textColor="#4CAF50"
                 android:gravity="right"
                 android:text="Còn hàng"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content">
 
             </TextView>
@@ -105,6 +107,8 @@
             </TextView>
 
             <TextView
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textSize="13sp"
                 android:id="@+id/txtThuocTinh"
                 android:layout_marginLeft="5dp"
@@ -123,8 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nhà cung cấp: "
-                android:textStyle="bold"
-                android:visibility="gone">
+                android:textStyle="bold">
 
             </TextView>
 
@@ -134,8 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:lines="1"
-                android:text="Tôn hoa sen"
-                tools:visibility="gone">
+                android:text="Tôn hoa sen">
 
             </TextView>
         </LinearLayout>

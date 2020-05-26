@@ -449,7 +449,7 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                                         Khac="Không";
                                     }else {Khac=jsonObject.getString("thuoctinhkhac").trim();}
 
-                                    mListSanPhamBan.add(new Model_ListSanPhamBan(jsonObject.getString("IDSanPham"),jsonObject.getString("TenSP")+" - "+QuyCach,jsonObject.getString("SoLuong"),jsonObject.getString("giasi"),mangDonVi[3],"dày: "+Day+mangDonVi[0]+" - Dài: "+Dai+mangDonVi[1]+" - Nặng: "+Nang+mangDonVi[2]+" - Khác: "+Khac,jsonObject.getString("tenncc")));
+                                    mListSanPhamBan.add(new Model_ListSanPhamBan(jsonObject.getString("IDSanPham"),jsonObject.getString("TenSP")+" - "+QuyCach,jsonObject.getString("SoLuong"),jsonObject.getString("giasi"),"Dày: "+Day+mangDonVi[0]+" - Dài: "+Dai+mangDonVi[1]+" - Nặng: "+Nang+mangDonVi[2]+" - Khác: "+Khac,jsonObject.getString("tenncc"),mangDonVi[3],QuyCach,jsonObject.getString("DonViTinh")));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

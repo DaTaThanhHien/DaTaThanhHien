@@ -11,11 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -24,6 +27,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.thanhhien.BanHang.Seo_BanHangLe.ListSanPhamBanLe.Model_ListSanPhamBan;
 import com.example.thanhhien.BanHang.Seo_BanHangLe.ListSanPhamBanLe.Adapter_QuyCachVaTinhChat;
 import com.example.thanhhien.ChuyenDoiTongTien;
+import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Adapter_ThuocTinhSanPham;
+import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Model_ListThuocTinhSanPham;
+import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Seo_ThemSanPhamMoi;
 import com.example.thanhhien.R;
 import com.sdsmdg.tastytoast.TastyToast;
 
@@ -38,7 +44,7 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
             this.mContext = mContext;
             this.sanphamArrayList = sanphamArrayList;
         }
-
+        private ArrayList<Model_ListThuocTinhSanPham> mListDonViNhap=new ArrayList<>();
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,7 +57,6 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-
             final Model_ListSanPhamBan model_kho=sanphamArrayList.get(position);
             // sét giá trị truyền vào
             holder.txtTenSanPham.setText(model_kho.getTenSanPham());
@@ -79,9 +84,7 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
             holder.onClickItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                   eventClickBanHang(sanphamArrayList.get(position).getTenSanPham(),sanphamArrayList.get(position).getQuyCach(),sanphamArrayList.get(position).getThuocTinh(),sanphamArrayList.get(position).getGiaSanPham(),position);
-
+                   eventClickBanHang(sanphamArrayList.get(position).getTenSanPham(),sanphamArrayList.get(position).getNhaCungCap(),sanphamArrayList.get(position).getThuocTinh(),sanphamArrayList.get(position).getDonViTinh(),sanphamArrayList.get(position).getDonViNhap(),position);
                 }
             });
 
@@ -123,19 +126,22 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
             this.onItemClickedListener = onItemClickedListener;
         }
     // chọn sản phẩm thanh toán
-    private void eventClickBanHang(String TenSP, String QuyCach, String TrongLuong, String GiaNhap, final int position) {
+    private void eventClickBanHang(String TenSP, String NhaCungCap, String TrongLuong, final String DonViTinh, final String DonViNhap, final int position) {
         final LayoutInflater inflater=(LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.item_layoutnhapsanpham, null);
         TextView txtTenSP=view.findViewById(R.id.txtTenSP);
-        TextView txtQuyCach=view.findViewById(R.id.txtQuyCach);
+        TextView txtNhaCungCap=view.findViewById(R.id.txtNhaCungCap);
         TextView txtTrongLuong=view.findViewById(R.id.txtTrongLuong);
+        final TextView txtDonViNhap=view.findViewById(R.id.txtDonViNhap);
         final EditText edit_GiaNhap=view.findViewById(R.id.edit_GiaNhap);
         ImageView ibTang=view.findViewById(R.id.ibTang);
         ImageView ibGiam=view.findViewById(R.id.ibGiam);
         final EditText edit_SoLuong=view.findViewById(R.id.edit_SoLuong);
+
         txtTenSP.setText(TenSP);
         txtTrongLuong.setText(TrongLuong);
-        txtQuyCach.setText(QuyCach);
+        txtNhaCungCap.setText(NhaCungCap);
+        txtDonViNhap.setText(DonViTinh);
         ibTang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,13 +179,22 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
         mBottomSheetDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
         mBottomSheetDialog.show();
+        // sự kiện đóng bottomm sheet
         btnclosedialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 mBottomSheetDialog.dismiss();
             }
         });
+        // sự kiện chọn đơn vị nhập
+        txtDonViNhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                bottomChonDonViNhap(DonViNhap);
+            }
+        });
         btnTiepTuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,7 +236,7 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
             }
         });
 
-     btnThanhToan.setOnClickListener(new View.OnClickListener() {
+        btnThanhToan.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
              if(Seo_GiaoDienDanhMuc.gioHang.size()==0){
@@ -255,7 +270,42 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
              Intent intent=new Intent(mContext,Seo_ThanhToanNhapHang.class);
              mContext.startActivity(intent);
          }
-     });
+        });
 
     }
-    }
+    private void bottomChonDonViNhap(String DonViNhap){
+        final LayoutInflater inflater=(LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.item_bottomlayoutthemsanpham, null);
+        ImageView btnclosedialog=view.findViewById(R.id.btnclosedialog);
+        TextView txtTitle=view.findViewById(R.id.txtTitle);
+        txtTitle.setText("Chọn đơn vị nhập");
+        ListView listViewThuocTinh=view.findViewById(R.id.listViewThuocTinh);
+        String mangDonVi[]=DonViNhap.split(";");
+        mListDonViNhap.add(new Model_ListThuocTinhSanPham("1",mangDonVi[1]));
+        mListDonViNhap.add(new Model_ListThuocTinhSanPham("2",mangDonVi[2]));
+        mListDonViNhap.add(new Model_ListThuocTinhSanPham("3",mangDonVi[3]));
+        Adapter_ThuocTinhSanPham adapter_thuocTinhSanPham=new Adapter_ThuocTinhSanPham(mContext,R.layout.item_layoutspiner,mListDonViNhap);
+        listViewThuocTinh.setAdapter(adapter_thuocTinhSanPham);
+        final Dialog mBottomSheetDialog = new Dialog(mContext, R.style.MaterialDialogSheet);
+        mBottomSheetDialog.setContentView(view);
+        mBottomSheetDialog.setCancelable(true);
+        mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
+        mBottomSheetDialog.show();
+        btnclosedialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListDonViNhap.clear();
+                mBottomSheetDialog.dismiss();
+            }
+        });
+        listViewThuocTinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mBottomSheetDialog.dismiss();
+            }
+        });
+
+
+    }//kết thúc hàm
+}
