@@ -65,19 +65,19 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
         AnhXa();
         new HttpsTrustManager();
         HttpsTrustManager.allowAllSSL();
-        if(Seo_ChonNhaCungCap.gioHang.size()==0){
+        if(Seo_GiaoDienDanhMuc.gioHang.size()==0){
             llChuaBTN.setVisibility(View.GONE);
         }else{
             llChuaBTN.setVisibility(View.VISIBLE);
         }
-        if(Seo_ChonNhaCungCap.IDNhaCungCap.equalsIgnoreCase("0")){
-            edit_TenNhaCungCap.setVisibility(View.GONE);
-            btnNhapHang.setVisibility(View.GONE);
-        }else{
-            edit_ThongTinNCCLe.setVisibility(View.GONE);
-            btnNhapHangLe.setVisibility(View.GONE);
-            edit_TenNhaCungCap.setText(Seo_ChonNhaCungCap.TenNCC);
-        }
+//        if(Seo_GiaoDienDanhMuc.IDNhaCungCap.equalsIgnoreCase("0")){
+//            edit_TenNhaCungCap.setVisibility(View.GONE);
+//            btnNhapHang.setVisibility(View.GONE);
+//        }else{
+//            edit_ThongTinNCCLe.setVisibility(View.GONE);
+//            btnNhapHangLe.setVisibility(View.GONE);
+//            edit_TenNhaCungCap.setText(Seo_GiaoDienDanhMuc.TenNCC);
+//        }
         editThanhToan.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -97,7 +97,7 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
                 dateFormatter.setLenient(false);
                 Date today = new Date();
                 String MaPN = dateFormatter.format(today);
-                ThemPhieuNhap(Api_custom.ThemPhieuNhap,MaPN,"",Seo_ChonNhaCungCap.IDNhaCungCap,Seo_ListSanPhamNhapKho.tongTien+"",editThanhToan.getText().toString().trim(),(Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(editThanhToan.getText().toString().trim()))+"","",1);
+//                ThemPhieuNhap(Api_custom.ThemPhieuNhap,MaPN,"",Seo_GiaoDienDanhMuc.IDNhaCungCap,Seo_ListSanPhamNhapKho.tongTien+"",editThanhToan.getText().toString().trim(),(Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(editThanhToan.getText().toString().trim()))+"","",1);
             }
         });
         btnNhapHangLe.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +132,7 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
                     dateFormatter.setLenient(false);
                     Date today = new Date();
                     String MaPN = dateFormatter.format(today);
-                    ThemPhieuNhap(Api_custom.ThemPhieuNhap,MaPN,"",Seo_ChonNhaCungCap.IDNhaCungCap,Seo_ListSanPhamNhapKho.tongTien+"",editThanhToan.getText().toString().trim(),(Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(editThanhToan.getText().toString().trim()))+"","",2);
+//                    ThemPhieuNhap(Api_custom.ThemPhieuNhap,MaPN,"",Seo_GiaoDienDanhMuc.IDNhaCungCap,Seo_ListSanPhamNhapKho.tongTien+"",editThanhToan.getText().toString().trim(),(Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(editThanhToan.getText().toString().trim()))+"","",2);
                 }
             }
         });
@@ -147,7 +147,7 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
 
         sanphamArrayList=new ArrayList<>();
 
-        Adapter_ThanhToanNhapHang_GioHang adapterSPGioHang=new Adapter_ThanhToanNhapHang_GioHang(Seo_ThanhToanNhapHang.this,Seo_ChonNhaCungCap.gioHang);
+        Adapter_ThanhToanNhapHang_GioHang adapterSPGioHang=new Adapter_ThanhToanNhapHang_GioHang(Seo_ThanhToanNhapHang.this,Seo_GiaoDienDanhMuc.gioHang);
         LinearLayoutManager layoutManager = new LinearLayoutManager(Seo_ThanhToanNhapHang.this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewListSanPham.setLayoutManager(layoutManager);
@@ -199,27 +199,27 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         if (btnNhapHang.getVisibility() == View.GONE) {
-                            for (int i=0;i<Seo_ChonNhaCungCap.gioHang.size();i++){
-                                ThemChiTietPN(Api_custom.ThemChiTietPhieuNhap,IDPhieuNhap,Seo_ChonNhaCungCap.gioHang.get(i).getMaSanPham(),Seo_ChonNhaCungCap.gioHang.get(i).getTenSanPham(),Seo_ChonNhaCungCap.gioHang.get(i).getSoLuong(),Seo_ChonNhaCungCap.gioHang.get(i).getGiaSanPham(),(Double.parseDouble(Seo_ChonNhaCungCap.gioHang.get(i).getGiaSanPham())*Double.parseDouble(Seo_ChonNhaCungCap.gioHang.get(i).getSoLuong()))+"");
-                                if(i==(Seo_ChonNhaCungCap.gioHang.size()-1)){
+                            for (int i=0;i<Seo_GiaoDienDanhMuc.gioHang.size();i++){
+                                ThemChiTietPN(Api_custom.ThemChiTietPhieuNhap,IDPhieuNhap,Seo_GiaoDienDanhMuc.gioHang.get(i).getMaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getTenSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong(),Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham(),(Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham())*Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong()))+"");
+                                if(i==(Seo_GiaoDienDanhMuc.gioHang.size()-1)){
                                     new SweetAlertDialog(Seo_ThanhToanNhapHang.this, SweetAlertDialog.ERROR_TYPE)
                                             .setTitleText("Thành công")
                                             .setContentText("Nhập hàng thành công")
                                             .show();
-                                    Seo_ChonNhaCungCap.gioHang.clear();
+                                    Seo_GiaoDienDanhMuc.gioHang.clear();
                                     onBackPressed();
                                 }
                             }
                         } else if(btnNhapHangLe.getVisibility() == View.GONE){
-                            for (int i=0;i<Seo_ChonNhaCungCap.gioHang.size();i++){
-                                ThemChiTietPN(Api_custom.ThemChiTietPhieuNhap,IDPhieuNhap,Seo_ChonNhaCungCap.gioHang.get(i).getMaSanPham(),Seo_ChonNhaCungCap.gioHang.get(i).getTenSanPham(),Seo_ChonNhaCungCap.gioHang.get(i).getSoLuong(),Seo_ChonNhaCungCap.gioHang.get(i).getGiaSanPham(),(Double.parseDouble(Seo_ChonNhaCungCap.gioHang.get(i).getGiaSanPham())*Double.parseDouble(Seo_ChonNhaCungCap.gioHang.get(i).getSoLuong()))+"");
-                                getSoLuongSanPhamTheoIDSanPham(Api_custom.listSanPhamTheoIDSanPham,Seo_ChonNhaCungCap.gioHang.get(i).getMaSanPham(),Seo_ChonNhaCungCap.gioHang.get(i).getSoLuong());
-                                if(i==(Seo_ChonNhaCungCap.gioHang.size()-1)){
+                            for (int i=0;i<Seo_GiaoDienDanhMuc.gioHang.size();i++){
+                                ThemChiTietPN(Api_custom.ThemChiTietPhieuNhap,IDPhieuNhap,Seo_GiaoDienDanhMuc.gioHang.get(i).getMaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getTenSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong(),Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham(),(Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham())*Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong()))+"");
+                                getSoLuongSanPhamTheoIDSanPham(Api_custom.listSanPhamTheoIDSanPham,Seo_GiaoDienDanhMuc.gioHang.get(i).getMaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong());
+                                if(i==(Seo_GiaoDienDanhMuc.gioHang.size()-1)){
                                     new SweetAlertDialog(Seo_ThanhToanNhapHang.this, SweetAlertDialog.ERROR_TYPE)
                                             .setTitleText("Thành công")
                                             .setContentText("Nhập hàng thành công")
                                             .show();
-                                    Seo_ChonNhaCungCap.gioHang.clear();
+                                    Seo_GiaoDienDanhMuc.gioHang.clear();
                                     onBackPressed();
                                 }
                             }

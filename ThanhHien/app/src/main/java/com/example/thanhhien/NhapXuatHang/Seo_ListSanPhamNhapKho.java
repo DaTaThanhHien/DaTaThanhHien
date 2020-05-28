@@ -138,7 +138,6 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                     }else {
                         getSanPhamTheoDanhMuc(Api_custom.listSanPhamTheoQuyCachDanhMucSP,IDDanhMuc,mListQuyCach.get(position).getTenQuyCachVaTT());
                     }
-
                 }
 
             }
@@ -449,7 +448,7 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                                         Khac="Không";
                                     }else {Khac=jsonObject.getString("thuoctinhkhac").trim();}
 
-                                    mListSanPhamBan.add(new Model_ListSanPhamBan(jsonObject.getString("IDSanPham"),jsonObject.getString("TenSP")+" - "+QuyCach,jsonObject.getString("SoLuong"),jsonObject.getString("giasi"),"Dày: "+Day+mangDonVi[0]+" - Dài: "+Dai+mangDonVi[1]+" - Nặng: "+Nang+mangDonVi[2]+" - Khác: "+Khac,jsonObject.getString("tenncc"),mangDonVi[3],QuyCach,jsonObject.getString("DonViTinh")));
+                                    mListSanPhamBan.add(new Model_ListSanPhamBan(jsonObject.getString("IDSanPham"),jsonObject.getString("TenSP")+" - "+QuyCach,jsonObject.getString("SoLuong"),jsonObject.getString("giasi"),"Dày: "+Day+mangDonVi[0]+" - Dài: "+Dai+mangDonVi[1]+" - Nặng: "+Nang+mangDonVi[2]+" - Khác: "+Khac,jsonObject.getString("tenncc"),mangDonVi[3],QuyCach,jsonObject.getString("DonViTinh"),jsonObject.getString("TrongLuong"),jsonObject.getString("Dai")));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

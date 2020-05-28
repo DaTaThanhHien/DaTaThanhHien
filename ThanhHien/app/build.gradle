@@ -52,6 +52,8 @@ dependencies {
     implementation 'com.sdsmdg.tastytoast:tastytoast:0.1.1'
     // loading list danh sách sản phẩm
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    //GSON
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
 
 }
