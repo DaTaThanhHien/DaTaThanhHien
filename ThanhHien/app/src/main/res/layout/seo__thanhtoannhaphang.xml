@@ -52,6 +52,7 @@
 
                 </EditText>
                 <EditText
+                    android:visibility="gone"
                     android:id="@+id/edit_ThongTinNCCLe"
                     android:hint="Thông tin nhà cung cấp bán lẻ"
                     android:padding="7dp"
@@ -298,7 +299,7 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/llChuaBTN"
-            android:gravity="bottom"
+            android:layout_gravity="bottom"
             android:layout_weight="1"
             android:layout_marginTop="10dp"
             android:weightSum="10"
@@ -306,6 +307,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <Button
+                android:layout_gravity="bottom"
                 android:layout_weight="5"
                 android:id="@+id/btnNhapHang"
                 android:textColor="#FFFFFF"
@@ -316,6 +318,8 @@
                 android:layout_height="wrap_content">
             </Button>
             <Button
+                android:visibility="gone"
+                android:layout_gravity="bottom"
                 android:layout_weight="5"
                 android:id="@+id/btnNhapHangLe"
                 android:textColor="#FFFFFF"
@@ -326,6 +330,7 @@
                 android:layout_height="wrap_content">
             </Button>
             <Button
+                android:layout_gravity="bottom"
                 android:padding="10dp"
                 android:drawableRight="@drawable/imgprint"
                 android:layout_weight="5"
