@@ -67,7 +67,7 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
             holder.txtThuocTinh.setText(model_kho.getThuocTinh());
             holder.txtSoLuongSanPham.setText(model_kho.getSoLuong());
             holder.txtDonViTinh.setText(model_kho.getDonViTinh());
-            final int SoLuong=Integer.parseInt(model_kho.getSoLuong());
+            final double SoLuong=Double.parseDouble(model_kho.getSoLuong()+"");
             if(SoLuong>10){
                 holder.txtTinhTrangSanPham.setText("Còn hàng");
                 holder.txtTinhTrangSanPham.setTextColor(Color.GREEN);
