@@ -56,7 +56,7 @@ public class Seo_ChonNhaCungCap extends AppCompatActivity {
         new NukeSSLCerts().nuke();
         gioHang=new ArrayList<>();
         mListNhaCungCap=new ArrayList<>();
-        getAllNhaCungCap(Api_custom.listAllNhaCungCap);
+       // getAllNhaCungCap(Api_custom.listAllNhaCungCap);
 
         gridViewListNhaCungCap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
