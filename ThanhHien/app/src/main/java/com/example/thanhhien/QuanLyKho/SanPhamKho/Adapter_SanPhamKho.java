@@ -71,7 +71,7 @@ public class Adapter_SanPhamKho extends RecyclerView.Adapter<Adapter_SanPhamKho.
 
             }
         });
-        int SoLuong= Integer.parseInt(model_kho.getSoLuongSanPham());
+        Double SoLuong= Double.parseDouble(model_kho.getSoLuongSanPham());
         if(SoLuong>10){
             holder.txtTinhTrangSanPham.setText("Còn hàng");
             holder.txtTinhTrangSanPham.setTextColor(Color.GREEN);
@@ -80,7 +80,7 @@ public class Adapter_SanPhamKho extends RecyclerView.Adapter<Adapter_SanPhamKho.
                     holder.txtTinhTrangSanPham.setText("Hết hàng");
                     holder.txtTinhTrangSanPham.setTextColor(Color.RED);
                 }else {
-                    holder.txtTinhTrangSanPham.setText("Gần hết hàng");
+                    holder.txtTinhTrangSanPham.setText("Sắp hết");
                     holder.txtTinhTrangSanPham.setTextColor(Color.parseColor("#FFC107"));
                 }
         }

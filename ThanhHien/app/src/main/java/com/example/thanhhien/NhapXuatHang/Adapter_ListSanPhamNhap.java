@@ -77,7 +77,7 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
                     holder.txtTinhTrangSanPham.setTextColor(Color.parseColor("#F44336"));
                     holder.onClickItem.setBackgroundColor(Color.parseColor("#C1C5C5C5"));
                 }else {
-                    holder.txtTinhTrangSanPham.setText("Gần hết hàng");
+                    holder.txtTinhTrangSanPham.setText("Sắp hết");
                     holder.txtTinhTrangSanPham.setTextColor(Color.parseColor("#FFC107"));
                 }
             }
@@ -269,6 +269,7 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
              }
              Intent intent=new Intent(mContext,Seo_ThanhToanNhapHang.class);
              mContext.startActivity(intent);
+             mBottomSheetDialog.dismiss();
          }
         });
 

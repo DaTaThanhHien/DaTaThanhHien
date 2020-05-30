@@ -97,7 +97,6 @@ public class Seo_QuanLySanPhamKho extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 adapter_sanPhamKho.getFilter().filter((edit_TimKiem.getText().toString().trim()));
