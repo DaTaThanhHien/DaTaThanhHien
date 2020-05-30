@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -74,6 +75,20 @@ public class Seo_BanHang_GioHang extends AppCompatActivity {
         layoutsanphamnhap=findViewById(R.id.layoutsanphamnhap);
         layoutkhongsanpham=findViewById(R.id.layoutkhongsanpham);
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        if(Seo_GiaoDienDanhMuc.gioHang.size()<=0){
+            layoutkhongsanpham.setVisibility(View.VISIBLE);
+            layoutsanphamnhap.setVisibility(View.GONE);
+            String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(Seo_ListSanPhamNhapKho.tongTien+""));
+            btnTongTienThanhToan.setText("Thanh toán: "+TongTienChuyenDoi+" VNĐ");
+        }
+
+    }
+
     private void onClick(){
         btnTongTienThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override

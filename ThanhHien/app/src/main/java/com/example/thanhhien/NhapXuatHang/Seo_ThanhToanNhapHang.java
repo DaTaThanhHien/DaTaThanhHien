@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -30,8 +31,12 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.example.thanhhien.Api_custom;
 import com.example.thanhhien.BanHang.Seo_BanHangLe.ListSanPhamBanLe.Model_ListSanPhamBan;
+import com.example.thanhhien.ChuyenDoiTongTien;
 import com.example.thanhhien.HttpsTrustManager;
 import com.example.thanhhien.R;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -97,7 +102,10 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
                 dateFormatter.setLenient(false);
                 Date today = new Date();
                 String MaPN = dateFormatter.format(today);
-//                ThemPhieuNhap(Api_custom.ThemPhieuNhap,MaPN,"",Seo_GiaoDienDanhMuc.IDNhaCungCap,Seo_ListSanPhamNhapKho.tongTien+"",editThanhToan.getText().toString().trim(),(Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(editThanhToan.getText().toString().trim()))+"","",1);
+                Gson gson = new GsonBuilder().create();
+                JsonArray myCustomArray = gson.toJsonTree(Seo_GiaoDienDanhMuc.gioHang).getAsJsonArray();
+                Log.d("thanhtestcode", myCustomArray+"");
+                ThemPhieuNhap(Api_custom.ThemPhieuNhap,MaPN,"","Chưa rõ",Seo_ListSanPhamNhapKho.tongTien+"",editThanhToan.getText().toString().trim(),(Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(editThanhToan.getText().toString().trim()))+"","",1,myCustomArray+"");
             }
         });
         btnNhapHangLe.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +118,7 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
                     dateFormatter.setLenient(false);
                     Date today = new Date();
                     String MaPN = dateFormatter.format(today);
-                    ThemPhieuNhap(Api_custom.ThemPhieuNhap,MaPN,edit_ThongTinNCCLe.getText().toString().trim(),"0",Seo_ListSanPhamNhapKho.tongTien+"",editThanhToan.getText().toString().trim(),(Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(editThanhToan.getText().toString().trim()))+"","",1);
+//                    ThemPhieuNhap(Api_custom.ThemPhieuNhap,MaPN,edit_ThongTinNCCLe.getText().toString().trim(),"0",Seo_ListSanPhamNhapKho.tongTien+"",editThanhToan.getText().toString().trim(),(Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(editThanhToan.getText().toString().trim()))+"","",1);
                 }
             }
         });
@@ -125,7 +133,7 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
                         dateFormatter.setLenient(false);
                         Date today = new Date();
                         String MaPN = dateFormatter.format(today);
-                        ThemPhieuNhap(Api_custom.ThemPhieuNhap,MaPN,edit_ThongTinNCCLe.getText().toString().trim(),"0",Seo_ListSanPhamNhapKho.tongTien+"",editThanhToan.getText().toString().trim(),(Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(editThanhToan.getText().toString().trim()))+"","",2);
+//                        ThemPhieuNhap(Api_custom.ThemPhieuNhap,MaPN,edit_ThongTinNCCLe.getText().toString().trim(),"0",Seo_ListSanPhamNhapKho.tongTien+"",editThanhToan.getText().toString().trim(),(Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(editThanhToan.getText().toString().trim()))+"","",2);
                     }
                 } else if(btnNhapHangLe.getVisibility() == View.GONE){
                     DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -185,7 +193,7 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    private  void ThemPhieuNhap(String url, final String IDPhieuNhap,final String TenPhieuNhap, final String IDNhacCungCap, final String TongPhieuNhap, final String SoTienTraTruoc, final String TongTienConLai, final String GhiChuPhieuNhap, final int TrangThaiPhieuNhap){
+    private  void ThemPhieuNhap(String url, final String IDPhieuNhap,final String TenPhieuNhap, final String IDNhaCungCap, final String TongPhieuNhap, final String SoTienTraTruoc, final String TongTienConLai, final String GhiChuPhieuNhap, final int TrangThaiPhieuNhap, final String jsonObjectt){
         RequestQueue requestQueue;
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
         final Network network = new BasicNetwork(new HurlStack());
@@ -198,38 +206,20 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if (btnNhapHang.getVisibility() == View.GONE) {
-                            for (int i=0;i<Seo_GiaoDienDanhMuc.gioHang.size();i++){
-                                ThemChiTietPN(Api_custom.ThemChiTietPhieuNhap,IDPhieuNhap,Seo_GiaoDienDanhMuc.gioHang.get(i).getMaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getTenSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong(),Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham(),(Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham())*Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong()))+"");
-                                if(i==(Seo_GiaoDienDanhMuc.gioHang.size()-1)){
-                                    new SweetAlertDialog(Seo_ThanhToanNhapHang.this, SweetAlertDialog.ERROR_TYPE)
-                                            .setTitleText("Thành công")
-                                            .setContentText("Nhập hàng thành công")
-                                            .show();
-                                    Seo_GiaoDienDanhMuc.gioHang.clear();
-                                    onBackPressed();
-                                }
-                            }
-                        } else if(btnNhapHangLe.getVisibility() == View.GONE){
-                            for (int i=0;i<Seo_GiaoDienDanhMuc.gioHang.size();i++){
-                                ThemChiTietPN(Api_custom.ThemChiTietPhieuNhap,IDPhieuNhap,Seo_GiaoDienDanhMuc.gioHang.get(i).getMaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getTenSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong(),Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham(),(Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham())*Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong()))+"");
-                                getSoLuongSanPhamTheoIDSanPham(Api_custom.listSanPhamTheoIDSanPham,Seo_GiaoDienDanhMuc.gioHang.get(i).getMaSanPham(),Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong());
-                                if(i==(Seo_GiaoDienDanhMuc.gioHang.size()-1)){
-                                    new SweetAlertDialog(Seo_ThanhToanNhapHang.this, SweetAlertDialog.ERROR_TYPE)
-                                            .setTitleText("Thành công")
-                                            .setContentText("Nhập hàng thành công")
-                                            .show();
-                                    Seo_GiaoDienDanhMuc.gioHang.clear();
-                                    onBackPressed();
-                                }
-                            }
+                        if(response.equalsIgnoreCase(("err"))){
+                            Toast.makeText(Seo_ThanhToanNhapHang.this, "Lỗi nhập hàng", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(Seo_ThanhToanNhapHang.this, "Nhập hàng thành công", Toast.LENGTH_SHORT).show();
+                            Seo_GiaoDienDanhMuc.gioHang.clear();
+                            Seo_ListSanPhamNhapKho.tongTien=0;
+                            onBackPressed();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Seo_ThanhToanNhapHang.this, "error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Seo_ThanhToanNhapHang.this, "Lỗi nhập hàng", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -239,12 +229,13 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
                 Map<String,String> params=new HashMap<>();
                 params.put("IDPhieuNhap","PN-"+IDPhieuNhap+"-A");
                 params.put("TenPhieuNhap",TenPhieuNhap);
-                params.put("IDNhacCungCap",IDNhacCungCap);
+                params.put("IDNhaCungCap",IDNhaCungCap);
                 params.put("TongPhieuNhap",TongPhieuNhap);
                 params.put("SoTienTraTruoc",SoTienTraTruoc);
                 params.put("TongTienConLai",TongTienConLai);
                 params.put("GhiChuPhieuNhap",GhiChuPhieuNhap);
                 params.put("TrangThaiPhieuNhap",TrangThaiPhieuNhap+"");
+                params.put("jsonObjectt",jsonObjectt+"");
                 return params;
             }
         };
