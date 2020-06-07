@@ -29,6 +29,67 @@
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <LinearLayout
+                android:id="@+id/llSDT"
+                android:layout_marginBottom="7dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginBottom="5dp"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:text="Số điện thoại"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:textColor="#000000"
+                        android:inputType="text"
+                        android:hint="Số điện thoại"
+                        android:id="@+id/edit_SDT"
+                        android:padding="10dp"
+                        android:background="@drawable/item_boder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </EditText>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llDiaChi"
+                android:layout_marginBottom="7dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginBottom="5dp"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:text="Địa chỉ bên bán"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:textColor="#000000"
+                        android:inputType="text"
+                        android:hint="Vui lòng nhập địa chỉ bên bán"
+                        android:id="@+id/edit_DiaChi"
+                        android:padding="10dp"
+                        android:background="@drawable/item_boder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </EditText>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llNhaCungCap"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

@@ -55,6 +55,7 @@ public class Seo_GiaoDienDanhMuc extends AppCompatActivity {
     private ArrayList<Model_ListSanPhamBanLe> mListDanhMuc;
     public static String IDDanhMuc="0";
     public static ArrayList<Model_ListSanPhamBan> gioHang;
+    public static String IDNhaCungCap;
     private ShimmerFrameLayout shimmer_view_quycach;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class Seo_GiaoDienDanhMuc extends AppCompatActivity {
         HttpsTrustManager.allowAllSSL();
         mListDanhMuc=new ArrayList<>();
         gioHang=new ArrayList<>();
+        IDNhaCungCap="null";
         if(isOnline()==false){
             Intent intent=new Intent(Seo_GiaoDienDanhMuc.this, SeoCheckConnection.class);
             startActivity(intent);

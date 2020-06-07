@@ -54,9 +54,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Seo_ThanhToanNhapHang extends AppCompatActivity {
     private Toolbar toolbar;
-    private LinearLayout llChuaBTN;
+    private LinearLayout llChuaBTN,llSDT,llDiaChi,llNhaCungCap;
     private Button btnNhapHang,btnNhapHangLe,btnNhapHangVaIn;
-    private EditText edit_TenNhaCungCap,editThanhToan,editNgayNhap,edit_ThongTinNCCLe;
+    private EditText edit_TenNhaCungCap,edit_DiaChi,edit_SDT,editThanhToan,editNgayNhap,edit_ThongTinNCCLe;
     private TextView txtTongTien,txtTienConLai;
     private RecyclerView recyclerViewListSanPham;
     ArrayList<Model_ListSanPhamBan> sanphamArrayList;
@@ -83,6 +83,16 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
 //            btnNhapHangLe.setVisibility(View.GONE);
 //            edit_TenNhaCungCap.setText(Seo_GiaoDienDanhMuc.TenNCC);
 //        }
+        edit_TenNhaCungCap.setText(Seo_GiaoDienDanhMuc.IDNhaCungCap);
+        if(Seo_GiaoDienDanhMuc.IDNhaCungCap.equalsIgnoreCase("Khac")){
+            llDiaChi.setVisibility(View.VISIBLE);
+            llSDT.setVisibility(View.VISIBLE);
+            llNhaCungCap.setVisibility(View.GONE);
+        }else{
+            llDiaChi.setVisibility(View.GONE);
+            llSDT.setVisibility(View.GONE);
+            llNhaCungCap.setVisibility(View.VISIBLE);
+        }
         editThanhToan.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -98,14 +108,31 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
         btnNhapHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddhhmmss");
-                dateFormatter.setLenient(false);
-                Date today = new Date();
-                String MaPN = dateFormatter.format(today);
-                Gson gson = new GsonBuilder().create();
-                JsonArray myCustomArray = gson.toJsonTree(Seo_GiaoDienDanhMuc.gioHang).getAsJsonArray();
-                Log.d("thanhtestcode", myCustomArray+"");
-                ThemPhieuNhap(Api_custom.ThemPhieuNhap,MaPN,"","Chưa rõ",Seo_ListSanPhamNhapKho.tongTien+"",editThanhToan.getText().toString().trim(),(Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(editThanhToan.getText().toString().trim()))+"","",1,myCustomArray+"");
+                if(Seo_GiaoDienDanhMuc.IDNhaCungCap.equalsIgnoreCase("Khac")){
+                    if(edit_DiaChi.getText().toString().trim().length()==0||edit_SDT.getText().toString().trim().length()==0){
+                        Toast.makeText(Seo_ThanhToanNhapHang.this, "Bạn chưa nhập thông tin bên bán", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddhhmmss");
+                        dateFormatter.setLenient(false);
+                        Date today = new Date();
+                        String MaPN = dateFormatter.format(today);
+                        Gson gson = new GsonBuilder().create();
+                        JsonArray myCustomArray = gson.toJsonTree(Seo_GiaoDienDanhMuc.gioHang).getAsJsonArray();
+
+                        ThemPhieuNhap(Api_custom.ThemPhieuNhap,MaPN,"",Seo_GiaoDienDanhMuc.IDNhaCungCap,Seo_ListSanPhamNhapKho.tongTien+"",editThanhToan.getText().toString().trim(),(Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(editThanhToan.getText().toString().trim()))+"","Số điện thoại: "+edit_SDT.getText().toString()+"\n"+"Địa chỉ:"+edit_DiaChi.getText().toString(),1,myCustomArray+"");
+                    }
+                }else{
+                    DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddhhmmss");
+                    dateFormatter.setLenient(false);
+                    Date today = new Date();
+                    String MaPN = dateFormatter.format(today);
+                    Gson gson = new GsonBuilder().create();
+                    JsonArray myCustomArray = gson.toJsonTree(Seo_GiaoDienDanhMuc.gioHang).getAsJsonArray();
+                    Log.d("thanhtestcode", myCustomArray+"");
+
+                    ThemPhieuNhap(Api_custom.ThemPhieuNhap,MaPN,"",Seo_GiaoDienDanhMuc.IDNhaCungCap,Seo_ListSanPhamNhapKho.tongTien+"",editThanhToan.getText().toString().trim(),(Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(editThanhToan.getText().toString().trim()))+"","",1,myCustomArray+"");
+                }
             }
         });
         btnNhapHangLe.setOnClickListener(new View.OnClickListener() {
@@ -165,10 +192,15 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
     private void AnhXa() {
         toolbar=(Toolbar) findViewById(R.id.toolbar);
         llChuaBTN=findViewById(R.id.llChuaBTN);
+        llSDT=findViewById(R.id.llSDT);
+        llDiaChi=findViewById(R.id.llDiaChi);
+        llNhaCungCap=findViewById(R.id.llNhaCungCap);
         btnNhapHang=findViewById(R.id.btnNhapHang);
         btnNhapHangLe=findViewById(R.id.btnNhapHangLe);
         btnNhapHangVaIn=findViewById(R.id.btnNhapHangVaIn);
         edit_TenNhaCungCap=findViewById(R.id.edit_TenNhaCungCap);
+        edit_DiaChi=findViewById(R.id.edit_DiaChi);
+        edit_SDT=findViewById(R.id.edit_SDT);
         editThanhToan=findViewById(R.id.editThanhToan);
         txtTongTien=findViewById(R.id.txtTongTien);
         txtTienConLai=findViewById(R.id.txtTienConLai);
@@ -212,6 +244,7 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
                             Toast.makeText(Seo_ThanhToanNhapHang.this, "Nhập hàng thành công", Toast.LENGTH_SHORT).show();
                             Seo_GiaoDienDanhMuc.gioHang.clear();
                             Seo_ListSanPhamNhapKho.tongTien=0;
+                            Seo_GiaoDienDanhMuc.IDNhaCungCap="Null";
                             onBackPressed();
                         }
                     }
@@ -219,7 +252,7 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Seo_ThanhToanNhapHang.this, "Lỗi nhập hàng", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Seo_ThanhToanNhapHang.this, "Lỗi nhập hàng 2", Toast.LENGTH_SHORT).show();
                     }
 
                 }

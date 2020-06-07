@@ -435,13 +435,13 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
                                                     }else {
 
                                                         if(ThuocTinhKhac.length()>0){
-                                                            if(!ThuocTinhKhac.matches(kiemtraquycachkhac)){
-                                                                new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
-                                                                        .setTitleText("Lỗi")
-                                                                        .setContentText("Thuộc tính không có kí tự đặc biệt!")
-                                                                        .show();
-                                                                return false;
-                                                            }
+//                                                            if(!ThuocTinhKhac.matches(kiemtraquycachkhac)){
+//                                                                new SweetAlertDialog(Seo_ThemSanPhamMoi.this, SweetAlertDialog.ERROR_TYPE)
+//                                                                        .setTitleText("Lỗi")
+//                                                                        .setContentText("Thuộc tính không có kí tự đặc biệt!")
+//                                                                        .show();
+//                                                                return false;
+//                                                            }
 
                                                         }else {
                                                             if(GiaSi.length()==0){

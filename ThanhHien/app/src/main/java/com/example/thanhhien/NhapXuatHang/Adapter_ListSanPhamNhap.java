@@ -199,7 +199,13 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
         btnTiepTuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(Seo_GiaoDienDanhMuc.IDNhaCungCap.equalsIgnoreCase("null")){
+                    Seo_GiaoDienDanhMuc.IDNhaCungCap=sanphamArrayList.get(position).getNhaCungCap();
+                }else {
+                    if(!Seo_GiaoDienDanhMuc.IDNhaCungCap.equalsIgnoreCase(sanphamArrayList.get(position).getNhaCungCap())){
+                        Seo_GiaoDienDanhMuc.IDNhaCungCap="khac";
+                    }
+                }
                 if(edit_GiaNhap.getText().length()==0){
                     TastyToast.makeText(mContext,"Vui lòng nhập giá nhập",TastyToast.LENGTH_SHORT,TastyToast.ERROR).show();
                 }else {
