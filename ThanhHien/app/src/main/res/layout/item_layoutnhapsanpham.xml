@@ -32,6 +32,7 @@
                 android:paddingRight="5dp">
 
                 <LinearLayout
+                    android:layout_marginBottom="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
@@ -40,7 +41,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
+
                         android:text="Tên sản phẩm:"
                         android:textColor="#000000"
                         android:textStyle="bold">
@@ -53,67 +54,37 @@
                         android:textStyle="bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
+
                         android:gravity="right"
                         android:text="Sắt U"
                         android:textColor="#000000">
 
                     </TextView>
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:text="Nhà cung cấp:"
-                        android:textColor="#000000"
-                        android:textStyle="bold">
-                    </TextView>
-
-                    <TextView
-                        android:id="@+id/txtNhaCungCap"
-                        android:textStyle="bold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:gravity="right"
-                        android:textColor="#000000">
-
-                    </TextView>
-                </LinearLayout>
-                <LinearLayout
+                    android:layout_marginBottom="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
+
                         android:text="Thuộc tính:"
                         android:textColor="#000000"
                         android:textStyle="bold">
-
                     </TextView>
-
                     <TextView
                         android:layout_marginLeft="7dp"
                         android:id="@+id/txtTrongLuong"
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
+
                         android:text="13.5"
                         android:textColor="#000000">
-
                     </TextView>
-
                 </LinearLayout>
                 <LinearLayout
                     android:layout_marginLeft="10dp"
@@ -139,7 +110,6 @@
                         android:background="@drawable/item_boder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
                         android:gravity="center"
                         android:textColor="#F44336"></EditText>
                 </LinearLayout>
@@ -228,9 +198,54 @@
                             android:text="Cây"
                             android:drawableRight="@drawable/imgdropdow">
                         </TextView>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="#000000"
+                            android:layout_marginBottom="5dp"
+                            android:textStyle="bold"
+                            android:text="Đơn vị chuyển:"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        </TextView>
+                        <LinearLayout
+                            android:layout_marginBottom="10dp"
+                            android:weightSum="10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_weight="5"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:text="90 hộp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                </TextView>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_weight="5"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:text="90 hộp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                </TextView>
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -248,7 +263,7 @@
                         android:hint="Nếu có"
                         android:id="@+id/edit_GhiChu"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="50dp"
                         android:background="@drawable/item_boder"
                         android:gravity="top"
                         android:inputType="text"

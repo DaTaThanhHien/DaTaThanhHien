@@ -119,27 +119,27 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nhà cung cấp: "
-                android:textStyle="bold">
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Nhà cung cấp: "-->
+<!--                android:textStyle="bold">-->
 
-            </TextView>
+<!--            </TextView>-->
 
-            <TextView
-                android:id="@+id/txtNhaCungCap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:lines="1"
-                android:text="Tôn hoa sen">
+<!--            <TextView-->
+<!--                android:id="@+id/txtNhaCungCap"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="5dp"-->
+<!--                android:lines="1"-->
+<!--                android:text="Tôn hoa sen">-->
 
-            </TextView>
-        </LinearLayout>
+<!--            </TextView>-->
+<!--        </LinearLayout>-->
     </LinearLayout>
 </LinearLayout>

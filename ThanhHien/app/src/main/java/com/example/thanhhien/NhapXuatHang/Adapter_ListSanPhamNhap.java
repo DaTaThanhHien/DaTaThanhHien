@@ -63,7 +63,7 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
             holder.txtTenSanPham.setText(model_kho.getTenSanPham());
             String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_kho.getGiaSanPham()+""));
             holder.txtGiaSanPham.setText(TongTienChuyenDoi+" VNĐ");
-            holder.txtNhaCungCap.setText(model_kho.getNhaCungCap());
+
             holder.txtThuocTinh.setText(model_kho.getThuocTinh());
             holder.txtSoLuongSanPham.setText(model_kho.getSoLuong());
             holder.txtDonViTinh.setText(model_kho.getDonViTinh());
@@ -72,7 +72,7 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
                 holder.txtTinhTrangSanPham.setText("Còn hàng");
                 holder.txtTinhTrangSanPham.setTextColor(Color.GREEN);
             }else  if(SoLuong<10){
-                if(SoLuong <1){
+                if(SoLuong <=0){
                     holder.txtTinhTrangSanPham.setText("Hết hàng");
                     holder.txtTinhTrangSanPham.setTextColor(Color.parseColor("#F44336"));
                     holder.onClickItem.setBackgroundColor(Color.parseColor("#C1C5C5C5"));
@@ -106,7 +106,7 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
                 super(itemView);
                 txtTenSanPham=itemView.findViewById(R.id.txtTenSanPham);
                 txtGiaSanPham=itemView.findViewById(R.id.txtGiaSanPham);
-                txtNhaCungCap=itemView.findViewById(R.id.txtNhaCungCap);
+
                 txtThuocTinh=itemView.findViewById(R.id.txtThuocTinh);
                 txtSoLuongSanPham=itemView.findViewById(R.id.txtSoLuongSanPham);
                 txtDonViTinh=itemView.findViewById(R.id.txtDonViTinh);
@@ -131,7 +131,6 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
         final LayoutInflater inflater=(LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.item_layoutnhapsanpham, null);
         TextView txtTenSP=view.findViewById(R.id.txtTenSP);
-        TextView txtNhaCungCap=view.findViewById(R.id.txtNhaCungCap);
         TextView txtTrongLuong=view.findViewById(R.id.txtTrongLuong);
         final TextView txtDonViNhap=view.findViewById(R.id.txtDonViNhap);
         final EditText edit_GiaNhap=view.findViewById(R.id.edit_GiaNhap);
@@ -141,7 +140,6 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
 
         txtTenSP.setText(TenSP);
         txtTrongLuong.setText(TrongLuong);
-        txtNhaCungCap.setText(NhaCungCap);
         txtDonViNhap.setText(DonViTinh);
         ibTang.setOnClickListener(new View.OnClickListener() {
             @Override
