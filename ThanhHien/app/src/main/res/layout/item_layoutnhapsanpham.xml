@@ -101,6 +101,7 @@
                         android:textStyle="bold"></TextView>
 
                     <EditText
+
                         android:drawablePadding="10dp"
                         android:textSize="15sp"
                         android:inputType="number"
@@ -110,7 +111,7 @@
                         android:background="@drawable/item_boder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
+                        android:gravity="right"
                         android:textColor="#F44336"></EditText>
                 </LinearLayout>
                 <LinearLayout
@@ -164,6 +165,29 @@
 
                         </ImageButton>
                     </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="Tổng tiền:"
+                        android:textColor="#000000"
+                        android:textStyle="bold">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/TongTien"
+                        android:gravity="right"
+                        android:layout_marginLeft="7dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0 VNĐ"
+                        android:textColor="#F44336">
+                    </TextView>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_marginTop="5dp"
@@ -245,34 +269,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:text="Ghi chú:">
-
-                    </TextView>
-
-                    <EditText
-                        android:hint="Nếu có"
-                        android:id="@+id/edit_GhiChu"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/item_boder"
-                        android:gravity="top"
-                        android:inputType="text"
-                        android:padding="5dp">
-
-                    </EditText>
-                </LinearLayout>
 
             </LinearLayout>
 

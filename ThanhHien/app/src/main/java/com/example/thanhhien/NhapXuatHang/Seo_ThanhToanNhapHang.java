@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -75,14 +76,6 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
         }else{
             llChuaBTN.setVisibility(View.VISIBLE);
         }
-//        if(Seo_GiaoDienDanhMuc.IDNhaCungCap.equalsIgnoreCase("0")){
-//            edit_TenNhaCungCap.setVisibility(View.GONE);
-//            btnNhapHang.setVisibility(View.GONE);
-//        }else{
-//            edit_ThongTinNCCLe.setVisibility(View.GONE);
-//            btnNhapHangLe.setVisibility(View.GONE);
-//            edit_TenNhaCungCap.setText(Seo_GiaoDienDanhMuc.TenNCC);
-//        }
         edit_TenNhaCungCap.setText(Seo_GiaoDienDanhMuc.IDNhaCungCap);
         if(Seo_GiaoDienDanhMuc.IDNhaCungCap.equalsIgnoreCase("Khac")){
             llDiaChi.setVisibility(View.VISIBLE);
@@ -93,16 +86,16 @@ public class Seo_ThanhToanNhapHang extends AppCompatActivity {
             llSDT.setVisibility(View.GONE);
             llNhaCungCap.setVisibility(View.VISIBLE);
         }
-        editThanhToan.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        editThanhToan.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if(editThanhToan.getText().toString().trim().length()==0){
                     editThanhToan.setText("0");
                     txtTienConLai.setText(Seo_ListSanPhamNhapKho.tongTien+" VNĐ");
                 }else {
                     txtTienConLai.setText((Seo_ListSanPhamNhapKho.tongTien-Double.parseDouble(editThanhToan.getText().toString().trim()))+" VNĐ");
                 }
-
+                return false;
             }
         });
         btnNhapHang.setOnClickListener(new View.OnClickListener() {

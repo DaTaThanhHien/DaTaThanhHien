@@ -47,7 +47,7 @@ public class Adapter_LichSuNhapXuat extends RecyclerView.Adapter<Adapter_LichSuN
             final String TongTienDaTraChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_lichSuNhapXuat.getTongTienDaTra()+""));
             holder.txtTongTienDaTra.setText(TongTienDaTraChuyenDoi+ " VNĐ");
             if(model_lichSuNhapXuat.getTinhTrang().equals("1")){
-                holder.txtTinhTrangPhieuNhap.setText("Đang sử lý");
+                holder.txtTinhTrangPhieuNhap.setText("Đã lưu");
             }else if(model_lichSuNhapXuat.getTinhTrang().equals("2")) {
                 holder.txtTinhTrangPhieuNhap.setText("Hoàn thành");
                 holder.txtTinhTrangPhieuNhap.setBackgroundColor(Color.parseColor("#4CAF50"));

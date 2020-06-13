@@ -2,6 +2,7 @@ package com.example.thanhhien.LichSuNhapXuat;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -52,7 +53,11 @@ import com.example.thanhhien.HoaDon.Model_ChiTietHoaDon;
 import com.example.thanhhien.HoaDon.Seo_ChiTietHoaDon;
 import com.example.thanhhien.NhapXuatHang.Seo_ChonNhaCungCap;
 import com.example.thanhhien.NhapXuatHang.Seo_ThanhToanNhapHang;
+import com.example.thanhhien.QuanLyKho.SanPhamKho.Seo_QuanLySanPhamKho;
+import com.example.thanhhien.QuanLyKho.ThemSuaXoaSanPham.Seo_ThemSanPhamMoi;
 import com.example.thanhhien.R;
+import com.example.thanhhien.Seo_GiaoDienChinh;
+import com.example.thanhhien.Seo_TrangThongBao;
 import com.google.android.material.tabs.TabLayout;
 import com.sdsmdg.tastytoast.TastyToast;
 
@@ -96,8 +101,8 @@ public class Seo_ChiTietNhapHang extends AppCompatActivity {
         txtTongTien.setText(intent.getStringExtra("TongTien") +"VNĐ");
         txtTongTienDaTra.setText(intent.getStringExtra("TongTienDaTra") +" VNĐ");
         txtMaPhieuNhap.setText(intent.getStringExtra("MaPhieuNhap"));
-        if(intent.getStringExtra("TinhTrang").equals("-1")){
-            txtTinhTrangPhieuNhap.setText("Đang sử lý");
+        if(intent.getStringExtra("TinhTrang").equals("1")){
+            txtTinhTrangPhieuNhap.setText("Đã lưu");
             btnHoanThanhDon.setVisibility(View.VISIBLE);
 
         }else {
@@ -201,8 +206,13 @@ public class Seo_ChiTietNhapHang extends AppCompatActivity {
         {
             case android.R.id.home:
                 onBackPressed();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
+            case R.id.nav_themsanpham:
+                Intent intent=new Intent(Seo_ChiTietNhapHang.this, Seo_ThemSanPhamMoi.class);
+                startActivity(intent);
 
+                return true;
             default:
                 break;
         }
