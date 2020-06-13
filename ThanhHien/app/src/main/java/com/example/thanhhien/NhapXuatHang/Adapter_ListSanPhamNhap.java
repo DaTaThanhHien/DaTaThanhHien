@@ -41,6 +41,7 @@ import java.util.ArrayList;
 public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSanPhamNhap.ViewHolder> {
         private Context mContext;
         double chia=1;
+        String textUnchanged="";
         ArrayList<Model_ListSanPhamBan> sanphamArrayList;
         private Adapter_QuyCachVaTinhChat adapter_quyCachVaTinhChat;
         long SoTienNo=0;
@@ -148,16 +149,18 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
         txtDonViNhap.setText(DonViTinh);
         double  kq1=Math.round((Double.parseDouble(edit_SoLuong.getText().toString())/chia)*10);
         double  kq=kq1/10;
-        txtSLQuyDoi2.setText(kq+DonViTinh);
-        txtSLQuyDoi1.setText(((edit_SoLuong.getText().toString()))+txtDonViNhap.getText().toString().trim());
+        txtSLQuyDoi2.setText(kq+" "+DonViTinh);
+        txtSLQuyDoi1.setText(((edit_SoLuong.getText().toString()))+" "+txtDonViNhap.getText().toString().trim());
         ibTang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(edit_SoLuong.getText().toString().trim().length()<=7){
                     edit_SoLuong.setText((Integer.parseInt(edit_SoLuong.getText().toString().trim())+1)+"");
                     double  kq1=Math.round((Double.parseDouble(edit_SoLuong.getText().toString())/chia)*10);
                     double  kq=kq1/10;
-                    txtSLQuyDoi2.setText(kq+DonViTinh);
-                    txtSLQuyDoi1.setText(((edit_SoLuong.getText().toString()))+txtDonViNhap.getText().toString().trim());
+                    txtSLQuyDoi2.setText(kq+" "+DonViTinh);
+                    txtSLQuyDoi1.setText(((edit_SoLuong.getText().toString()))+" "+txtDonViNhap.getText().toString().trim());
+                }
             }
         });
         ibGiam.setOnClickListener(new View.OnClickListener() {
@@ -167,37 +170,80 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
                     edit_SoLuong.setText((Integer.parseInt(edit_SoLuong.getText().toString().trim())-1)+"");
                     double  kq1=Math.round((Double.parseDouble(edit_SoLuong.getText().toString())/chia)*10);
                     double  kq=kq1/10;
-                    txtSLQuyDoi2.setText(kq+DonViTinh);
-                    txtSLQuyDoi1.setText(((edit_SoLuong.getText().toString()))+txtDonViNhap.getText().toString().trim());
+                    txtSLQuyDoi2.setText(kq+" "+DonViTinh);
+                    txtSLQuyDoi1.setText(((edit_SoLuong.getText().toString()))+" "+txtDonViNhap.getText().toString().trim());
                 }
             }
         });
-        edit_SoLuong.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//        edit_SoLuong.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//
+//                if(edit_SoLuong.getText().toString().trim().length()<=0){
+//                    if(edit_SoLuong.getText().toString().trim().length()==0){
+//                        edit_SoLuong.setText("1");
+//                    }else if(Integer.parseInt(edit_SoLuong.getText().toString().trim())<1){
+//                        edit_SoLuong.setText("1");
+//                    }
+//                    double  kq1=Math.round((Double.parseDouble(edit_SoLuong.getText().toString())/chia)*10);
+//                    double  kq=kq1/10;
+//                    txtSLQuyDoi2.setText(kq+DonViTinh);
+//                    txtSLQuyDoi1.setText(((edit_SoLuong.getText().toString()))+txtDonViNhap.getText().toString().trim());
+//                }
+//                return false;
+//            }
+//        });
+        edit_SoLuong.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(edit_SoLuong.getText().toString().trim().length()==0){
-                    edit_SoLuong.setText("1");
-                }else if(Integer.parseInt(edit_SoLuong.getText().toString().trim())<1){
-                    edit_SoLuong.setText("1");
-                }
-                double  kq1=Math.round((Double.parseDouble(edit_SoLuong.getText().toString())/chia)*10);
-                double  kq=kq1/10;
-                txtSLQuyDoi2.setText(kq+DonViTinh);
-                txtSLQuyDoi1.setText(((edit_SoLuong.getText().toString()))+txtDonViNhap.getText().toString().trim());
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                textUnchanged=s+"";
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(edit_SoLuong.getText().toString().trim().length()>7){
+                    edit_SoLuong.setText(textUnchanged);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(edit_SoLuong.getText().toString().trim().length()<=7){
+                    if(edit_SoLuong.getText().toString().trim().length()==0){
+                        edit_SoLuong.setText("1");
+                    }else if(Integer.parseInt(edit_SoLuong.getText().toString().trim())<1){
+                        edit_SoLuong.setText("1");
+                    }
+                    double  kq1=Math.round((Double.parseDouble(edit_SoLuong.getText().toString())/chia)*10);
+                    double  kq=kq1/10;
+                    txtSLQuyDoi2.setText(kq+" "+DonViTinh);
+                    txtSLQuyDoi1.setText(((edit_SoLuong.getText().toString()))+" "+txtDonViNhap.getText().toString().trim());
+                }
             }
         });
-        edit_GiaNhap.setOnKeyListener(new View.OnKeyListener() {
+        edit_GiaNhap.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                textUnchanged=s+"";
+            }
 
-                if(edit_GiaNhap.getText().toString().trim().length()==0){
-                    edit_GiaNhap.setText("0");
-                    TongTienNhap.setText("0 VNĐ");
-                }else {
-                    TongTienNhap.setText(Long.parseLong(edit_GiaNhap.getText().toString().trim())*Long.parseLong(edit_SoLuong.getText().toString())+" VNĐ");
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(edit_GiaNhap.getText().toString().trim().length()>15){
+                    edit_GiaNhap.setText(textUnchanged);
                 }
-                return false;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(edit_GiaNhap.getText().toString().trim().length()<=15){
+                    if(edit_GiaNhap.getText().toString().trim().length()==0){
+                        edit_GiaNhap.setText("0");
+                        TongTienNhap.setText("0 VNĐ");
+                    }else {
+                        TongTienNhap.setText(Long.parseLong(edit_GiaNhap.getText().toString().trim())*Long.parseLong(edit_SoLuong.getText().toString())+" VNĐ");
+                    }
+                }
             }
         });
         ImageView btnclosedialog=view.findViewById(R.id.btnclosedialog);
@@ -365,7 +411,7 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
                 double  kq1=Math.round((Double.parseDouble(soLuong2)/chia)*10);
                 double  kq=kq1/10;
                 txtSLQuyDoi2.setText(kq+" "+DonViTinh);
-                txtSLQuyDoi1.setText(((soLuong1))+txtDonViNhap.getText().toString().trim());
+                txtSLQuyDoi1.setText(((soLuong1))+" "+txtDonViNhap.getText().toString().trim());
             }
         });
 
