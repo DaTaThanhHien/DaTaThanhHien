@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class ChuyenDoiTongTien {
-    public static String priceWithoutDecimal (Double price) {
+    public static String priceWithoutDecimal (long price) {
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         return formatter.format(price);
     }

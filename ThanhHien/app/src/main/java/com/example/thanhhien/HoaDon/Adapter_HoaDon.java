@@ -62,7 +62,7 @@ public class Adapter_HoaDon extends RecyclerView.Adapter<Adapter_HoaDon.ViewHold
         holder.txtDiaChiKH.setText(model_hoaDon.getDiaChi());
         final  String NgayNhap= ChuyenDoiTongTien.formatDateTime(model_hoaDon.getNgayTao());
         holder.txtNgayTao.setText(NgayNhap);
-        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_hoaDon.TongTien+""));
+        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(model_hoaDon.TongTien+""));
         holder.txtTongTien.setText(TongTienChuyenDoi+" VNĐ");
         holder.txtSoDienThoai.setText(model_hoaDon.getSoDienThoai());
         // sét tình trạng của hóa đơn
@@ -77,7 +77,7 @@ public class Adapter_HoaDon extends RecyclerView.Adapter<Adapter_HoaDon.ViewHold
                 holder.txtTinhTrangHoaDon.setBackgroundColor(Color.GREEN);
             }
         }
-        String TongTienNoChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_hoaDon.getNo()+""));
+        String TongTienNoChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(model_hoaDon.getNo()+""));
         holder.txtTongTienConLai.setText(TongTienNoChuyenDoi+" VNĐ");
         holder.btnChiTietDonBanLe.setOnClickListener(new View.OnClickListener() {
             @Override

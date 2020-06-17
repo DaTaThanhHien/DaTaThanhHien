@@ -309,7 +309,7 @@ public class Seo_GiaoDienChinh extends AppCompatActivity {
                                         mBarChart.addBar(new BarModel("T 7",2000000,  0xFF343456));
                                         mBarChart.addBar(new BarModel("CN",6000000, 0xFF1FF4AC));
                                     }else {
-                                        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(jsonObject.getString("ThuNhapHomNay")+""));
+                                        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(jsonObject.getString("ThuNhapHomNay")+""));
                                         txtTongTienTheoNgay.setText(TongTienChuyenDoi+ " VNĐ");
                                         mBarChart.addBar(new BarModel("T 2",Integer.parseInt(jsonObject.getString("ThuNhapHomNay")),0xFF123456));
                                         mBarChart.addBar(new BarModel("T 3",5000000,0xFF2E2EFE));

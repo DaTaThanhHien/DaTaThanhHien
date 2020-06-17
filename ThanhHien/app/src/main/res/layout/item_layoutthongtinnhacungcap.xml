@@ -60,7 +60,29 @@
             android:layout_height="wrap_content">
         </EditText>
     </LinearLayout>
-
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:text="Khu vực:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+            <EditText
+                android:inputType="phone"
+                android:hint="Số điện thoại"
+                android:id="@+id/edit_KhuVuc"
+                android:padding="7dp"
+                android:background="@drawable/item_boder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </EditText>
+        </LinearLayout>
     <LinearLayout
         android:layout_marginBottom="10dp"
         android:orientation="vertical"
@@ -84,7 +106,49 @@
             android:layout_height="wrap_content">
         </EditText>
     </LinearLayout>
-
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:text="Ngày thêm:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+            <LinearLayout
+                android:gravity="center"
+                android:weightSum="10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_weight="9"
+                    android:inputType="datetime"
+                    android:hint="16/05/2020"
+                    android:id="@+id/edit_NgayThem"
+                    android:padding="7dp"
+                    android:background="@drawable/item_boder"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                </EditText>
+                <LinearLayout
+                    android:id="@+id/btnNgayThem"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/imgngaythem"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp">
+                    </ImageView>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
     <LinearLayout
         android:layout_marginBottom="10dp"
         android:orientation="vertical"

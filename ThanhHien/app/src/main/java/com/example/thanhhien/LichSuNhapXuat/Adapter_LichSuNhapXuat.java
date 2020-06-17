@@ -42,9 +42,9 @@ public class Adapter_LichSuNhapXuat extends RecyclerView.Adapter<Adapter_LichSuN
             holder.txtNgayTaoPhieu.setText(NgayTaoDon);
             final  String NgayNhap= ChuyenDoiTongTien.formatDateTime(model_lichSuNhapXuat.getNgayNhap());
             holder.txtNgayNhap.setText(NgayNhap);
-            final String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_lichSuNhapXuat.getTongTien()+""));
+            final String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(model_lichSuNhapXuat.getTongTien()+""));
             holder.txtTongTien.setText(TongTienChuyenDoi+ " VNĐ");
-            final String TongTienDaTraChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_lichSuNhapXuat.getTongTienDaTra()+""));
+            final String TongTienDaTraChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(model_lichSuNhapXuat.getTongTienDaTra()+""));
             holder.txtTongTienDaTra.setText(TongTienDaTraChuyenDoi+ " VNĐ");
             if(model_lichSuNhapXuat.getTinhTrang().equals("1")){
                 holder.txtTinhTrangPhieuNhap.setText("Đã lưu");

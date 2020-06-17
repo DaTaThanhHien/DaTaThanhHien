@@ -340,11 +340,11 @@ public class Seo_ChiTietBaoCaoLaiLo extends AppCompatActivity {
                                     JSONObject jsonObject=response.getJSONObject(i);
                                     if(jsonObject.getString("TonTienBanSi").equals("null")){
                                         ThuNhapThang=ThuNhapThang+0;
-                                        String TongTienChuyenDoi2= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(ThuNhapThang+""));
+                                        String TongTienChuyenDoi2= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(ThuNhapThang+""));
                                         txtDoanhThuThangNay.setText(TongTienChuyenDoi2);
                                     }else {
                                         ThuNhapThang=ThuNhapThang+Long.parseLong(jsonObject.getString("TonTienBanSi"));
-                                        String TongTienChuyenDoi2= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(ThuNhapThang+""));
+                                        String TongTienChuyenDoi2= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(ThuNhapThang+""));
                                         txtDoanhThuThangNay.setText(TongTienChuyenDoi2+" VNĐ");
 
                                     }
@@ -394,11 +394,11 @@ public class Seo_ChiTietBaoCaoLaiLo extends AppCompatActivity {
                                         txtTongTienDaChi.setText("0 VNĐ");
                                     }else {
                                         TongChiTrongThang=Long.parseLong(jsonObject.getString("TongChiTrongThang"));
-                                        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(jsonObject.getString("TongChiTrongThang")));
+                                        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(jsonObject.getString("TongChiTrongThang")));
                                         txtTongTienDaChi.setText(TongTienChuyenDoi+" VNĐ");
 
                                     }
-                                    String TongTienChuyenDoi2= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble((ThuNhapThang-TongChiTrongThang)+""));
+                                    String TongTienChuyenDoi2= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong((ThuNhapThang-TongChiTrongThang)+""));
                                     if(ThuNhapThang-TongChiTrongThang<=0){
                                         txtThuNhapThang.setText("0 VNĐ");
                                     }else {

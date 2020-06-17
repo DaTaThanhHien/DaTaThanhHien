@@ -228,7 +228,7 @@ public class Seo_ListSanPhamBanLe extends AppCompatActivity {
         btnGioHang=findViewById(R.id.btnGioHang);
         btnTrove=findViewById(R.id.btnTrove);
         btnThanhToan=findViewById(R.id.btnThanhToan);
-        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(Seo_BanHangLe.TongTien+""));
+        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(Seo_BanHangLe.TongTien+""));
         btnThanhToan.setText("Thanh toán: "+TongTienChuyenDoi+ " VNĐ");
 
         recyclerViewListSanPham.setVisibility(View.VISIBLE);
@@ -312,7 +312,7 @@ public class Seo_ListSanPhamBanLe extends AppCompatActivity {
         autoCompleteTextView.setThreshold(1);
         autoCompleteTextView.setAdapter(adapter_goiYKhachHang);
         // set du liệu
-        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(Seo_BanHangLe.TongTien+""));
+        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(Seo_BanHangLe.TongTien+""));
         txtTongTien.setText(TongTienChuyenDoi+" VNĐ");
 
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -320,7 +320,7 @@ public class Seo_ListSanPhamBanLe extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Model_GoiYKhachHang model_goiYKhachHang=Seo_BanHangLe.mListKhachHang.get(position);
                 edit_TenKhachHnag.setText(model_goiYKhachHang.getTenKhachHang());
-                String TongTienChuyenDoi2= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_goiYKhachHang.getNoTon()+""));
+                String TongTienChuyenDoi2= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(model_goiYKhachHang.getNoTon()+""));
                 txtNoTon.setText(TongTienChuyenDoi2+" VNĐ");
                 MaKhachHang=model_goiYKhachHang.getMaKhachHang();
             }
@@ -337,7 +337,7 @@ public class Seo_ListSanPhamBanLe extends AppCompatActivity {
                 }
                 else {
                     long TongTienTra=Long.parseLong(editDaTra.getText().toString())-Seo_BanHangLe.TongTien;
-                    String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(TongTienTra+""));
+                    String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(TongTienTra+""));
                     txtTienThua.setText(TongTienChuyenDoi+" VNĐ");
                 }
             }

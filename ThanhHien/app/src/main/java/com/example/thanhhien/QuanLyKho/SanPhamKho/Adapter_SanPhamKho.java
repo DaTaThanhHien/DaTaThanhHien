@@ -53,7 +53,7 @@ public class Adapter_SanPhamKho extends RecyclerView.Adapter<Adapter_SanPhamKho.
         holder.txtTenSanPham.setText(model_kho.getTenSanPham());
         holder.txtSoLuongSanPham.setText(model_kho.getSoLuongSanPham());
         holder.txtDonViTinh.setText(model_kho.getDonViTinh());
-        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_kho.getGiaSanPham()+""));
+        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(model_kho.getGiaSanPham()+""));
         holder.txtGiaSanPham.setText(TongTienChuyenDoi+" VNĐ");
         holder.txtNhaCungCap.setText(model_kho.getNhaCungCap());
         holder.txtThuocTinh.setText(model_kho.getThuocTinh());

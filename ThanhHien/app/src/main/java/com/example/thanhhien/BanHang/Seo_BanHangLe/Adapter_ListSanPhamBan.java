@@ -75,7 +75,7 @@ public class Adapter_ListSanPhamBan extends RecyclerView.Adapter<Adapter_ListSan
             final Model_ListSanPhamBan model_kho=sanphamArrayList.get(position);
             // sét giá trị truyền vào
             holder.txtTenSanPham.setText(model_kho.getTenSanPham());
-            String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_kho.getGiaSanPham()+""));
+            String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(model_kho.getGiaSanPham()+""));
             holder.txtGiaSanPham.setText(TongTienChuyenDoi+" VNĐ");
             holder.txtNhaCungCap.setText(model_kho.getNhaCungCap());
             holder.txtThuocTinh.setText(model_kho.getThuocTinh());
@@ -166,7 +166,7 @@ public class Adapter_ListSanPhamBan extends RecyclerView.Adapter<Adapter_ListSan
         // set dữ liệu lên
         txtTenSanPham.setText(model_listSanPhamBan.getTenSanPham());
         txtSoLuongSanPham.setText(model_listSanPhamBan.getSoLuong()+" "+model_listSanPhamBan.getDonViTinh());
-        final String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_listSanPhamBan.getGiaSanPham()+""));
+        final String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(model_listSanPhamBan.getGiaSanPham()+""));
         txtGiaBan.setText(TongTienChuyenDoi+" VNĐ");
         TongTien =(Long.parseLong(edit_SoLuong.getText().toString().trim())*(Long.parseLong(model_listSanPhamBan.getGiaSanPham())));
         btnThanhToan.setText("Thanh toán: "+Seo_BanHangLe.TongTien+" VNĐ");
@@ -241,7 +241,7 @@ public class Adapter_ListSanPhamBan extends RecyclerView.Adapter<Adapter_ListSan
                             isChecked=true;
                             for(int j=0;j<Seo_BanHangLe.mListSanPhamDaChon.size();j++){
                                 Seo_BanHangLe.TongTien= Seo_BanHangLe.TongTien+Long.parseLong(Seo_BanHangLe.mListSanPhamDaChon.get(j).getSoTienNhoLe())+Long.parseLong(Seo_BanHangLe.mListSanPhamDaChon.get(j).getDonGia())*Long.parseLong(Seo_BanHangLe.mListSanPhamDaChon.get(j).getSoLuong());
-                                String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble( Seo_BanHangLe.TongTien+""));
+                                String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong( Seo_BanHangLe.TongTien+""));
                                 Seo_ListSanPhamBanLe.btnThanhToan.setText("Thanh toán: "+TongTienChuyenDoi+ " VNĐ");
                             }
                         }
@@ -256,7 +256,7 @@ public class Adapter_ListSanPhamBan extends RecyclerView.Adapter<Adapter_ListSan
 
                         for(int i=0;i<Seo_BanHangLe.mListSanPhamDaChon.size();i++){
                             Seo_BanHangLe.TongTien= Seo_BanHangLe.TongTien+Long.parseLong(Seo_BanHangLe.mListSanPhamDaChon.get(i).getSoTienNhoLe())+(Long.parseLong(Seo_BanHangLe.mListSanPhamDaChon.get(i).getDonGia())*Long.parseLong(Seo_BanHangLe.mListSanPhamDaChon.get(i).getSoLuong()));
-                            String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble( Seo_BanHangLe.TongTien+""));
+                            String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong( Seo_BanHangLe.TongTien+""));
                             Seo_ListSanPhamBanLe.btnThanhToan.setText("Thanh toán: "+TongTienChuyenDoi+ " VNĐ");
                         }
                     }
@@ -273,7 +273,7 @@ public class Adapter_ListSanPhamBan extends RecyclerView.Adapter<Adapter_ListSan
                     }
                     for(int i=0;i<Seo_BanHangLe.mListSanPhamDaChon.size();i++){
                         Seo_BanHangLe.TongTien= Seo_BanHangLe.TongTien+Long.parseLong(Seo_BanHangLe.mListSanPhamDaChon.get(i).getSoTienNhoLe())+Long.parseLong(Seo_BanHangLe.mListSanPhamDaChon.get(i).getDonGia())*Long.parseLong(Seo_BanHangLe.mListSanPhamDaChon.get(i).getSoLuong());
-                        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble( Seo_BanHangLe.TongTien+""));
+                        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong( Seo_BanHangLe.TongTien+""));
                         Seo_ListSanPhamBanLe.btnThanhToan.setText("Thanh toán: "+TongTienChuyenDoi+ " VNĐ");
 
                     }
@@ -401,7 +401,7 @@ public class Adapter_ListSanPhamBan extends RecyclerView.Adapter<Adapter_ListSan
                 else {
                     SoTienNo=0;
                     long TongTienTra=Seo_BanHangLe.TongTien-Long.parseLong(editDaTra.getText().toString());
-                    String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(TongTienTra+""));
+                    String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(TongTienTra+""));
                     txtTienThua.setText(TongTienChuyenDoi);
                     if(SoTienNo<=0){
                         txtTienThua.setText("0");

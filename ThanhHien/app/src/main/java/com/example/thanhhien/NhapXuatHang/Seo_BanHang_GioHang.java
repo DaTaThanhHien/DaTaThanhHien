@@ -54,7 +54,7 @@ public class Seo_BanHang_GioHang extends AppCompatActivity {
             layoutkhongsanpham.setVisibility(View.GONE);
             layoutsanphamnhap.setVisibility(View.VISIBLE);
         }
-        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(Seo_ListSanPhamNhapKho.tongTien+""));
+        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(Seo_ListSanPhamNhapKho.tongTien+""));
         btnTongTienThanhToan.setText("Thanh toán: "+TongTienChuyenDoi+" VNĐ");
         mListSanPhamBan=new ArrayList<>();
         mListSanPhamBan.addAll(Seo_GiaoDienDanhMuc.gioHang);
@@ -83,7 +83,7 @@ public class Seo_BanHang_GioHang extends AppCompatActivity {
         if(Seo_GiaoDienDanhMuc.gioHang.size()<=0){
             layoutkhongsanpham.setVisibility(View.VISIBLE);
             layoutsanphamnhap.setVisibility(View.GONE);
-            String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(Seo_ListSanPhamNhapKho.tongTien+""));
+            String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(Seo_ListSanPhamNhapKho.tongTien+""));
             btnTongTienThanhToan.setText("Thanh toán: "+TongTienChuyenDoi+" VNĐ");
         }
 
@@ -140,7 +140,7 @@ public class Seo_BanHang_GioHang extends AppCompatActivity {
                 }
                 else {
                     SoTienNo=0;
-                    String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(SoTienNo+""));
+                    String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(SoTienNo+""));
                     txtTienThua.setText(TongTienChuyenDoi);
                     if(SoTienNo<=0){
                         txtTienThua.setText("0");

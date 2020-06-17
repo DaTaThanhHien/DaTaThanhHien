@@ -95,7 +95,7 @@ public class Seo_BanHang extends AppCompatActivity {
         for(int i=0;i<Seo_BanHangLe.mListSanPhamDaChon.size();i++){
            TongTien= TongTien+Long.parseLong(Seo_BanHangLe.mListSanPhamDaChon.get(i).getSoTienNhoLe())+(Long.parseLong(Seo_BanHangLe.mListSanPhamDaChon.get(i).getDonGia())*Long.parseLong(Seo_BanHangLe.mListSanPhamDaChon.get(i).getSoLuong()));
         }
-        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble( TongTien+""));
+        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong( TongTien+""));
         btnTongTienThanhToan.setText("Thanh toán: "+TongTienChuyenDoi+ " VNĐ");
     }
 
@@ -159,7 +159,7 @@ public class Seo_BanHang extends AppCompatActivity {
                 MaKhachHang=model_goiYKhachHang.getMaKhachHang();
             }
         });
-        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(Seo_BanHangLe.TongTien+""));
+        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(Seo_BanHangLe.TongTien+""));
         txtTongTien.setText(TongTienChuyenDoi+" VNĐ");
         editDaTra.addTextChangedListener(new TextWatcher() {
             @Override
@@ -173,7 +173,7 @@ public class Seo_BanHang extends AppCompatActivity {
                 }
                 else {
                     TongTienTra=Long.parseLong(editDaTra.getText().toString())-Seo_BanHangLe.TongTien;
-                    String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(TongTienTra+""));
+                    String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(TongTienTra+""));
                     txtTienThua.setText(TongTienChuyenDoi+" VNĐ");
                 }
             }

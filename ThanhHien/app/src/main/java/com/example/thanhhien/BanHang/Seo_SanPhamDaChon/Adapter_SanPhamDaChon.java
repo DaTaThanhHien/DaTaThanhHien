@@ -61,14 +61,14 @@ public class Adapter_SanPhamDaChon extends RecyclerView.Adapter<Adapter_SanPhamD
         final Model_SanPhamDaChon model_kho=sanphamArrayList.get(position);
         // sét giá trị truyền vào
         holder.txtTenSanPham.setText(model_kho.getTenSanPham());
-        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_kho.getDonGia()+""));
+        String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(model_kho.getDonGia()+""));
         holder.txtGiaSanPham.setText(TongTienChuyenDoi+" VNĐ");
         holder.txtSoLuongSanPham.setText(model_kho.getSoLuong());
         holder.txtDonViTinh.setText(model_kho.getDonViTinh());
         holder.txtNhaCungCap.setText(model_kho.getNhaCungCap());
         holder.txtThuocTinh.setText(model_kho.getThuocTinh());
         holder.txtSoLuongNhoLe.setText(model_kho.getSoLuongNhoLe());
-        String TongTienNhoLeChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_kho.getSoTienNhoLe()+""));
+        String TongTienNhoLeChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(model_kho.getSoTienNhoLe()+""));
         holder.txtGiaSanPhamNhoLe.setText(TongTienNhoLeChuyenDoi+" VNĐ");
 
         //<================================ sự kiện click tăng giảm số lượng sản phẩm ==========================================>
@@ -193,7 +193,7 @@ public class Adapter_SanPhamDaChon extends RecyclerView.Adapter<Adapter_SanPhamD
                     editDaTra.setText("0");
                 } else {
                     SoTienNo = 0;
-                    String TongTienChuyenDoi = ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(SoTienNo + ""));
+                    String TongTienChuyenDoi = ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(SoTienNo + ""));
                     txtTienThua.setText(TongTienChuyenDoi);
                     if (SoTienNo <= 0) {
                         txtTienThua.setText("0");

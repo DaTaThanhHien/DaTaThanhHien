@@ -87,7 +87,7 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
     private ArrayList<Model_ListSanPhamBan> mListSanPhamBan;
     private int SoTienNo=0;
     public static String tenSP="";
-    public static double tongTien=0;
+    public static long tongTien=0;
     private boolean isCheck=false;
     private String IDDanhMuc="Null";
     private ShimmerFrameLayout container,shimmer_view_danhmuc,shimmer_view_quycach;
@@ -340,7 +340,7 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
                 }
                 else {
                     SoTienNo=0;
-                    String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(SoTienNo+""));
+                    String TongTienChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(SoTienNo+""));
                     txtTienThua.setText(TongTienChuyenDoi);
                     if(SoTienNo<=0){
                         txtTienThua.setText("0");

@@ -55,8 +55,8 @@ public class Adapter_ThanhToanNhapHang_GioHang extends RecyclerView.Adapter<Adap
         // sét giá trị truyền vào
         holder.txtTenHang.setText(model_kho.getTenSanPham());
         holder.txtSoLuong.setText(model_kho.getSoLuong());
-        holder.txtDonGia.setText(ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_kho.getGiaSanPham())));
-        holder.txtThanhTien.setText(ChuyenDoiTongTien.priceWithoutDecimal((Double.parseDouble(model_kho.getGiaSanPham())*Double.parseDouble(model_kho.getSoLuong()))));
+        holder.txtDonGia.setText(ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(model_kho.getGiaSanPham())));
+        holder.txtThanhTien.setText(ChuyenDoiTongTien.priceWithoutDecimal((Long.parseLong(model_kho.getGiaSanPham())*Long.parseLong(model_kho.getSoLuong()))));
 
         holder.setIsRecyclable(false);
     }
@@ -139,7 +139,7 @@ public class Adapter_ThanhToanNhapHang_GioHang extends RecyclerView.Adapter<Adap
                     editDaTra.setText("0");
                 } else {
                     SoTienNo = 0;
-                    String TongTienChuyenDoi = ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(SoTienNo + ""));
+                    String TongTienChuyenDoi = ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(SoTienNo + ""));
                     txtTienThua.setText(TongTienChuyenDoi);
                     if (SoTienNo <= 0) {
                         txtTienThua.setText("0");

@@ -42,7 +42,7 @@ public class Adapter_NhaCungCap extends RecyclerView.Adapter<Adapter_NhaCungCap.
             holder.txtNhaCungCap.setText(model_nhaCungCap.getTenNhaCungCap());
             holder.txtSoDienThoai.setText(model_nhaCungCap.getSoDienThoai());
             holder.txtDiaChiNCC.setText(model_nhaCungCap.getDiaChi());
-            String TongTienNoChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_nhaCungCap.getNo()+""));
+            String TongTienNoChuyenDoi= ChuyenDoiTongTien.priceWithoutDecimal(Long.parseLong(model_nhaCungCap.getNo()+""));
             holder.txtNoNhaCunCap.setText(TongTienNoChuyenDoi+" VNĐ");
         }
 
