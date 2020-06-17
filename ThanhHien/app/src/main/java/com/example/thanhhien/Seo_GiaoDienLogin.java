@@ -64,7 +64,7 @@ public class Seo_GiaoDienLogin extends AppCompatActivity {
     private void AnhXa() {
         edit_TaiKhoan=(EditText) findViewById(R.id.edit_TaiKhoan);
         edit_MatKhau=(EditText)findViewById(R.id.edit_MatKhau);
-        btnDangNhap=(Button) findViewById(R.id.btnDangNhap);
+        btnDangNhap=findViewById(R.id.btnDangNhap2);
     }
 
     @Override
@@ -127,28 +127,24 @@ public class Seo_GiaoDienLogin extends AppCompatActivity {
         return true;
     }
     private void Onclick(){
-        btnDangNhap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(KiemTra()==false){
-                    return;
-                }else {
-                    pDialog = new SweetAlertDialog(Seo_GiaoDienLogin.this, SweetAlertDialog.PROGRESS_TYPE);
-                    pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                    pDialog.setTitleText("Loading ...");
-                    pDialog.setCancelable(true);
-                    pDialog.show();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Login(Api_custom.Login);
-                        }
-                    }, 800);
+       btnDangNhap.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               if(KiemTra()==false){
+                   return;
+               }else {
+                   pDialog = new SweetAlertDialog(Seo_GiaoDienLogin.this, SweetAlertDialog.PROGRESS_TYPE);
+                   pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                   pDialog.setTitleText("Loading ...");
+                   pDialog.setCancelable(true);
+                   pDialog.show();
 
-                }
+                   Login(Api_custom.Login);
 
-            }
-        });
+
+               }
+           }
+       });
         btnDangNhap.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

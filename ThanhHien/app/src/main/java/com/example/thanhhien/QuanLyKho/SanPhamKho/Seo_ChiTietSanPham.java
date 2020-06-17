@@ -69,7 +69,10 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Seo_ChiTietSanPham extends AppCompatActivity {
     private Toolbar toolbar;
-    private TextView txtTenSanPham,txtSoLuongTon,txtSoLuongNhap,txtSoLuongXuat,txtDonViTinh2,txtDonViTinh1,txtDonViTinh3,txtNgay,txtNgayThangNam;
+    private TextView txtTenSanPham,txtSoLuongTon,
+            txtSoLuongXuat,txtDonViTinh1,
+            txtDonViTinh3,txtNgay,txtNgayThangNam,txtThuocTinh1,
+            txtThuocTinh2,txtThuocTinh3, txtThuocTinh4;
     private ListView listViewLichSuNhapXuat;
     private Adapter_LichSuNhapXuatChiTiet adapter_lichSuNhapXuatChiTiet;
     private ArrayList<Model_LichSuNhapXuatChiTiet> LichSuNhapXuatArraylist;
@@ -93,11 +96,17 @@ public class Seo_ChiTietSanPham extends AppCompatActivity {
 
         }
         AnhXa();
+
         intent=getIntent();
         txtTenSanPham.setText(intent.getStringExtra("TenSanPham"));
         txtSoLuongTon.setText(intent.getStringExtra("SoLuongTon"));
         txtDonViTinh1.setText(intent.getStringExtra("DonViTinh"));
-        txtDonViTinh2.setText(intent.getStringExtra("DonViTinh"));
+
+        String MangThuocTinh[]=intent.getStringExtra("ThuocTinh").split(" - ");
+        txtThuocTinh1.setText(MangThuocTinh[1]);
+        txtThuocTinh2.setText(MangThuocTinh[2]);
+        txtThuocTinh3.setText(MangThuocTinh[3]);
+        txtThuocTinh4.setText(MangThuocTinh[4]);
         final Calendar calendar=Calendar.getInstance();
         final int ngay=calendar.get(Calendar.DATE);
         txtNgay.setText(ngay+"");
@@ -107,8 +116,7 @@ public class Seo_ChiTietSanPham extends AppCompatActivity {
         final String NgayHomNay  = dateFormatter.format(today);
         txtNgayThangNam.setText(NgayHomNay);
         LichSuNhapXuatArraylist=new ArrayList<>();
-        LichSuNhapXuatArraylist.add(new Model_LichSuNhapXuatChiTiet("jjj","cây","5","15-03-2020 15:03"));
-        //GetCTNhapSanPham(Api_custom.ListCTPhieuNhapSanPham,intent.getStringExtra("MaSanPham"));
+        GetCTNhapSanPham(Api_custom.ListCTPhieuNhapSanPham,intent.getStringExtra("MaSanPham"));
         adapter_lichSuNhapXuatChiTiet=new Adapter_LichSuNhapXuatChiTiet(Seo_ChiTietSanPham.this,R.layout.item_listnhapxuatsanpham,LichSuNhapXuatArraylist);
         listViewLichSuNhapXuat.setAdapter(adapter_lichSuNhapXuatChiTiet);
         btnChonNgay.setOnClickListener(new View.OnClickListener() {
@@ -161,16 +169,16 @@ public class Seo_ChiTietSanPham extends AppCompatActivity {
         listViewLichSuNhapXuat=findViewById(R.id.listViewLichSuNhapXuat);
         txtTenSanPham=findViewById(R.id.txtTenSanPham);
         txtSoLuongTon=findViewById(R.id.txtSoLuongTon);
-        txtSoLuongNhap=findViewById(R.id.txtSoLuongNhap);
-
-        txtDonViTinh2=findViewById(R.id.txtDonViTinh2);
         txtDonViTinh1=findViewById(R.id.txtDonViTinh1);
-
         txtNgay=findViewById(R.id.txtNgay);
         txtNgayThangNam=findViewById(R.id.txtNgayThangNam);
         btnChonNgay=findViewById(R.id.btnNgayKhac);
         btnXoaSanPham=findViewById(R.id.btnXoaSanPham);
         btnSuaSanPham=findViewById(R.id.btnSuaSanPham);
+        txtThuocTinh1=findViewById(R.id.txtThuocTinh1);
+        txtThuocTinh2=findViewById(R.id.txtThuocTinh2);
+        txtThuocTinh3=findViewById(R.id.txtThuocTinh3);
+        txtThuocTinh4=findViewById(R.id.txtThuocTinh4);
     }
 
     @Override

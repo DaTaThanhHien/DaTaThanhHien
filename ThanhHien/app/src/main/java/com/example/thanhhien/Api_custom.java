@@ -22,7 +22,7 @@ public class Api_custom {
         //<============================ Phần quản lý kho ==========================>
 
         public static String ListToanBoSanPham=diaChiIP+"ListToanSanPham";
-        public static String ListCTPhieuNhapSanPham=diaChiIP+"ListCTPhieuNhapSanPham/";
+        public static String ListCTPhieuNhapSanPham=diaChiIP+"fVMunsbbcqZjRsbfhwWmcjURBjSfvHGQWjPLHNVjLichSuNhapSanPham/";
 
       //<==============================phần nhà cung cấp===================================>
 

@@ -160,6 +160,7 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
                     double  kq=kq1/10;
                     txtSLQuyDoi2.setText(kq+" "+DonViTinh);
                     txtSLQuyDoi1.setText(((edit_SoLuong.getText().toString()))+" "+txtDonViNhap.getText().toString().trim());
+                    TongTienNhap.setText(Long.parseLong(edit_GiaNhap.getText().toString().trim())*Long.parseLong(edit_SoLuong.getText().toString())+" VNĐ");
                 }
             }
         });
@@ -172,6 +173,9 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
                     double  kq=kq1/10;
                     txtSLQuyDoi2.setText(kq+" "+DonViTinh);
                     txtSLQuyDoi1.setText(((edit_SoLuong.getText().toString()))+" "+txtDonViNhap.getText().toString().trim());
+                    TongTienNhap.setText(Long.parseLong(edit_GiaNhap.getText().toString().trim())*Long.parseLong(edit_SoLuong.getText().toString())+" VNĐ");
+                }else {
+                    TastyToast.makeText(mContext,"Số lượng không nhỏ hơn một",TastyToast.LENGTH_SHORT,TastyToast.ERROR).show();
                 }
             }
         });
@@ -218,6 +222,7 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
                     double  kq=kq1/10;
                     txtSLQuyDoi2.setText(kq+" "+DonViTinh);
                     txtSLQuyDoi1.setText(((edit_SoLuong.getText().toString()))+" "+txtDonViNhap.getText().toString().trim());
+                    TongTienNhap.setText(Long.parseLong(edit_GiaNhap.getText().toString().trim())*Long.parseLong(edit_SoLuong.getText().toString())+" VNĐ");
                 }
             }
         });
@@ -330,7 +335,7 @@ public class Adapter_ListSanPhamNhap extends RecyclerView.Adapter<Adapter_ListSa
                     }
                 }
 
-                if(edit_GiaNhap.getText().length()==0 || Integer.parseInt(edit_GiaNhap.getText().toString().trim())==0){
+                if(edit_GiaNhap.getText().length()==0 || Long.parseLong(edit_GiaNhap.getText().toString().trim())==0){
                     TastyToast.makeText(mContext,"Vui lòng nhập giá nhập",TastyToast.LENGTH_SHORT,TastyToast.ERROR).show();
                 }else {
                     if (Seo_GiaoDienDanhMuc.gioHang.size() == 0) {

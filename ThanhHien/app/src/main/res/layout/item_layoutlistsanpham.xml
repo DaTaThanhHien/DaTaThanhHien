@@ -28,6 +28,7 @@
                 android:layout_height="wrap_content">
             </TextView>
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/txtTinhTrangSanPham"
                 android:textSize="12sp"
                 android:textColor="#4CAF50"

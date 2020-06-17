@@ -917,7 +917,6 @@ public class Seo_ThemSanPhamMoi extends AppCompatActivity {
                 }
         );
 
-// Add the request to the RequestQueue.
         requestQueue.add(jsonArrayRequest);
     }//end getAllNhaCungCap
     private  void ThemDanhMuc(String url, final String IDDanhMuc, final String TenDanhMuc){

@@ -22,10 +22,10 @@
 
 
             <TextView
-                android:layout_marginBottom="20dp"
-                android:gravity="bottom"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
+                android:gravity="bottom"
                 android:text="Đăng Nhập"
                 android:textColor="#FFFFFF"
                 android:textSize="25sp"
@@ -124,16 +124,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </CheckBox>
+
             <Button
-                android:textAllCaps="false"
-                android:id="@+id/btnDangNhap"
+                android:id="@+id/btnDangNhap2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
                 android:background="@drawable/item_button"
                 android:text="Đăng nhập"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"></Button>
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"></Button>
         </LinearLayout>
     </LinearLayout>
 

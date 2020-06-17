@@ -66,6 +66,7 @@ public class Adapter_SanPhamKho extends RecyclerView.Adapter<Adapter_SanPhamKho.
                 intent.putExtra("TenSanPham",model_kho.getTenSanPham());
                 intent.putExtra("SoLuongTon",model_kho.getSoLuongSanPham());
                 intent.putExtra("DonViTinh",model_kho.getDonViTinh());
+                intent.putExtra("ThuocTinh",model_kho.getThuocTinh());
                 mContext.startActivity(intent);
 
 

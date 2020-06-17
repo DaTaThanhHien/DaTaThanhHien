@@ -50,7 +50,7 @@ public class Adapter_LichSuNhapXuat extends RecyclerView.Adapter<Adapter_LichSuN
                 holder.txtTinhTrangPhieuNhap.setText("Đã lưu");
             }else if(model_lichSuNhapXuat.getTinhTrang().equals("2")) {
                 holder.txtTinhTrangPhieuNhap.setText("Hoàn thành");
-                holder.txtTinhTrangPhieuNhap.setBackgroundColor(Color.parseColor("#4CAF50"));
+                holder.txtTinhTrangPhieuNhap.setTextColor(Color.parseColor("#4CAF50"));
             }
             holder.onClickItem.setOnClickListener(new View.OnClickListener() {
                 @Override

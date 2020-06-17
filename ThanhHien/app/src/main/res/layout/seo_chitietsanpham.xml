@@ -78,14 +78,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp">
                         <TextView
+                            android:id="@+id/txtThuocTinh1"
                             android:text="Dài:"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                        </TextView>
-                        <TextView
-                            android:layout_marginLeft="5dp"
-                            android:text="5 m"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
@@ -96,18 +90,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp">
                         <TextView
+                            android:id="@+id/txtThuocTinh2"
                             android:text="Dày:"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
                         </TextView>
-                        <TextView
-                            android:layout_marginLeft="5dp"
-                            android:text="5 m"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
 
-                        </TextView>
                     </LinearLayout>
                 </LinearLayout>
                 <!--đóng hàm-->
@@ -125,36 +114,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp">
                         <TextView
+                            android:id="@+id/txtThuocTinh3"
                             android:text="Nặng:"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
                         </TextView>
-                        <TextView
-                            android:layout_marginLeft="5dp"
-                            android:text="5 m"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
 
-                        </TextView>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_weight="5"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp">
                         <TextView
+                            android:id="@+id/txtThuocTinh4"
                             android:text="Khác:"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
                         </TextView>
-                        <TextView
-                            android:layout_marginLeft="5dp"
-                            android:text="5 m"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
 
-                        </TextView>
                     </LinearLayout>
                 </LinearLayout>
                 <!--đóng tiếp-->
@@ -191,37 +170,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_marginBottom="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="Số lượng nhập: "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
 
-                </TextView>
-                <LinearLayout
-                    android:gravity="right"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/txtSoLuongNhap"
-                        android:textStyle="bold"
-                        android:text="60"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                    </TextView>
-                    <TextView
-                        android:id="@+id/txtDonViTinh2"
-                        android:layout_marginLeft="5dp"
-                        android:text="Cây"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                    </TextView>
-                </LinearLayout>
-            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/btnNgayKhac"
@@ -269,6 +218,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
                 <ListView
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="13"
                     android:scrollbars="none"
                     android:id="@+id/listViewLichSuNhapXuat"

@@ -207,7 +207,7 @@ public class Seo_ListSanPhamNhapKho extends AppCompatActivity {
     private void TongTien(){
         tongTien=0;
         for (int i=0;i<Seo_GiaoDienDanhMuc.gioHang.size();i++){
-            tongTien=tongTien+(Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham())*Double.parseDouble(Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong()));
+            tongTien=tongTien+(Long.parseLong(Seo_GiaoDienDanhMuc.gioHang.get(i).getGiaSanPham())*Long.parseLong(Seo_GiaoDienDanhMuc.gioHang.get(i).getSoLuong()));
         }
         btnThanhToan.setText("Thanh Toán: "+ChuyenDoiTongTien.priceWithoutDecimal(tongTien)+" VNĐ");
     }

@@ -96,7 +96,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.seo_suaxoasanpham);
-        setTitle("Thêm sản phẩm");
+        setTitle("Sửa sản phẩm");
         AnhXa();
         onClick();
         Intent intent=getIntent();
@@ -478,7 +478,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
         String GiaLe=edit_GiaLe.getText().toString().trim();
         // khai báo định dạng kiểm tra
         String kiemtraquycachkhac="^[a-zA-Z0-9]{1,60}$";
-        String kitudacbiet="^[a-zA-Z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{1,60}+$";
+        String kitudacbiet="^[a-zA0-9 ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{1,60}+$";
         // kiểm tra chọn nhà cung cấp
         if(btnChonNhaCungCap.getText().equals("Chọn nhà cung cấp")){
             new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
@@ -507,7 +507,7 @@ public class Seo_SuaXoaSanPham extends AppCompatActivity {
                     if(!TenSanPham.matches(kitudacbiet)){
                         new SweetAlertDialog(Seo_SuaXoaSanPham.this, SweetAlertDialog.ERROR_TYPE)
                                 .setTitleText("Lỗi")
-                                .setContentText("Không được nhập kí tự đặc biệt!")
+                                .setContentText("Tên không được nhập kí tự đặc biệt!")
                                 .show();
                         return false;
                     }else {

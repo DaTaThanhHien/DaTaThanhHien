@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:background="@drawable/item_dialogthemnhacungcap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/popup_window"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom|center"
+            android:orientation="vertical">
+            <com.google.android.material.tabs.TabLayout
+                android:background="@drawable/item_bodertablayout"
+                app:tabPadding="5dp"
+                android:id="@+id/tabs2"
+                app:tabIndicatorHeight="45dp"
+                app:tabIndicatorColor="#03A9F4"
+                app:tabTextColor="#03A9F4"
+                app:tabSelectedTextColor="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+                <com.google.android.material.tabs.TabItem
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Thông tin NCC"/>
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="DS nhà cung cấp"/>
+            </com.google.android.material.tabs.TabLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:id="@+id/layoutThongTinNCC"
+                    layout="@layout/item_layoutthongtinnhacungcap">
+
+                </include>
+                <include
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:id="@+id/DanhSachNCC"
+                    layout="@layout/item_layoutdsncc">
+
+                </include>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:paddingRight="20dp"
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/btnclosedialog"
+            android:src="@drawable/imgclose"
+            android:layout_width="35dp"
+            android:layout_height="35dp">
+        </ImageView>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

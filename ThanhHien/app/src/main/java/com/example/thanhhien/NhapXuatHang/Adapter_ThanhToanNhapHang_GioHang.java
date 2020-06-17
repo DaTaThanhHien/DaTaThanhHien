@@ -55,8 +55,8 @@ public class Adapter_ThanhToanNhapHang_GioHang extends RecyclerView.Adapter<Adap
         // sét giá trị truyền vào
         holder.txtTenHang.setText(model_kho.getTenSanPham());
         holder.txtSoLuong.setText(model_kho.getSoLuong());
-        holder.txtDonGia.setText(ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_kho.getGiaSanPham()))+" VNĐ");
-        holder.txtThanhTien.setText(ChuyenDoiTongTien.priceWithoutDecimal((Double.parseDouble(model_kho.getGiaSanPham())*Double.parseDouble(model_kho.getSoLuong())))+" VNĐ");
+        holder.txtDonGia.setText(ChuyenDoiTongTien.priceWithoutDecimal(Double.parseDouble(model_kho.getGiaSanPham())));
+        holder.txtThanhTien.setText(ChuyenDoiTongTien.priceWithoutDecimal((Double.parseDouble(model_kho.getGiaSanPham())*Double.parseDouble(model_kho.getSoLuong()))));
 
         holder.setIsRecyclable(false);
     }

@@ -138,13 +138,12 @@
                     <TextView
                         android:id="@+id/txtTinhTrangPhieuNhap"
                         android:gravity="center"
-                        android:textColor="#FFFFFF"
+                        android:textColor="#03A9F4"
                         android:textStyle="bold"
                         android:padding="5dp"
-                        android:textSize="12dp"
-                        android:background="#FFC107"
-                        android:text="Đang xử lý"
-                        android:layout_width="100dp"
+                        android:textSize="13dp"
+                        android:text="Đã lưu"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                     </TextView>
                 </LinearLayout>

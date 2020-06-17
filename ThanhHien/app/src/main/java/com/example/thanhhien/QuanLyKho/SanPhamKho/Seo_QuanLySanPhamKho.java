@@ -215,7 +215,7 @@ public class Seo_QuanLySanPhamKho extends AppCompatActivity {
                                         Khac="Không";
                                     }else {Khac=jsonObject.getString("thuoctinhkhac").trim();}
 
-                                    sanPhamArrayList.add(new Model_SanPhamKho(jsonObject.getString("IDSanPham"),jsonObject.getString("TenSP"),jsonObject.getString("giasi"),jsonObject.getString("SoLuong"),jsonObject.getString("tenncc"),"Quy cách: "+QuyCach+"- dày: "+Day+mangDonVi[0]+" - Dài: "+Dai+mangDonVi[1]+" - Nặng: "+Nang+mangDonVi[2]+" - Khác: "+Khac,mangDonVi[3]));
+                                    sanPhamArrayList.add(new Model_SanPhamKho(jsonObject.getString("IDSanPham"),jsonObject.getString("TenSP")+" - "+QuyCach,jsonObject.getString("giasi"),jsonObject.getString("SoLuong"),jsonObject.getString("tenncc"),"Quy cách: "+QuyCach+" - Dày: "+Day+mangDonVi[0]+" - Dài: "+Dai+mangDonVi[1]+" - Nặng: "+Nang+mangDonVi[2]+" - Khác: "+Khac,mangDonVi[3]));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
