@@ -5,30 +5,175 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <LinearLayout
         android:layout_marginBottom="10dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/llSDT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Tên phiếu nhập"
+                android:textColor="#000000"
+                android:textStyle="bold"></TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/edit_TenPhieuNhap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_boder"
+                    android:hint="Tên phiếu nhập"
+                    android:inputType="text"
+                    android:padding="7dp"
+                    android:textColor="#000000"></EditText>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
             android:layout_marginBottom="5dp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:text="Nhà cung cấp"
+            android:id="@+id/llNhaCungCap"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        </TextView>
-        <EditText
-            android:id="@+id/edit_TenNhaCungCap"
-            android:text="Tôn hoa sen"
-            android:padding="7dp"
-            android:background="@drawable/item_boder"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Bên bán"
+                android:textColor="#000000"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="15"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <EditText
+                    android:layout_weight="13"
+                    android:id="@+id/edit_TenNhaCungCap"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_boder"
+                    android:enabled="false"
+                    android:padding="7dp"
+                    android:text="Tôn hoa sen">
+
+                </EditText>
+                <TextView
+                    android:id="@+id/btnBottomChonNhaCungCapKhac"
+                    android:textColor="#03A9F4"
+                    android:background="@drawable/item_borderbuttonblue"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="5dp"
+                    android:padding="7dp"
+                    android:layout_weight="2"
+                    android:text="Khác"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Thông Tin"
+                android:textColor="#000000"
+                android:textStyle="bold"></TextView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <EditText
+                    android:gravity="top"
+                    android:id="@+id/edit_ThongTin"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/item_boder"
+                    android:hint=""
+                    android:inputType="text"
+                    android:padding="10dp"
+                    android:textColor="#000000">
 
-        </EditText>
-
+                </EditText>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="5dp"
+                    android:text="Ngày nhập:"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <LinearLayout
+                    android:gravity="center"
+                    android:weightSum="10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:layout_weight="9"
+                        android:inputType="datetime"
+                        android:hint="16/05/2020"
+                        android:id="@+id/edit_NgayThem"
+                        android:padding="7dp"
+                        android:background="@drawable/item_boder"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+                    </EditText>
+                    <LinearLayout
+                        android:id="@+id/btnNgayThem"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:src="@drawable/imgngaythem"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp">
+                        </ImageView>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_marginBottom="10dp"
@@ -155,4 +300,6 @@
             </TextView>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
